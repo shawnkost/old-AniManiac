@@ -10,9 +10,11 @@ body {
 header {
   display: flex;
   align-items: flex-end;
+  margin-bottom: 11%;
+  padding-left: 3%;
+  height: 56px;
   background-color: #443737;
   font-family: "Lato", sans-serif;
-  height: 56px;
 }
 
 h2,
@@ -33,4 +35,23 @@ a {
 input {
   background-color: #272121;
   width: 100%;
+}
+
+.top {
+  margin-bottom: 3%;
+  color: #e7dfdf;
+  font-family: "Merriweather", serif;
+}
+
+.image-containers > img:not(:last-child) {
+  padding-right: 20px;
+}
+
+.top::before {
+  display: block;
+  float: right;
+  margin-top: 0.6em;
+  border-top: 2px solid silver;
+  width: 75%;
+  content: "";
 }
