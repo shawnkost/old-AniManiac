@@ -43,7 +43,17 @@ input {
   font-family: "Merriweather", serif;
 }
 
-.image-containers > img:not(:last-child) {
+.scrolling-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.scrolling-wrapper > img {
+  flex: 0 0 auto;
+}
+
+.scrolling-wrapper > img:not(:last-child) {
   padding-right: 20px;
 }
 
