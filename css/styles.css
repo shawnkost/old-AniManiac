@@ -52,11 +52,20 @@ input {
   margin-right: 20px;
 }
 
-.top::before {
+.top-all-time::before {
   display: block;
   float: right;
   margin-top: 0.6em;
   border-top: 2px solid black;
   width: 75%;
+  content: "";
+}
+
+.top-airing::before {
+  display: block;
+  float: right;
+  margin-top: 0.6em;
+  border-top: 2px solid black;
+  width: 61%;
   content: "";
 }
