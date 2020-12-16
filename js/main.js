@@ -12,12 +12,15 @@ function getTopAnime() {
       var $img = document.createElement('img');
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
+      $img.addEventListener('click', function () {
+        data.view = 'details';
+        viewSwap();
+      });
       $topAnime.appendChild($img);
     }
   });
   xhr.send();
 }
-getTopAnime();
 
 function getTopAiringAnime() {
   var xhr = new XMLHttpRequest();
@@ -28,17 +31,24 @@ function getTopAiringAnime() {
       var $img = document.createElement('img');
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
+      $img.addEventListener('click', function () {
+        data.view = 'details';
+        viewSwap();
+      });
       $topAiringAnime.appendChild($img);
     }
   });
   xhr.send();
 }
-getTopAiringAnime();
 
 function viewSwap() {
   if (data.view === 'home') {
+    $home.setAttribute('class', 'home-container');
     $details.setAttribute('class', 'details-container hidden');
+    getTopAnime();
+    getTopAiringAnime();
   } else {
+    $details.setAttribute('class', 'details-container');
     $home.setAttribute('class', 'home-container hidden');
   }
 }
