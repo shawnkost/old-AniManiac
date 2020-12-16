@@ -1,5 +1,7 @@
 var $topAnime = document.querySelector('.top-img');
 
+// reference issue #3
+
 function getTopAnime() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v3/top/anime');
