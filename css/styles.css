@@ -27,29 +27,9 @@ h2 {
   padding-bottom: 0.8%;
 }
 
-input {
-  width: 100%;
-}
-
 .top {
   margin-bottom: 3%;
   font-family: "Merriweather", serif;
-}
-
-.scrolling-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-}
-
-.scrolling-wrapper > img {
-  flex: 0 0 auto;
-  width: 28.7%;
-  border-radius: 5px;
-}
-
-.scrolling-wrapper > img:not(:last-child) {
-  margin-right: 20px;
 }
 
 .top-all-time::before {
@@ -68,4 +48,20 @@ input {
   border-top: 2px solid black;
   width: 61%;
   content: "";
+}
+
+.scrolling-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+
+.scrolling-wrapper > img {
+  flex: 0 0 auto;
+  width: 28.7%;
+  border-radius: 5px;
+}
+
+.scrolling-wrapper > img:not(:last-child) {
+  margin-right: 20px;
 }
