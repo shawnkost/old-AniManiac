@@ -6,6 +6,8 @@ var $detailsRow = document.querySelector('.details-row');
 var $bioRow = document.querySelector('.bio-row');
 var $iFrameRow = document.querySelector('.iframe-row');
 var $homeTag = document.querySelector('.home-tag');
+var $listTag = document.querySelector('.list-tag');
+var $listContainer = document.querySelector('.list-container');
 
 window.addEventListener('DOMContentLoaded', function () {
   viewSwap();
@@ -56,19 +58,30 @@ function viewSwap() {
   if (data.view === 'home') {
     $home.setAttribute('class', 'home-container');
     $details.setAttribute('class', 'details-container hidden');
+    $listContainer.setAttribute('class', 'list-container hidden');
     $detailsRow.innerHTML = '';
     $bioRow.innerHTML = '';
     $iFrameRow.innerHTML = '';
     getTopAnime();
     getTopAiringAnime();
-  } else {
+  } else if (data.view === 'details') {
     $details.setAttribute('class', 'details-container');
     $home.setAttribute('class', 'home-container hidden');
+    $listContainer.setAttribute('class', 'list-container hidden');
+  } else if (data.view === 'list') {
+    $listContainer.setAttribute('class', 'row list-container');
+    $home.setAttribute('class', 'home-container hidden');
+    $details.setAttribute('class', 'details-container hidden');
   }
 }
 
 $homeTag.addEventListener('click', function () {
   data.view = 'home';
+  viewSwap();
+});
+
+$listTag.addEventListener('click', function () {
+  data.view = 'list';
   viewSwap();
 });
 
