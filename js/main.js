@@ -17,3 +17,15 @@ function getTopAnime() {
   xhr.send();
 }
 getTopAnime();
+
+function getTopAiringAnime() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/airing');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    // console.log(xhr.response);
+
+  });
+  xhr.send();
+}
+getTopAiringAnime();
