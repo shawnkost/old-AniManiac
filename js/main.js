@@ -1,6 +1,5 @@
 var $topAnime = document.querySelector('.top-img');
-
-// reference issue #3
+var $topAiringAnime = document.querySelector('.top-airing-img');
 
 function getTopAnime() {
   var xhr = new XMLHttpRequest();
@@ -23,8 +22,12 @@ function getTopAiringAnime() {
   xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/airing');
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // console.log(xhr.response);
-
+    for (var i = 0; i < xhr.response.top.length; i++) {
+      var $img = document.createElement('img');
+      $img.setAttribute('src', xhr.response.top[i].image_url);
+      $img.setAttribute('alt', xhr.response.top[i].title);
+      $topAiringAnime.appendChild($img);
+    }
   });
   xhr.send();
 }
