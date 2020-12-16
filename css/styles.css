@@ -25,7 +25,7 @@ h2 {
 }
 
 input {
-  width: 79%;
+  width: 99%;
 }
 
 .top {
@@ -52,7 +52,7 @@ input {
 }
 
 .anime-img > img {
-  width: 89.6%;
+  width: 97%;
 }
 
 .scrolling-wrapper {
@@ -63,7 +63,7 @@ input {
 
 .scrolling-wrapper > img {
   flex: 0 0 auto;
-  width: 26.1%;
+  width: 28.7%;
   border-radius: 5px;
 }
 
@@ -78,7 +78,11 @@ input {
 }
 
 .anime-bio {
-  width: 89.6%;
+  width: 97%;
   font-family: "Merriweather", serif;
   line-height: 28px;
+}
+
+.hidden {
+  display: none;
 }

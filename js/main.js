@@ -42,7 +42,7 @@ function getTopAnime() {
               $synopsis.textContent = xhr2.response.synopsis;
               if (xhr2.response.trailer_url !== null) {
                 var $iFrame = document.createElement('iframe');
-                $iFrame.setAttribute('width', '326');
+                $iFrame.setAttribute('width', '353');
                 $iFrame.setAttribute('height', '315');
                 $iFrame.setAttribute('src', xhr2.response.trailer_url);
                 $iFrame.setAttribute('frameborder', '0');
@@ -97,7 +97,7 @@ function getTopAiringAnime() {
               $synopsis.textContent = xhr2.response.synopsis;
               if (xhr2.response.trailer_url !== null) {
                 var $iFrame = document.createElement('iframe');
-                $iFrame.setAttribute('width', '326');
+                $iFrame.setAttribute('width', '353');
                 $iFrame.setAttribute('height', '315');
                 $iFrame.setAttribute('src', xhr2.response.trailer_url);
                 $iFrame.setAttribute('frameborder', '0');
