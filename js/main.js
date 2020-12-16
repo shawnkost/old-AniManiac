@@ -1,5 +1,7 @@
 var $topAnime = document.querySelector('.top-img');
 var $topAiringAnime = document.querySelector('.top-airing-img');
+var $home = document.querySelector('.home-container');
+var $details = document.querySelector('.details-container');
 
 function getTopAnime() {
   var xhr = new XMLHttpRequest();
@@ -32,3 +34,12 @@ function getTopAiringAnime() {
   xhr.send();
 }
 getTopAiringAnime();
+
+function viewSwap() {
+  if (data.view === 'home') {
+    $details.setAttribute('class', 'details-container hidden');
+  } else {
+    $home.setAttribute('class', 'home-container hidden');
+  }
+}
+viewSwap();
