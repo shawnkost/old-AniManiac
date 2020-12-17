@@ -1,5 +1,6 @@
 var $topAnime = document.querySelector('.top-img');
 var $topAiringAnime = document.querySelector('.top-airing-img');
+var $topUpcomingAnime = document.querySelector('.top-upcoming-img');
 var $home = document.querySelector('.home-container');
 var $details = document.querySelector('.details-container');
 var $detailsRow = document.querySelector('.details-row');
@@ -34,6 +35,7 @@ function viewSwap() {
     $iFrameRow.innerHTML = '';
     getTopAnime();
     getTopAiringAnime();
+    getTopUpcomingAnime();
   } else if (data.view === 'details') {
     $details.setAttribute('class', 'details-container');
     $home.setAttribute('class', 'home-container hidden');
@@ -83,6 +85,26 @@ function getTopAiringAnime() {
         loopOverAnime(xhr, event);
       });
       $topAiringAnime.appendChild($img);
+    }
+  });
+  xhr.send();
+}
+
+function getTopUpcomingAnime() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/upcoming');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    for (var i = 0; i < xhr.response.top.length; i++) {
+      var $img = document.createElement('img');
+      $img.setAttribute('src', xhr.response.top[i].image_url);
+      $img.setAttribute('alt', xhr.response.top[i].title);
+      $img.addEventListener('click', function (event) {
+        data.view = 'details';
+        viewSwap();
+        loopOverAnime(xhr, event);
+      });
+      $topUpcomingAnime.appendChild($img);
     }
   });
   xhr.send();
