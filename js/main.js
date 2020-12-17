@@ -7,8 +7,10 @@ var $detailsRow = document.querySelector('.details-row');
 var $bioRow = document.querySelector('.bio-row');
 var $iFrameRow = document.querySelector('.iframe-row');
 var $homeTag = document.querySelector('.home-tag');
-var $listTag = document.querySelector('.list-tag');
 var $listRow = document.querySelector('.list-row');
+var $searchButton = document.querySelector('.search-button');
+var $searchInput = document.querySelector('.search-input');
+var $userTag = document.querySelector('.user-tag');
 
 window.addEventListener('DOMContentLoaded', function () {
   viewSwap();
@@ -19,10 +21,40 @@ $homeTag.addEventListener('click', function () {
   viewSwap();
 });
 
-$listTag.addEventListener('click', function () {
+$userTag.addEventListener('click', function () {
   data.view = 'list';
   viewSwap();
 });
+
+function submitSearch() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', `https://api.jikan.moe/v3/search/anime?q=${$searchInput.value}&page=1`);
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    $detailsRow.innerHTML = '';
+    $bioRow.innerHTML = '';
+    $iFrameRow.innerHTML = '';
+    data.view = 'details';
+    viewSwap();
+    searchAnime(xhr);
+  });
+  $searchInput.value = '';
+  xhr.send();
+}
+
+$searchButton.addEventListener('click', function () {
+  submitSearch();
+});
+
+$searchInput.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    submitSearch();
+  }
+});
+
+// class for icon
+// if user has a username in data
+// switch icon to the other one
 
 // we swap between data.view to show the page we want to navigate to
 function viewSwap() {
@@ -158,6 +190,41 @@ function loopOverAnime(xhr, event) {
       return;
     }
   }
+}
+// sending an API request for the specific title that was searched and creating a dom tree with the results
+function searchAnime(xhr) {
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open('GET', `https://api.jikan.moe/v3/anime/${xhr.response.results[0].mal_id}`);
+  xhr2.responseType = 'json';
+  xhr2.addEventListener('load', function () {
+    var $animeTitle = document.createElement('div');
+    var $animeImgContainer = document.createElement('div');
+    var $animeImg = document.createElement('img');
+    var $synopsis = document.createElement('div');
+    $animeTitle.setAttribute('class', 'anime-title');
+    $animeTitle.textContent = xhr2.response.title;
+    $animeImgContainer.setAttribute('class', 'anime-img');
+    $animeImg.setAttribute('src', xhr2.response.image_url);
+    $animeImg.setAttribute('alt', xhr2.response.title);
+    $synopsis.setAttribute('class', 'anime-bio');
+    $synopsis.textContent = xhr2.response.synopsis;
+    if (xhr2.response.trailer_url !== null) {
+      var $iFrame = document.createElement('iframe');
+      $iFrame.setAttribute('width', '353');
+      $iFrame.setAttribute('height', '315');
+      $iFrame.setAttribute('src', xhr2.response.trailer_url);
+      $iFrame.setAttribute('frameborder', '0');
+      $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      $iFrame.setAttribute('allowfullscreen', 'true');
+      $iFrameRow.appendChild($iFrame);
+    }
+    $detailsRow.appendChild($animeTitle);
+    $detailsRow.appendChild($animeImgContainer);
+    $animeImgContainer.appendChild($animeImg);
+    $bioRow.appendChild($synopsis);
+  });
+  xhr2.send();
+
 }
 // creating a table in the DOM with data from the API about the users animelist
 function createTable(xhr) {
