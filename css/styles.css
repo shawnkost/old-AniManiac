@@ -51,6 +51,10 @@ input {
   content: "";
 }
 
+td > img {
+  width: 100%;
+}
+
 .anime-img > img {
   width: 97%;
 }
@@ -81,6 +85,23 @@ input {
   width: 97%;
   font-family: "Merriweather", serif;
   line-height: 28px;
+}
+
+.list-row {
+  width: 97.5%;
+}
+
+.list-header {
+  font-family: "Lato", sans-serif;
+}
+
+table,
+th,
+td {
+  padding: 10px;
+  border: 1px solid black;
+  border-collapse: collapse;
+  text-align: center;
 }
 
 .hidden {

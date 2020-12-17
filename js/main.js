@@ -7,11 +7,45 @@ var $bioRow = document.querySelector('.bio-row');
 var $iFrameRow = document.querySelector('.iframe-row');
 var $homeTag = document.querySelector('.home-tag');
 var $listTag = document.querySelector('.list-tag');
-var $listContainer = document.querySelector('.list-container');
+var $listRow = document.querySelector('.list-row');
 
 window.addEventListener('DOMContentLoaded', function () {
   viewSwap();
 });
+
+$homeTag.addEventListener('click', function () {
+  data.view = 'home';
+  viewSwap();
+});
+
+$listTag.addEventListener('click', function () {
+  data.view = 'list';
+  viewSwap();
+});
+
+// we swap between data.view to show the page we want to navigate to
+function viewSwap() {
+  if (data.view === 'home') {
+    $home.setAttribute('class', 'home-container');
+    $details.setAttribute('class', 'details-container hidden');
+    $listRow.setAttribute('class', 'row list-row hidden');
+    $detailsRow.innerHTML = '';
+    $bioRow.innerHTML = '';
+    $iFrameRow.innerHTML = '';
+    getTopAnime();
+    getTopAiringAnime();
+  } else if (data.view === 'details') {
+    $details.setAttribute('class', 'details-container');
+    $home.setAttribute('class', 'home-container hidden');
+    $listRow.setAttribute('class', 'row list-row hidden');
+  } else if (data.view === 'list') {
+    $listRow.innerHTML = '';
+    $listRow.setAttribute('class', 'row list-row');
+    $home.setAttribute('class', 'home-container hidden');
+    $details.setAttribute('class', 'details-container hidden');
+    getAnimeList();
+  }
+}
 
 // getting the top anime of all time from the API and appending the images/titles to the home page
 function getTopAnime() {
@@ -53,37 +87,16 @@ function getTopAiringAnime() {
   });
   xhr.send();
 }
-// we swap between data.view to show the page we want to navigate to
-function viewSwap() {
-  if (data.view === 'home') {
-    $home.setAttribute('class', 'home-container');
-    $details.setAttribute('class', 'details-container hidden');
-    $listContainer.setAttribute('class', 'list-container hidden');
-    $detailsRow.innerHTML = '';
-    $bioRow.innerHTML = '';
-    $iFrameRow.innerHTML = '';
-    getTopAnime();
-    getTopAiringAnime();
-  } else if (data.view === 'details') {
-    $details.setAttribute('class', 'details-container');
-    $home.setAttribute('class', 'home-container hidden');
-    $listContainer.setAttribute('class', 'list-container hidden');
-  } else if (data.view === 'list') {
-    $listContainer.setAttribute('class', 'row list-container');
-    $home.setAttribute('class', 'home-container hidden');
-    $details.setAttribute('class', 'details-container hidden');
-  }
+
+function getAnimeList() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://api.jikan.moe/v3/user/shaaka24/animelist/all');
+  xhr.responseType = 'json';
+  xhr.addEventListener('load', function () {
+    createTable(xhr);
+  });
+  xhr.send();
 }
-
-$homeTag.addEventListener('click', function () {
-  data.view = 'home';
-  viewSwap();
-});
-
-$listTag.addEventListener('click', function () {
-  data.view = 'list';
-  viewSwap();
-});
 
 // looping over the specific anime that was clicked and creating a DOMTree with the results
 function loopOverAnime(xhr, event) {
@@ -122,5 +135,50 @@ function loopOverAnime(xhr, event) {
       xhr2.send();
       return;
     }
+  }
+}
+// creating a table in the DOM with data from the API about the users animelist
+function createTable(xhr) {
+  var $listHeader = document.createElement('div');
+  var $table = document.createElement('table');
+  var $thead = document.createElement('thead');
+  var $theadRow = document.createElement('tr');
+  var $thImage = document.createElement('th');
+  var $thTitle = document.createElement('th');
+  var $thScore = document.createElement('th');
+  var $thProgress = document.createElement('th');
+  var $tbody = document.createElement('tbody');
+  $listHeader.setAttribute('class', 'list-header');
+  $listHeader.textContent = 'Shaaka24 Anime List';
+  $thImage.textContent = 'Image';
+  $thTitle.textContent = 'Anime Title';
+  $thScore.textContent = 'Score';
+  $thProgress.textContent = 'Progress';
+  $listRow.appendChild($listHeader);
+  $listRow.appendChild($table);
+  $table.appendChild($thead);
+  $table.appendChild($tbody);
+  $thead.appendChild($theadRow);
+  $theadRow.appendChild($thImage);
+  $theadRow.appendChild($thTitle);
+  $theadRow.appendChild($thScore);
+  $theadRow.appendChild($thProgress);
+  for (var i = 0; i < xhr.response.anime.length; i++) {
+    var $tbodyRow = document.createElement('tr');
+    var $tdImageData = document.createElement('td');
+    var $tdImage = document.createElement('img');
+    var $tdTitle = document.createElement('td');
+    var $tdScore = document.createElement('td');
+    var $tdProgress = document.createElement('td');
+    $tdImage.setAttribute('src', xhr.response.anime[i].image_url);
+    $tdTitle.textContent = xhr.response.anime[i].title;
+    $tdScore.textContent = xhr.response.anime[i].score;
+    $tdProgress.textContent = xhr.response.anime[i].watched_episodes + '/' + xhr.response.anime[i].total_episodes;
+    $tbody.appendChild($tbodyRow);
+    $tbodyRow.appendChild($tdImageData);
+    $tdImageData.appendChild($tdImage);
+    $tbodyRow.appendChild($tdTitle);
+    $tbodyRow.appendChild($tdScore);
+    $tbodyRow.appendChild($tdProgress);
   }
 }
