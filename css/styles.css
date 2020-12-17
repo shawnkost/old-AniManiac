@@ -4,7 +4,7 @@ body {
 
 header {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin-bottom: 6%;
   padding-left: 3%;
   height: 56px;
@@ -14,23 +14,38 @@ header {
 
 a,
 h2 {
-  margin-right: 2%;
+  margin-right: 2.7%;
   color: inherit;
   text-decoration: none;
   font-size: 24px;
 }
 
 .search-container {
-  padding-bottom: 0.8%;
+  display: flex;
+  margin-top: 2px;
 }
 
 input {
-  width: 99%;
+  display: inline-block;
+  border-right: none;
+  border: none;
+  width: 92%;
+}
+
+button {
+  display: inline-block;
+  background-color: transparent;
+  border-left: none;
+  margin-left: -23px;
+  margin-bottom: 0.23px;
+  border: none;
+  font-size: 12px;
 }
 
 .top {
   margin-bottom: 3%;
-  font-family: "Lato", sans-serif;
+  font-family: "Merriweather", serif;
+  font-size: 28px;
 }
 
 .top-all-time::before {
@@ -38,7 +53,7 @@ input {
   float: right;
   margin-top: 0.6em;
   border-top: 2px solid black;
-  width: 78%;
+  width: 57%;
   content: "";
 }
 
@@ -47,7 +62,7 @@ input {
   float: right;
   margin-top: 0.6em;
   border-top: 2px solid black;
-  width: 65%;
+  width: 31%;
   content: "";
 }
 
@@ -56,7 +71,7 @@ input {
   float: right;
   margin-top: 0.6em;
   border-top: 2px solid black;
-  width: 57%;
+  width: 16%;
   content: "";
 }
 
