@@ -26,6 +26,16 @@ $userTag.addEventListener('click', function () {
   viewSwap();
 });
 
+$searchButton.addEventListener('click', function () {
+  submitSearch();
+});
+
+$searchInput.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    submitSearch();
+  }
+});
+
 function submitSearch() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', `https://api.jikan.moe/v3/search/anime?q=${$searchInput.value}&page=1`);
@@ -41,20 +51,6 @@ function submitSearch() {
   $searchInput.value = '';
   xhr.send();
 }
-
-$searchButton.addEventListener('click', function () {
-  submitSearch();
-});
-
-$searchInput.addEventListener('keydown', function (event) {
-  if (event.key === 'Enter') {
-    submitSearch();
-  }
-});
-
-// class for icon
-// if user has a username in data
-// switch icon to the other one
 
 // we swap between data.view to show the page we want to navigate to
 function viewSwap() {
@@ -174,7 +170,7 @@ function loopOverAnime(xhr, event) {
         if (xhr2.response.trailer_url !== null) {
           var $iFrame = document.createElement('iframe');
           $iFrame.setAttribute('width', '353');
-          $iFrame.setAttribute('height', '315');
+          $iFrame.setAttribute('height', '199');
           $iFrame.setAttribute('src', xhr2.response.trailer_url);
           $iFrame.setAttribute('frameborder', '0');
           $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
@@ -211,11 +207,11 @@ function searchAnime(xhr) {
     if (xhr2.response.trailer_url !== null) {
       var $iFrame = document.createElement('iframe');
       $iFrame.setAttribute('width', '353');
-      $iFrame.setAttribute('height', '315');
+      $iFrame.setAttribute('height', '199');
       $iFrame.setAttribute('src', xhr2.response.trailer_url);
       $iFrame.setAttribute('frameborder', '0');
       $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-      $iFrame.setAttribute('allowfullscreen', 'true');
+      $iFrame.setAttribute('allowfullscreen', 'allowfullscreen');
       $iFrameRow.appendChild($iFrame);
     }
     $detailsRow.appendChild($animeTitle);
