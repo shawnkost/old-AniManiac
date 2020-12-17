@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Merriweather&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
@@ -15,13 +16,11 @@
 
 <body>
   <header>
-    <h2>AnimeDB</h2>
-    <a href="#home" data-view="home" class="home-tag">Home</a>
-    <a href="#list" data-view="list" class="list-tag">List</a>
+    <a href="#home" data-view="home" class="home-tag">AniManiac</a>
+    <a href="#list" data-view="list" class="list-tag"><i class="fas fa-user-plus user-tag"></i></a>
     <div class="search-container">
-      <form>
-        <input type="text" placeholder="Search" name="search">
-      </form>
+        <input type="text" placeholder="Search" name="search" class="search-input">
+        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
     </div>
   </header>
   <main>
@@ -33,6 +32,10 @@
       <div class="row top-airing-container">
         <div class="top top-airing">Top Airing Anime</div>
         <div class="scrolling-wrapper top-airing-img"></div>
+      </div>
+      <div class="row top-upcoming-container">
+        <div class="top top-upcoming">Top Upcoming Anime</div>
+        <div class="scrolling-wrapper top-upcoming-img"></div>
       </div>
     </div>
     <div class="details-container" data-view="details">
@@ -46,6 +49,7 @@
     <div class="row list-row list-container">
       </div>
   </main>
+  <script src="https://kit.fontawesome.com/25e97e308c.js" crossorigin="anonymous"></script>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
 </body>
