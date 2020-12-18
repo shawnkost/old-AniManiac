@@ -11,6 +11,12 @@ var $listRow = document.querySelector('.list-row');
 var $searchButton = document.querySelector('.search-button');
 var $searchInput = document.querySelector('.search-input');
 var $userTag = document.querySelector('.user-tag');
+var $header = document.querySelector('header');
+var $userNameInput = document.querySelector('.username-input');
+var $userNameButton = document.querySelector('.username-button');
+var $malQuestion = document.querySelector('.mal-question');
+var $wrongUsername = document.querySelector('.wrong-username');
+var $inputContainer = document.querySelector('.input-container');
 
 window.addEventListener('DOMContentLoaded', function () {
   viewSwap();
@@ -26,6 +32,41 @@ $userTag.addEventListener('click', function () {
   viewSwap();
 });
 
+function swapColors() {
+  var r = 255;
+  var g = 0;
+  var b = 0;
+  var speed = 15;
+  var check = false;
+  $header.style.backgroundColor = 'green';
+  var colorInterval = setInterval(function () {
+    if (r >= 255 && g < 255 && b <= 0) {
+      g += speed;
+    } else if (r > 0 && g >= 255 && b <= 0) {
+      r -= speed;
+    } else if (r <= 0 && g >= 255 && b < 255) {
+      b += speed;
+    } else if (r <= 0 && g > 0 && b >= 255) {
+      g -= speed;
+    } else if (r < 255 && g <= 0 && b <= 255) {
+      r += speed;
+    } else {
+      b -= speed;
+      check = true;
+    }
+    if (check === true && b <= 10) {
+      clearInterval(colorInterval);
+      $header.style.backgroundColor = '#03045e';
+    } else {
+      $header.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+    }
+
+  }, 1);
+  window.setTimeout(function () {
+    $header.style.backgroundColor = 'var(--main)';
+  }, 200);
+}
+
 $searchButton.addEventListener('click', function () {
   submitSearch();
 });
@@ -35,6 +76,28 @@ $searchInput.addEventListener('keydown', function (event) {
     submitSearch();
   }
 });
+
+$userNameInput.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    getAnimeList();
+  }
+});
+
+$userNameButton.addEventListener('click', function () {
+  getAnimeList();
+  disableBtn();
+  window.setTimeout(function () {
+    enableBtn();
+  }, 3000);
+});
+
+function disableBtn() {
+  $userNameButton.disabled = true;
+}
+
+function enableBtn() {
+  $userNameButton.disabled = false;
+}
 
 function submitSearch() {
   var xhr = new XMLHttpRequest();
@@ -68,12 +131,27 @@ function viewSwap() {
     $details.setAttribute('class', 'details-container');
     $home.setAttribute('class', 'home-container hidden');
     $listRow.setAttribute('class', 'row list-row hidden');
-  } else if (data.view === 'list') {
-    $listRow.innerHTML = '';
+  } else if (data.view === 'list' && data.username !== '') {
     $listRow.setAttribute('class', 'row list-row');
     $home.setAttribute('class', 'home-container hidden');
     $details.setAttribute('class', 'details-container hidden');
     getAnimeList();
+  } else if (data.view === 'list') {
+    swapColors();
+    var tbl = document.querySelector('.table');
+    var lH = document.querySelector('.list-header');
+    var userS = document.querySelector('.user-search');
+    if (tbl) {
+      tbl.remove();
+      lH.remove();
+      userS.remove();
+    }
+    $malQuestion.setAttribute('class', 'mal-question');
+    $wrongUsername.setAttribute('class', 'wrong-username');
+    $inputContainer.setAttribute('class', 'input-container');
+    $listRow.setAttribute('class', 'row list-row');
+    $home.setAttribute('class', 'home-container hidden');
+    $details.setAttribute('class', 'details-container hidden');
   }
 }
 
@@ -140,10 +218,17 @@ function getTopUpcomingAnime() {
 
 function getAnimeList() {
   var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v3/user/shaaka24/animelist/all');
+  xhr.open('GET', `https://api.jikan.moe/v3/user/${$userNameInput.value}/animelist/all`);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    createTable(xhr);
+    if (xhr.response.status !== 400) {
+      $wrongUsername.innerHTML = '';
+      $malQuestion.setAttribute('class', 'mal-question hidden');
+      $inputContainer.setAttribute('class', 'input-container hidden');
+      createTable(xhr);
+    } else {
+      $wrongUsername.textContent = 'Username does not exist';
+    }
   });
   xhr.send();
 }
@@ -174,7 +259,7 @@ function loopOverAnime(xhr, event) {
           $iFrame.setAttribute('src', xhr2.response.trailer_url);
           $iFrame.setAttribute('frameborder', '0');
           $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-          $iFrame.setAttribute('allowfullscreen', 'true');
+          $iFrame.setAttribute('allowfullscreen', 'allowfullscreen');
           $iFrameRow.appendChild($iFrame);
         }
         $detailsRow.appendChild($animeTitle);
@@ -224,7 +309,9 @@ function searchAnime(xhr) {
 }
 // creating a table in the DOM with data from the API about the users animelist
 function createTable(xhr) {
+  data.username = $userNameInput.value;
   var $listHeader = document.createElement('div');
+  var $newUserSearch = document.createElement('div');
   var $table = document.createElement('table');
   var $thead = document.createElement('thead');
   var $theadRow = document.createElement('tr');
@@ -234,12 +321,24 @@ function createTable(xhr) {
   var $thProgress = document.createElement('th');
   var $tbody = document.createElement('tbody');
   $listHeader.setAttribute('class', 'list-header');
-  $listHeader.textContent = 'Shaaka24 Anime List';
+  $listHeader.textContent = $userNameInput.value + ' ' + 'Anime List';
+  $table.setAttribute('class', 'table');
+  $newUserSearch.textContent = 'Search for new user';
+  $newUserSearch.setAttribute('class', 'user-search');
+  $newUserSearch.addEventListener('click', function () {
+    data.username = '';
+    viewSwap();
+  });
   $thImage.textContent = 'Image';
+  $thImage.setAttribute('class', 'image-td');
   $thTitle.textContent = 'Anime Title';
+  $thTitle.setAttribute('class', 'title-td');
   $thScore.textContent = 'Score';
+  $thScore.setAttribute('class', 'score-td');
   $thProgress.textContent = 'Progress';
+  $thProgress.setAttribute('class', 'progress-td');
   $listRow.appendChild($listHeader);
+  $listRow.appendChild($newUserSearch);
   $listRow.appendChild($table);
   $table.appendChild($thead);
   $table.appendChild($tbody);
@@ -256,9 +355,13 @@ function createTable(xhr) {
     var $tdScore = document.createElement('td');
     var $tdProgress = document.createElement('td');
     $tdImage.setAttribute('src', xhr.response.anime[i].image_url);
+    $tdImage.setAttribute('class', 'image-td');
     $tdTitle.textContent = xhr.response.anime[i].title;
+    $tdTitle.setAttribute('class', 'title-td');
     $tdScore.textContent = xhr.response.anime[i].score;
+    $tdScore.setAttribute('class', 'score-td');
     $tdProgress.textContent = xhr.response.anime[i].watched_episodes + '/' + xhr.response.anime[i].total_episodes;
+    $tdProgress.setAttribute('class', 'progress-td');
     $tbody.appendChild($tbodyRow);
     $tbodyRow.appendChild($tdImageData);
     $tdImageData.appendChild($tdImage);
