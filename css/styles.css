@@ -1,3 +1,8 @@
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
 :root {
   --main: #03045e;
   --accent: #0e5e03;
@@ -182,6 +187,10 @@ td > img {
   text-align: center;
   font-family: "Lato", sans-serif;
   font-size: 28px;
+}
+
+.user-search {
+  color: var(--main);
 }
 
 table,

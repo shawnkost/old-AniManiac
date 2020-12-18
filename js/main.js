@@ -312,6 +312,7 @@ function createTable(xhr) {
   data.username = $userNameInput.value;
   var $listHeader = document.createElement('div');
   var $newUserSearch = document.createElement('div');
+  var $newUserSpan = document.createElement('span');
   var $table = document.createElement('table');
   var $thead = document.createElement('thead');
   var $theadRow = document.createElement('tr');
@@ -323,9 +324,9 @@ function createTable(xhr) {
   $listHeader.setAttribute('class', 'list-header');
   $listHeader.textContent = $userNameInput.value + ' ' + 'Anime List';
   $table.setAttribute('class', 'table');
-  $newUserSearch.textContent = 'Search for new user';
+  $newUserSpan.textContent = 'Search for new user';
   $newUserSearch.setAttribute('class', 'user-search');
-  $newUserSearch.addEventListener('click', function () {
+  $newUserSpan.addEventListener('click', function () {
     data.username = '';
     viewSwap();
   });
@@ -339,6 +340,7 @@ function createTable(xhr) {
   $thProgress.setAttribute('class', 'progress-td');
   $listRow.appendChild($listHeader);
   $listRow.appendChild($newUserSearch);
+  $newUserSearch.appendChild($newUserSpan);
   $listRow.appendChild($table);
   $table.appendChild($thead);
   $table.appendChild($tbody);
