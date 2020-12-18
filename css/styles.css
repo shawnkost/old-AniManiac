@@ -1,3 +1,8 @@
+::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
 :root {
   --main: #03045e;
   --accent: #0e5e03;
@@ -30,7 +35,7 @@ a {
   margin-right: 13%;
 }
 
-.list-tag {
+.user-tag {
   background-color: var(--accent);
   padding: 1px 8px 4px 11px;
   font-size: 18px;
@@ -54,6 +59,34 @@ input {
   font-family: 'Merriweather', serif;
 }
 
+.input-container {
+  display: flex;
+  justify-content: center;
+}
+
+.mal-question {
+  font-size: 24px;
+  margin-bottom: 10%;
+  text-align: center;
+}
+
+.wrong-username {
+  color: red;
+}
+
+.username-input {
+  display: inline-block;
+  border-right: none;
+  border: none;
+  border-radius: 18px;
+  box-shadow: 0 0 3px 1px black inset;
+  width: 85%;
+  height: 28px;
+  padding: 21px;
+  padding-right: 28px;
+  font-family: 'Merriweather', serif;
+}
+
 button {
   display: inline-block;
   border: none;
@@ -64,6 +97,10 @@ button {
   outline: none;
   background-color: transparent;
   color: var(--main);
+}
+
+.username-button {
+  font-size: 35px;
 }
 
 .top {
@@ -142,6 +179,7 @@ td > img {
 
 .list-row {
   width: 97.5%;
+  text-align: center;
 }
 
 .list-header {
@@ -151,14 +189,17 @@ td > img {
   font-size: 28px;
 }
 
+.user-search {
+  color: var(--main);
+}
+
 table,
 th,
 td {
-  padding: 10px;
   border: 1px solid black;
   border-collapse: collapse;
-  text-align: center;
   font-family: "Merriweather", serif;
+  margin: auto;
 }
 
 .hidden {
