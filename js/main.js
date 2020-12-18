@@ -291,8 +291,8 @@ function searchAnime(xhr) {
     $synopsis.textContent = xhr2.response.synopsis;
     if (xhr2.response.trailer_url !== null) {
       var $iFrame = document.createElement('iframe');
-      $iFrame.setAttribute('width', '353');
-      $iFrame.setAttribute('height', '199');
+      // $iFrame.setAttribute('width', '353');
+      // $iFrame.setAttribute('height', '199');
       $iFrame.setAttribute('src', xhr2.response.trailer_url);
       $iFrame.setAttribute('frameborder', '0');
       $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
