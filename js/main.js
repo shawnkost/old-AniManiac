@@ -17,6 +17,7 @@ var $userNameButton = document.querySelector('.username-button');
 var $malQuestion = document.querySelector('.mal-question');
 var $wrongUsername = document.querySelector('.wrong-username');
 var $inputContainer = document.querySelector('.input-container');
+var $body = document.querySelector('body');
 
 window.addEventListener('DOMContentLoaded', function () {
   viewSwap();
@@ -31,6 +32,38 @@ $userTag.addEventListener('click', function () {
   data.view = 'list';
   viewSwap();
 });
+
+$searchButton.addEventListener('click', function () {
+  submitSearch();
+});
+
+$searchInput.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    submitSearch();
+  }
+});
+
+$userNameInput.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter') {
+    getAnimeList();
+  }
+});
+
+$userNameButton.addEventListener('click', function () {
+  getAnimeList();
+  disableBtn();
+  window.setTimeout(function () {
+    enableBtn();
+  }, 3000);
+});
+
+function disableBtn() {
+  $userNameButton.disabled = true;
+}
+
+function enableBtn() {
+  $userNameButton.disabled = false;
+}
 
 function swapColors() {
   var r = 255;
@@ -67,38 +100,6 @@ function swapColors() {
   }, 200);
 }
 
-$searchButton.addEventListener('click', function () {
-  submitSearch();
-});
-
-$searchInput.addEventListener('keydown', function (event) {
-  if (event.key === 'Enter') {
-    submitSearch();
-  }
-});
-
-$userNameInput.addEventListener('keydown', function (event) {
-  if (event.key === 'Enter') {
-    getAnimeList();
-  }
-});
-
-$userNameButton.addEventListener('click', function () {
-  getAnimeList();
-  disableBtn();
-  window.setTimeout(function () {
-    enableBtn();
-  }, 3000);
-});
-
-function disableBtn() {
-  $userNameButton.disabled = true;
-}
-
-function enableBtn() {
-  $userNameButton.disabled = false;
-}
-
 function submitSearch() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', `https://api.jikan.moe/v3/search/anime?q=${$searchInput.value}&page=1`);
@@ -117,6 +118,7 @@ function submitSearch() {
 
 // we swap between data.view to show the page we want to navigate to
 function viewSwap() {
+  $body.style.backgroundColor = '#ffffff';
   if (data.view === 'home') {
     $home.setAttribute('class', 'home-container');
     $details.setAttribute('class', 'details-container hidden');
@@ -155,6 +157,14 @@ function viewSwap() {
   }
 }
 
+function scrollContainerTop(direction) {
+  if (direction === 'left') {
+    $topAnime.scrollLeft -= 227;
+  } else {
+    $topAnime.scrollLeft += 227;
+  }
+}
+
 // getting the top anime of all time from the API and appending the images/titles to the home page
 function getTopAnime() {
   var xhr = new XMLHttpRequest();
@@ -173,9 +183,30 @@ function getTopAnime() {
       });
       $topAnime.appendChild($img);
     }
+    var $previousBtn = document.createElement('i');
+    var $nextBtn = document.createElement('i');
+    $previousBtn.setAttribute('class', 'fas fa-arrow-left top-arrow-left arrow');
+    $previousBtn.addEventListener('click', function () {
+      scrollContainerTop('left');
+    });
+    $nextBtn.setAttribute('class', 'fas fa-arrow-right top-arrow-right arrow');
+    $nextBtn.addEventListener('click', function () {
+      scrollContainerTop('right');
+    });
+    $topAnime.appendChild($previousBtn);
+    $topAnime.appendChild($nextBtn);
   });
   xhr.send();
 }
+
+function scrollContainerAiring(direction) {
+  if (direction === 'left') {
+    $topAiringAnime.scrollLeft -= 227;
+  } else {
+    $topAiringAnime.scrollLeft += 227;
+  }
+}
+
 // getting the top airing anime from the API and appending the images/titles to the home page
 function getTopAiringAnime() {
   var xhr = new XMLHttpRequest();
@@ -186,6 +217,7 @@ function getTopAiringAnime() {
       var $img = document.createElement('img');
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
+      $img.setAttribute('title', xhr.response.top[i].title);
       $img.addEventListener('click', function (event) {
         data.view = 'details';
         viewSwap();
@@ -193,8 +225,28 @@ function getTopAiringAnime() {
       });
       $topAiringAnime.appendChild($img);
     }
+    var $previousBtn = document.createElement('i');
+    var $nextBtn = document.createElement('i');
+    $previousBtn.setAttribute('class', 'fas fa-arrow-left airing-arrow-left arrow');
+    $previousBtn.addEventListener('click', function () {
+      scrollContainerAiring('left');
+    });
+    $nextBtn.setAttribute('class', 'fas fa-arrow-right airing-arrow-right arrow');
+    $nextBtn.addEventListener('click', function () {
+      scrollContainerAiring('right');
+    });
+    $topAiringAnime.appendChild($previousBtn);
+    $topAiringAnime.appendChild($nextBtn);
   });
   xhr.send();
+}
+
+function scrollContainerUpcoming(direction) {
+  if (direction === 'left') {
+    $topUpcomingAnime.scrollLeft -= 227;
+  } else {
+    $topUpcomingAnime.scrollLeft += 227;
+  }
 }
 
 function getTopUpcomingAnime() {
@@ -206,6 +258,7 @@ function getTopUpcomingAnime() {
       var $img = document.createElement('img');
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
+      $img.setAttribute('title', xhr.response.top[i].title);
       $img.addEventListener('click', function (event) {
         data.view = 'details';
         viewSwap();
@@ -213,6 +266,18 @@ function getTopUpcomingAnime() {
       });
       $topUpcomingAnime.appendChild($img);
     }
+    var $previousBtn = document.createElement('i');
+    var $nextBtn = document.createElement('i');
+    $previousBtn.setAttribute('class', 'fas fa-arrow-left upcoming-arrow-left arrow');
+    $previousBtn.addEventListener('click', function () {
+      scrollContainerUpcoming('left');
+    });
+    $nextBtn.setAttribute('class', 'fas fa-arrow-right upcoming-arrow-right arrow');
+    $nextBtn.addEventListener('click', function () {
+      scrollContainerUpcoming('right');
+    });
+    $topAiringAnime.appendChild($previousBtn);
+    $topAiringAnime.appendChild($nextBtn);
   });
   xhr.send();
 }
@@ -227,6 +292,7 @@ function getAnimeList() {
       $malQuestion.setAttribute('class', 'mal-question hidden');
       $inputContainer.setAttribute('class', 'input-container hidden');
       createTable(xhr);
+      $body.style.backgroundColor = '#222222';
     } else {
       $wrongUsername.textContent = 'Username does not exist';
     }
