@@ -165,6 +165,7 @@ function getTopAnime() {
       var $img = document.createElement('img');
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
+      $img.setAttribute('title', xhr.response.top[i].title);
       $img.addEventListener('click', function (event) {
         data.view = 'details';
         viewSwap();

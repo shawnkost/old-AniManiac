@@ -1,7 +1,7 @@
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 0;
   background: transparent;
-}
+} */
 
 :root {
   --main: #03045e;
@@ -10,6 +10,7 @@
 
 body {
   background-color: #fff;
+  overflow-y: hidden;
 }
 
 header {
@@ -17,6 +18,7 @@ header {
   align-items: center;
   margin-bottom: 6%;
   padding-left: 3%;
+  padding-right: 3%;
   height: 56px;
   background-color: var(--main);
   color: white;
@@ -27,18 +29,19 @@ a {
   margin-right: 2.7%;
   color: inherit;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 24px;
   border-radius: 11px;
 }
 
 .home-tag {
-  margin-right: 13%;
+  margin-right: 12%;
 }
 
 .user-tag {
   background-color: var(--accent);
   padding: 1px 8px 4px 11px;
   font-size: 18px;
+  margin-right: 5%;
 }
 
 .search-container {
@@ -52,7 +55,8 @@ input {
   border: none;
   border-radius: 12px;
   box-shadow: 0 0 5px 1px black inset;
-  width: 92%;
+  outline: none;
+  width: 100%;
   height: 25px;
   padding: 15px;
   padding-right: 28px;
@@ -114,7 +118,7 @@ button {
   float: right;
   margin-top: 0.6em;
   border-top: 2px solid black;
-  width: 63%;
+  width: 62%;
   content: "";
 }
 
@@ -123,7 +127,7 @@ button {
   float: right;
   margin-top: 0.6em;
   border-top: 2px solid black;
-  width: 41%;
+  width: 39%;
   content: "";
 }
 
@@ -132,7 +136,7 @@ button {
   float: right;
   margin-top: 0.6em;
   border-top: 2px solid black;
-  width: 28%;
+  width: 26%;
   content: "";
 }
 
@@ -149,16 +153,26 @@ td > img {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  scroll-behavior: smooth;
 }
 
 .scrolling-wrapper > img {
   flex: 0 0 auto;
-  width: 28.7%;
+  width: 29.5%;
   border-radius: 5px;
 }
 
 .scrolling-wrapper > img:not(:last-child) {
   margin-right: 20px;
+}
+
+.scrolling-wrapper > img:hover {
+  -webkit-filter: brightness(40%);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  transition: all 1s ease;
 }
 
 .details-row {
@@ -168,17 +182,17 @@ td > img {
 .anime-title {
   margin-bottom: 3%;
   font-family: "Lato", sans-serif;
-  font-size: 28px;
+  font-size: 36px;
 }
 
 .anime-bio {
   width: 97%;
   font-family: "Merriweather", serif;
-  line-height: 28px;
+  line-height: 36px;
+  text-align: justify;
 }
 
 .list-row {
-  width: 97.5%;
   text-align: center;
 }
 
@@ -201,6 +215,15 @@ td {
   border-collapse: collapse;
   font-family: "Merriweather", serif;
   margin: auto;
+  color: white;
+}
+
+tr:nth-child(odd) {
+  background-color: darkgray;
+}
+
+tr:nth-child(even) {
+  background-color: var(--main);
 }
 
 .iframe-row {
@@ -224,29 +247,37 @@ iframe {
 
 @media screen and (min-width: 425px) {
   .home-tag {
-    margin-right: 18%;
-  }
-
-  input {
-    width: 93%;
+    margin-right: 17%;
   }
 
   .top-all-time::before {
-    width: 67%;
+    width: 66%;
   }
 
   .top-airing::before {
-    width: 48%;
+    width: 46%;
   }
 
   .top-upcoming::before {
-    width: 36%;
+    width: 34%;
+  }
+
+  .scrolling-wrapper > img {
+    width: 30%;
   }
 }
 
 @media screen and (min-width: 768px) {
+  a {
+    margin-right: 1.7%;
+  }
+
   .home-tag {
-    margin-right: 42%;
+    margin-right: 52%;
+  }
+
+  .user-tag {
+    margin-right: 2%;
   }
 
   .top-all-time::before {
@@ -263,5 +294,103 @@ iframe {
 
   .username-input {
     width: 41%;
+  }
+
+  .scrolling-wrapper > img {
+    width: 31.3%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  header {
+    margin-bottom: 2%;
+  }
+
+  .top {
+    font-size: 36px;
+  }
+
+  .scrolling-wrapper > img {
+    width: 23.1%;
+  }
+
+  .scrolling-wrapper > img:not(:last-child) {
+    margin-right: 23px;
+  }
+
+  .home-tag {
+    margin-right: 58%;
+  }
+
+  .user-tag {
+    margin-right: 2%;
+  }
+
+  .top-all-time::before {
+    width: 78%;
+  }
+
+  .top-airing::before {
+    width: 66%;
+  }
+
+  .top-upcoming::before {
+    width: 58%;
+  }
+
+  .anime-bio {
+    line-height: 42px;
+    font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  a {
+    font-size: 36px;
+  }
+
+  .search-container {
+    width: 20%;
+  }
+
+  .top {
+    margin-bottom: 1%;
+    font-size: 48px;
+  }
+
+  .home-tag {
+    margin-right: 71%;
+  }
+
+  .user-tag {
+    margin-right: 1%;
+  }
+
+  .top-all-time::before {
+    width: 84%;
+  }
+
+  .top-airing::before {
+    width: 75%;
+  }
+
+  .top-upcoming::before {
+    width: 70%;
+  }
+
+  .scrolling-wrapper > img {
+    width: 11.3%;
+  }
+
+  .row {
+    margin-bottom: 2%;
+  }
+
+  .mal-question {
+    margin-bottom: 2%;
+  }
+
+  .username-input {
+    width: 17%;
   }
 }
