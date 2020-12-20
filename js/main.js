@@ -118,7 +118,7 @@ function submitSearch() {
 
 // we swap between data.view to show the page we want to navigate to
 function viewSwap() {
-  $body.style.backgroundColor = '#ffffff';
+  // $body.style.backgroundColor = '#ffffff';
   if (data.view === 'home') {
     $home.setAttribute('class', 'home-container');
     $details.setAttribute('class', 'details-container hidden');
@@ -292,6 +292,10 @@ function getAnimeList() {
       $malQuestion.setAttribute('class', 'mal-question hidden');
       $inputContainer.setAttribute('class', 'input-container hidden');
       createTable(xhr);
+      $newUserSpan.addEventListener('click', function () {
+        data.username = '';
+        viewSwap();
+      });
       $body.style.backgroundColor = '#222222';
     } else {
       $wrongUsername.textContent = 'Username does not exist';
@@ -374,12 +378,15 @@ function searchAnime(xhr) {
   xhr2.send();
 
 }
+
+var $newUserSpan = null;
+
 // creating a table in the DOM with data from the API about the users animelist
 function createTable(xhr) {
   data.username = $userNameInput.value;
   var $listHeader = document.createElement('div');
   var $newUserSearch = document.createElement('div');
-  var $newUserSpan = document.createElement('span');
+  $newUserSpan = document.createElement('span');
   var $table = document.createElement('table');
   var $thead = document.createElement('thead');
   var $theadRow = document.createElement('tr');
@@ -391,12 +398,12 @@ function createTable(xhr) {
   $listHeader.setAttribute('class', 'list-header');
   $listHeader.textContent = $userNameInput.value + ' ' + 'Anime List';
   $table.setAttribute('class', 'table');
-  $newUserSpan.textContent = 'Search for new user';
   $newUserSearch.setAttribute('class', 'user-search');
-  $newUserSpan.addEventListener('click', function () {
-    data.username = '';
-    viewSwap();
-  });
+  $newUserSpan.textContent = 'Search for new user';
+  // $newUserSpan.addEventListener('click', function () {
+  //   data.username = '';
+  //   viewSwap();
+  // });
   $thImage.textContent = 'Image';
   $thImage.setAttribute('class', 'image-td');
   $thTitle.textContent = 'Anime Title';
