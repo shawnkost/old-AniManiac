@@ -515,61 +515,61 @@ body {
 
   .arrow {
     display: inline-block !important;
-    font-size: 30px;
+    font-size: 24px;
     color: #fff;
     background-color: #333;
     border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
   }
 
   .top-arrow-left {
     position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
+    padding-top: 1px;
+    padding-left: 3px;
     left: 4px;
     top: 275px;
   }
 
   .top-arrow-right {
     position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
+    padding-top: 1px;
+    padding-left: 3px;
     right: 4px;
     top: 275px;
   }
 
   .airing-arrow-left {
     position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
+    padding-top: 1px;
+    padding-left: 3px;
     left: 4px;
-    top: 720px;
+    top: 770px;
   }
 
   .airing-arrow-right {
     position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
+    padding-top: 1px;
+    padding-left: 3px;
     right: 4px;
-    top: 720px;
+    top: 770px;
   }
 
   .upcoming-arrow-left {
     position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
+    padding-top: 1px;
+    padding-left: 3px;
     left: 4px;
-    top: 1155px;
+    top: 1260px;
   }
 
   .upcoming-arrow-right {
     position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
+    padding-top: 1px;
+    padding-left: 3px;
     right: 4px;
-    top: 1155px;
+    top: 1260px;
   }
 
   .username-input {
@@ -704,3 +704,57 @@ body {
     font-size: 24px;
   }
 }
+
+/* @media screen and (min-width: 1440px) {
+  .scrolling-wrapper>img.dark {
+    width: 9.1%;
+  }
+
+  .scrolling-wrapper>img.light {
+    width: 9.1%;
+  }
+
+  .home-tag {
+    margin-right: 66%;
+  }
+
+  .user-tag {
+    margin-right: 3%;
+  }
+
+  .top-all-time::before {
+    width: 84%;
+  }
+
+  .top-airing::before {
+    width: 75%;
+  }
+
+  .top-upcoming::before {
+    width: 70%;
+  }
+
+  .top-arrow-left {
+    top: 240px;
+  }
+
+  .top-arrow-right {
+    top: 240px;
+  }
+
+  .airing-arrow-left {
+    top: 625px;
+  }
+
+  .airing-arrow-right {
+    top: 625px;
+  }
+
+  .upcoming-arrow-left {
+    top: 1000px;
+  }
+
+  .upcoming-arrow-right {
+    top: 1000px;
+  }
+} */

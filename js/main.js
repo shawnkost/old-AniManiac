@@ -1,4 +1,3 @@
-
 window.addEventListener('DOMContentLoaded', function () {
   viewSwap();
 });
@@ -61,6 +60,7 @@ var $detailsRow = document.querySelector('.details-row');
 var $bioRow = document.querySelector('.bio-row');
 var $iFrameRow = document.querySelector('.iframe-row');
 
+// searching for the anime the user inputted in the search bar and clearing any previous data
 function submitSearch() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', `https://api.jikan.moe/v3/search/anime?q=${$searchInput.value}&page=1`);
@@ -77,6 +77,39 @@ function submitSearch() {
   xhr.send();
 }
 
+// sending an API request for the specific title that was searched and creating a dom tree with the results
+function searchAnime(xhr) {
+  var xhr2 = new XMLHttpRequest();
+  xhr2.open('GET', `https://api.jikan.moe/v3/anime/${xhr.response.results[0].mal_id}`);
+  xhr2.responseType = 'json';
+  xhr2.addEventListener('load', function () {
+    var $animeTitle = document.createElement('div');
+    var $animeImgContainer = document.createElement('div');
+    var $animeImg = document.createElement('img');
+    var $synopsis = document.createElement('div');
+    $animeTitle.setAttribute('class', 'anime-title');
+    $animeTitle.textContent = xhr2.response.title;
+    $animeImgContainer.setAttribute('class', 'anime-img');
+    $animeImg.setAttribute('src', xhr2.response.image_url);
+    $animeImg.setAttribute('alt', xhr2.response.title);
+    $synopsis.setAttribute('class', 'anime-bio');
+    $synopsis.textContent = xhr2.response.synopsis;
+    if (xhr2.response.trailer_url !== null) {
+      var $iFrame = document.createElement('iframe');
+      $iFrame.setAttribute('src', xhr2.response.trailer_url);
+      $iFrame.setAttribute('frameborder', '0');
+      $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      $iFrame.setAttribute('allowfullscreen', 'allowfullscreen');
+      $iFrameRow.appendChild($iFrame);
+    }
+    $detailsRow.appendChild($animeTitle);
+    $detailsRow.appendChild($animeImgContainer);
+    $animeImgContainer.appendChild($animeImg);
+    $bioRow.appendChild($synopsis);
+  });
+  xhr2.send();
+}
+
 var $scrollingWrapperImg = document.querySelectorAll('.border-color');
 var $home = document.querySelector('.home-container');
 var $details = document.querySelector('.details-container');
@@ -85,8 +118,9 @@ var $malQuestion = document.querySelector('.mal-question');
 var $wrongUsername = document.querySelector('.wrong-username');
 var $inputContainer = document.querySelector('.input-container');
 var $body = document.querySelector('body');
+var $userIcon = document.querySelector('.user-icon');
 
-// we swap between data.view to show the page we want to navigate to
+// swap between data.view to show the page we want to navigate to
 function viewSwap() {
   if (data.view === 'home') {
     $home.setAttribute('class', 'home-container');
@@ -243,6 +277,7 @@ function scrollContainerAiring(direction) {
 
 var $topUpcomingAnime = document.querySelector('.top-upcoming-img');
 
+// getting the top upcoming anime from the API and appending the images/titles to the home page
 function getTopUpcomingAnime() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/upcoming');
@@ -290,6 +325,7 @@ function scrollContainerUpcoming(direction) {
   }
 }
 
+// makes a network request to return the users anime list from myAnimeList.net
 function getAnimeList() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', `https://api.jikan.moe/v3/user/${$userNameInput.value}/animelist/all`);
@@ -297,11 +333,13 @@ function getAnimeList() {
   xhr.addEventListener('load', function () {
     if (xhr.response.status !== 400) {
       $wrongUsername.innerHTML = '';
+      $userIcon.setAttribute('class', 'fas fa-user');
       $malQuestion.setAttribute('class', 'mal-question hidden');
       $inputContainer.setAttribute('class', 'input-container hidden');
       createTable(xhr);
       $newUserSpan.addEventListener('click', function () {
         data.username = '';
+        $userIcon.setAttribute('class', 'fas fa-user-plus');
         viewSwap();
       });
     } else {
@@ -309,79 +347,6 @@ function getAnimeList() {
     }
   });
   xhr.send();
-}
-
-// looping over the specific anime that was clicked and creating a DOMTree with the results
-function loopOverAnime(xhr, event) {
-  for (var k = 0; k < xhr.response.top.length; k++) {
-    if (event.target.alt === xhr.response.top[k].title) {
-      var xhr2 = new XMLHttpRequest();
-      xhr2.open('GET', `https://api.jikan.moe/v3/anime/${xhr.response.top[k].mal_id}`);
-      xhr2.responseType = 'json';
-      xhr2.addEventListener('load', function () {
-        var $animeTitle = document.createElement('div');
-        var $animeImgContainer = document.createElement('div');
-        var $animeImg = document.createElement('img');
-        var $synopsis = document.createElement('div');
-        $animeTitle.setAttribute('class', 'anime-title');
-        $animeTitle.textContent = event.target.alt;
-        $animeImgContainer.setAttribute('class', 'anime-img');
-        $animeImg.setAttribute('src', xhr2.response.image_url);
-        $animeImg.setAttribute('alt', xhr2.response.title);
-        $synopsis.setAttribute('class', 'anime-bio');
-        $synopsis.textContent = xhr2.response.synopsis;
-        if (xhr2.response.trailer_url !== null) {
-          var $iFrame = document.createElement('iframe');
-          $iFrame.setAttribute('width', '353');
-          $iFrame.setAttribute('height', '199');
-          $iFrame.setAttribute('src', xhr2.response.trailer_url);
-          $iFrame.setAttribute('frameborder', '0');
-          $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-          $iFrame.setAttribute('allowfullscreen', 'allowfullscreen');
-          $iFrameRow.appendChild($iFrame);
-        }
-        $detailsRow.appendChild($animeTitle);
-        $detailsRow.appendChild($animeImgContainer);
-        $animeImgContainer.appendChild($animeImg);
-        $bioRow.appendChild($synopsis);
-      });
-      xhr2.send();
-      return;
-    }
-  }
-}
-// sending an API request for the specific title that was searched and creating a dom tree with the results
-function searchAnime(xhr) {
-  var xhr2 = new XMLHttpRequest();
-  xhr2.open('GET', `https://api.jikan.moe/v3/anime/${xhr.response.results[0].mal_id}`);
-  xhr2.responseType = 'json';
-  xhr2.addEventListener('load', function () {
-    var $animeTitle = document.createElement('div');
-    var $animeImgContainer = document.createElement('div');
-    var $animeImg = document.createElement('img');
-    var $synopsis = document.createElement('div');
-    $animeTitle.setAttribute('class', 'anime-title');
-    $animeTitle.textContent = xhr2.response.title;
-    $animeImgContainer.setAttribute('class', 'anime-img');
-    $animeImg.setAttribute('src', xhr2.response.image_url);
-    $animeImg.setAttribute('alt', xhr2.response.title);
-    $synopsis.setAttribute('class', 'anime-bio');
-    $synopsis.textContent = xhr2.response.synopsis;
-    if (xhr2.response.trailer_url !== null) {
-      var $iFrame = document.createElement('iframe');
-      $iFrame.setAttribute('src', xhr2.response.trailer_url);
-      $iFrame.setAttribute('frameborder', '0');
-      $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-      $iFrame.setAttribute('allowfullscreen', 'allowfullscreen');
-      $iFrameRow.appendChild($iFrame);
-    }
-    $detailsRow.appendChild($animeTitle);
-    $detailsRow.appendChild($animeImgContainer);
-    $animeImgContainer.appendChild($animeImg);
-    $bioRow.appendChild($synopsis);
-  });
-  xhr2.send();
-
 }
 
 var $newUserSpan = null;
@@ -448,6 +413,46 @@ function createTable(xhr) {
   }
 }
 
+// looping over the specific anime that was clicked and creating a DOMTree with the results
+function loopOverAnime(xhr, event) {
+  for (var k = 0; k < xhr.response.top.length; k++) {
+    if (event.target.alt === xhr.response.top[k].title) {
+      var xhr2 = new XMLHttpRequest();
+      xhr2.open('GET', `https://api.jikan.moe/v3/anime/${xhr.response.top[k].mal_id}`);
+      xhr2.responseType = 'json';
+      xhr2.addEventListener('load', function () {
+        var $animeTitle = document.createElement('div');
+        var $animeImgContainer = document.createElement('div');
+        var $animeImg = document.createElement('img');
+        var $synopsis = document.createElement('div');
+        $animeTitle.setAttribute('class', 'anime-title');
+        $animeTitle.textContent = event.target.alt;
+        $animeImgContainer.setAttribute('class', 'anime-img');
+        $animeImg.setAttribute('src', xhr2.response.image_url);
+        $animeImg.setAttribute('alt', xhr2.response.title);
+        $synopsis.setAttribute('class', 'anime-bio');
+        $synopsis.textContent = xhr2.response.synopsis;
+        if (xhr2.response.trailer_url !== null) {
+          var $iFrame = document.createElement('iframe');
+          $iFrame.setAttribute('width', '353');
+          $iFrame.setAttribute('height', '199');
+          $iFrame.setAttribute('src', xhr2.response.trailer_url);
+          $iFrame.setAttribute('frameborder', '0');
+          $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+          $iFrame.setAttribute('allowfullscreen', 'allowfullscreen');
+          $iFrameRow.appendChild($iFrame);
+        }
+        $detailsRow.appendChild($animeTitle);
+        $detailsRow.appendChild($animeImgContainer);
+        $animeImgContainer.appendChild($animeImg);
+        $bioRow.appendChild($synopsis);
+      });
+      xhr2.send();
+      return;
+    }
+  }
+}
+
 var $lightDarkMode = document.querySelector('.light-dark-mode');
 
 $lightDarkMode.addEventListener('click', function () {
@@ -461,8 +466,8 @@ $lightDarkMode.addEventListener('click', function () {
   } else {
     var $darkAll = document.querySelectorAll('.dark');
     for (var p = 0; p < $darkAll.length; p++) {
-      $darkAll[i].classList.remove('dark');
-      $darkAll[i].classList.add('light');
+      $darkAll[p].classList.remove('dark');
+      $darkAll[p].classList.add('light');
     }
     $lightDarkMode.setAttribute('class', 'fas fa-lightbulb light-dark-mode');
   }
