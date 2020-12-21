@@ -12,6 +12,22 @@ body {
   background-color: #222;
 }
 
+.light {
+  color: #222;
+  background-color: #fff;
+}
+
+.dark {
+  color: #fff;
+  background-color: #222;
+}
+
+.top-all-time.light::before,
+.top-airing.light::before,
+.top-upcoming.light::before {
+  border-top: 2px solid black;
+}
+
 @media screen and (min-width: 375px) {
   header {
     display: flex;
@@ -29,20 +45,26 @@ body {
     margin-right: 2.7%;
     color: inherit;
     text-decoration: none;
-    font-size: 24px;
+    font-size: 18px;
     border-radius: 11px;
     cursor: pointer;
   }
 
   .home-tag {
-    margin-right: 12%;
+    margin-right: 8%;
+  }
+
+  .light-dark-mode {
+    font-size: 18px;
+    margin-right: 5%;
+    cursor: pointer;
   }
 
   .user-tag {
     background-color: var(--accent);
     padding: 1px 8px 4px 11px;
     font-size: 18px;
-    margin-right: 5%;
+    margin-right: 6%;
   }
 
   .search-container {
@@ -55,7 +77,7 @@ body {
     border-right: none;
     border: none;
     border-radius: 12px;
-    box-shadow: 0 0 5px 1px black inset;
+    box-shadow: 0 0 5px 1px white inset;
     outline: none;
     width: 100%;
     height: 25px;
@@ -73,12 +95,11 @@ body {
     font-size: 24px;
     margin-bottom: 10%;
     text-align: center;
-    color: white;
   }
 
   .wrong-username {
     color: red;
-    box-shadow: 0 0 3px 1px white inset;
+    margin-bottom: 5%;
   }
 
   .username-input {
@@ -86,12 +107,22 @@ body {
     border-right: none;
     border: none;
     border-radius: 18px;
-    box-shadow: 0 0 3px 1px black inset;
+    box-shadow: 0 0 3px 1px inset;
     width: 85%;
     height: 28px;
     padding: 21px;
     padding-right: 28px;
     font-family: 'Merriweather', serif;
+    background-color: white !important;
+  }
+
+  .username-input.light {
+    box-shadow: 0 0 3px 1px black inset;
+  }
+
+  .username-input.dark {
+    box-shadow: 0 0 3px 1px white inset;
+    color: black;
   }
 
   button {
@@ -103,7 +134,7 @@ body {
     font-size: 15px;
     outline: none;
     background-color: transparent;
-    color: #0f80ff;
+    color: #222;
     cursor: pointer;
   }
 
@@ -114,8 +145,7 @@ body {
   .top {
     margin-bottom: 3%;
     font-family: "Merriweather", serif;
-    font-size: 24px;
-    color: white;
+    font-size: 18px;
   }
 
   .top-all-time::before {
@@ -123,7 +153,7 @@ body {
     float: right;
     margin-top: 0.6em;
     border-top: 2px solid silver;
-    width: 62%;
+    width: 71%;
     content: "";
   }
 
@@ -132,7 +162,7 @@ body {
     float: right;
     margin-top: 0.6em;
     border-top: 2px solid silver;
-    width: 39%;
+    width: 54%;
     content: "";
   }
 
@@ -141,7 +171,7 @@ body {
     float: right;
     margin-top: 0.6em;
     border-top: 2px solid silver;
-    width: 26%;
+    width: 44%;
     content: "";
   }
 
@@ -161,9 +191,17 @@ body {
     scroll-behavior: smooth;
   }
 
-  .scrolling-wrapper > img {
+  .scrolling-wrapper > img.dark {
     flex: 0 0 auto;
     width: 29.5%;
+    border: 2px solid white;
+    border-radius: 5px;
+  }
+
+  .scrolling-wrapper > img.light {
+    flex: 0 0 auto;
+    width: 29.5%;
+    border: 2px solid black;
     border-radius: 5px;
   }
 
@@ -182,7 +220,6 @@ body {
 
   .details-row {
     text-align: center;
-    color: white;
   }
 
   .anime-title {
@@ -207,7 +244,6 @@ body {
     text-align: center;
     font-family: "Lato", sans-serif;
     font-size: 28px;
-    color: white;
   }
 
   .user-search {
@@ -229,14 +265,6 @@ body {
     color: white;
     background-color: #222;
   }
-
-  /* tbody > tr:nth-child(odd) {
-  background-color: darkgray;
-}
-
-tr:nth-child(even) {
-  background-color: var(--main);
-} */
 
   thead {
     background-color: #333;
@@ -283,50 +311,153 @@ tr:nth-child(even) {
     width: 34%;
   }
 
-  .scrolling-wrapper > img {
+  .scrolling-wrapper > img.dark {
     width: 30%;
+    border: 2px solid white;
+  }
+
+  .scrolling-wrapper > img.light {
+    width: 30%;
+    border: 2px solid black;
   }
 }
 
 @media screen and (min-width: 768px) {
   header {
-    margin-bottom: 3%;
+    margin-bottom: 5%;
   }
 
   a {
     margin-right: 1.7%;
+    font-size: 24px;
   }
 
   .home-tag {
-    margin-right: 52%;
+    margin-right: 30%;
   }
 
   .user-tag {
-    margin-right: 2%;
+    font-size: 24px;
+    margin-right: 11%;
+  }
+
+  .light-dark-mode {
+    font-size: 24px;
+    margin-right: 4%;
   }
 
   .anime-img > img {
     width: 36%;
   }
 
+  .top {
+    font-size: 32px;
+  }
+
   .top-all-time::before {
-    width: 81%;
+    width: 75%;
   }
 
   .top-airing::before {
-    width: 70%;
+    width: 60%;
   }
 
   .top-upcoming::before {
-    width: 64%;
+    width: 51%;
+  }
+
+  .list-header {
+    font-size: 48px;
+  }
+
+  .anime-bio {
+    font-size: 24px;
+  }
+
+  .mal-question {
+    font-size: 36px;
+  }
+
+  .user-search > span {
+    font-size: 24px;
+  }
+
+  table,
+  th,
+  td {
+    font-size: 24px;
   }
 
   .username-input {
-    width: 41%;
+    width: 60%;
+    font-size: 18px;
   }
 
-  .scrolling-wrapper > img {
+  .scrolling-wrapper > img.dark {
     width: 31.3%;
+    border: 2px solid white;
+  }
+
+  .scrolling-wrapper > img.light {
+    width: 31.3%;
+    border: 2px solid black;
+  }
+}
+
+@media screen and (min-width: 667px) and (orientation: landscape) {
+  header {
+    margin-bottom: 2%;
+  }
+
+  .user-tag {
+    margin-right: 2%;
+  }
+
+  .home-tag {
+    margin-right: 36%;
+  }
+
+  .light-dark-mode {
+    margin-right: 3%;
+  }
+
+  .top {
+    font-size: 24px;
+  }
+
+  .top-all-time::before {
+    width: 78%;
+  }
+
+  .top-airing::before {
+    width: 65%;
+  }
+
+  .top-upcoming::before {
+    width: 57%;
+  }
+
+  .scrolling-wrapper > img.dark {
+    width: 22.6%;
+    border: 2px solid white;
+  }
+
+  .scrolling-wrapper > img.light {
+    width: 22.6%;
+    border: 2px solid black;
+  }
+
+  .anime-img > img {
+    width: 27%;
+  }
+
+  .mal-question {
+    margin-bottom: 8%;
+    margin-top: 9%;
+  }
+
+  .username-input {
+    width: 50%;
   }
 }
 
@@ -339,8 +470,14 @@ tr:nth-child(even) {
     font-size: 36px;
   }
 
-  .scrolling-wrapper > img {
+  .scrolling-wrapper > img.dark {
     width: 23.1%;
+    border: 2px solid white;
+  }
+
+  .scrolling-wrapper > img.light {
+    width: 23.1%;
+    border: 2px solid black;
   }
 
   .scrolling-wrapper > img:not(:last-child) {
@@ -348,10 +485,14 @@ tr:nth-child(even) {
   }
 
   .home-tag {
-    margin-right: 58%;
+    margin-right: 35%;
   }
 
   .user-tag {
+    margin-right: 20%;
+  }
+
+  .light-dark-mode {
     margin-right: 2%;
   }
 
@@ -373,49 +514,7 @@ tr:nth-child(even) {
   }
 
   .arrow {
-    display: show;
-  }
-}
-
-@media screen and (min-width: 1920px) {
-  a {
-    font-size: 36px;
-  }
-
-  .search-container {
-    width: 20%;
-  }
-
-  .top {
-    margin-bottom: 1%;
-    font-size: 48px;
-  }
-
-  .home-tag {
-    margin-right: 71%;
-  }
-
-  .user-tag {
-    margin-right: 1%;
-  }
-
-  .top-all-time::before {
-    width: 84%;
-  }
-
-  .top-airing::before {
-    width: 75%;
-  }
-
-  .top-upcoming::before {
-    width: 70%;
-  }
-
-  .scrolling-wrapper > img {
-    width: 11.3%;
-  }
-
-  .arrow {
+    display: inline-block !important;
     font-size: 30px;
     color: #fff;
     background-color: #333;
@@ -473,6 +572,122 @@ tr:nth-child(even) {
     top: 1155px;
   }
 
+  .username-input {
+    width: 46%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  a {
+    font-size: 36px;
+  }
+
+  .search-container {
+    width: 20%;
+  }
+
+  .top {
+    margin-bottom: 1%;
+    font-size: 48px;
+  }
+
+  .home-tag {
+    margin-right: 62%;
+  }
+
+  .user-tag {
+    margin-right: 3%;
+  }
+
+  .top-all-time::before {
+    width: 84%;
+  }
+
+  .top-airing::before {
+    width: 75%;
+  }
+
+  .top-upcoming::before {
+    width: 70%;
+  }
+
+  .scrolling-wrapper > img.dark {
+    width: 11.3%;
+    border: 2px solid white;
+  }
+
+  .scrolling-wrapper > img.light {
+    width: 11.3%;
+    border: 2px solid black;
+  }
+
+  .anime-img > img {
+    width: 15%;
+  }
+
+  .arrow {
+    display: inline-block !important;
+    font-size: 30px;
+    color: #fff;
+    background-color: #333;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+  }
+
+  .top-arrow-left {
+    position: absolute;
+    padding-top: 7px;
+    padding-left: 9px;
+    left: 4px;
+    top: 275px;
+  }
+
+  .top-arrow-right {
+    position: absolute;
+    padding-top: 7px;
+    padding-left: 9px;
+    right: 4px;
+    top: 275px;
+  }
+
+  .airing-arrow-left {
+    position: absolute;
+    padding-top: 7px;
+    padding-left: 9px;
+    left: 4px;
+    top: 720px;
+  }
+
+  .airing-arrow-right {
+    position: absolute;
+    padding-top: 7px;
+    padding-left: 9px;
+    right: 4px;
+    top: 720px;
+  }
+
+  .upcoming-arrow-left {
+    position: absolute;
+    padding-top: 7px;
+    padding-left: 9px;
+    left: 4px;
+    top: 1155px;
+  }
+
+  .upcoming-arrow-right {
+    position: absolute;
+    padding-top: 7px;
+    padding-left: 9px;
+    right: 4px;
+    top: 1155px;
+  }
+
+  .list-header {
+    font-size: 36px;
+  }
+
   .row {
     margin-bottom: 2%;
   }
@@ -484,47 +699,8 @@ tr:nth-child(even) {
   .username-input {
     width: 17%;
   }
-}
 
-@media screen and (min-width: 667px) and (orientation: landscape) {
-  header {
-    margin-bottom: 2%;
-  }
-
-  .user-tag {
-    margin-right: 2%;
-  }
-
-  .home-tag {
-    margin-right: 50%;
-  }
-
-  .top-all-time::before {
-    width: 78%;
-  }
-
-  .top-airing::before {
-    width: 65%;
-  }
-
-  .top-upcoming::before {
-    width: 57%;
-  }
-
-  .scrolling-wrapper > img {
-    width: 22.6%;
-  }
-
-  .anime-img > img {
-    width: 27%;
-  }
-
-  .mal-question {
-    margin-bottom: 8%;
-    margin-top: 9%;
-  }
-
-  .username-input {
-    width: 50%;
+  .user-search > span {
+    font-size: 24px;
   }
 }

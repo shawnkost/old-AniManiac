@@ -1,41 +1,29 @@
-var $topAnime = document.querySelector('.top-img');
-var $topAiringAnime = document.querySelector('.top-airing-img');
-var $topUpcomingAnime = document.querySelector('.top-upcoming-img');
-var $home = document.querySelector('.home-container');
-var $details = document.querySelector('.details-container');
-var $detailsRow = document.querySelector('.details-row');
-var $bioRow = document.querySelector('.bio-row');
-var $iFrameRow = document.querySelector('.iframe-row');
-var $homeTag = document.querySelector('.home-tag');
-var $listRow = document.querySelector('.list-row');
-var $searchButton = document.querySelector('.search-button');
-var $searchInput = document.querySelector('.search-input');
-var $userTag = document.querySelector('.user-tag');
-var $header = document.querySelector('header');
-var $userNameInput = document.querySelector('.username-input');
-var $userNameButton = document.querySelector('.username-button');
-var $malQuestion = document.querySelector('.mal-question');
-var $wrongUsername = document.querySelector('.wrong-username');
-var $inputContainer = document.querySelector('.input-container');
-var $body = document.querySelector('body');
 
 window.addEventListener('DOMContentLoaded', function () {
   viewSwap();
 });
+
+var $homeTag = document.querySelector('.home-tag');
 
 $homeTag.addEventListener('click', function () {
   data.view = 'home';
   viewSwap();
 });
 
+var $userTag = document.querySelector('.user-tag');
+
 $userTag.addEventListener('click', function () {
   data.view = 'list';
   viewSwap();
 });
 
+var $searchButton = document.querySelector('.search-button');
+
 $searchButton.addEventListener('click', function () {
   submitSearch();
 });
+
+var $searchInput = document.querySelector('.search-input');
 
 $searchInput.addEventListener('keydown', function (event) {
   if (event.key === 'Enter') {
@@ -43,11 +31,15 @@ $searchInput.addEventListener('keydown', function (event) {
   }
 });
 
+var $userNameInput = document.querySelector('.username-input');
+
 $userNameInput.addEventListener('keydown', function (event) {
   if (event.key === 'Enter') {
     getAnimeList();
   }
 });
+
+var $userNameButton = document.querySelector('.username-button');
 
 $userNameButton.addEventListener('click', function () {
   getAnimeList();
@@ -65,40 +57,9 @@ function enableBtn() {
   $userNameButton.disabled = false;
 }
 
-function swapColors() {
-  var r = 255;
-  var g = 0;
-  var b = 0;
-  var speed = 15;
-  var check = false;
-  $header.style.backgroundColor = 'green';
-  var colorInterval = setInterval(function () {
-    if (r >= 255 && g < 255 && b <= 0) {
-      g += speed;
-    } else if (r > 0 && g >= 255 && b <= 0) {
-      r -= speed;
-    } else if (r <= 0 && g >= 255 && b < 255) {
-      b += speed;
-    } else if (r <= 0 && g > 0 && b >= 255) {
-      g -= speed;
-    } else if (r < 255 && g <= 0 && b <= 255) {
-      r += speed;
-    } else {
-      b -= speed;
-      check = true;
-    }
-    if (check === true && b <= 10) {
-      clearInterval(colorInterval);
-      $header.style.backgroundColor = '#03045e';
-    } else {
-      $header.style.backgroundColor = 'rgb(' + r + ',' + g + ',' + b + ')';
-    }
-
-  }, 1);
-  window.setTimeout(function () {
-    $header.style.backgroundColor = 'var(--main)';
-  }, 200);
-}
+var $detailsRow = document.querySelector('.details-row');
+var $bioRow = document.querySelector('.bio-row');
+var $iFrameRow = document.querySelector('.iframe-row');
 
 function submitSearch() {
   var xhr = new XMLHttpRequest();
@@ -116,9 +77,17 @@ function submitSearch() {
   xhr.send();
 }
 
+var $scrollingWrapperImg = document.querySelectorAll('.border-color');
+var $home = document.querySelector('.home-container');
+var $details = document.querySelector('.details-container');
+var $listRow = document.querySelector('.list-row');
+var $malQuestion = document.querySelector('.mal-question');
+var $wrongUsername = document.querySelector('.wrong-username');
+var $inputContainer = document.querySelector('.input-container');
+var $body = document.querySelector('body');
+
 // we swap between data.view to show the page we want to navigate to
 function viewSwap() {
-  // $body.style.backgroundColor = '#ffffff';
   if (data.view === 'home') {
     $home.setAttribute('class', 'home-container');
     $details.setAttribute('class', 'details-container hidden');
@@ -134,12 +103,12 @@ function viewSwap() {
     $home.setAttribute('class', 'home-container hidden');
     $listRow.setAttribute('class', 'row list-row hidden');
   } else if (data.view === 'list' && data.username !== '') {
+    $iFrameRow.innerHTML = '';
     $listRow.setAttribute('class', 'row list-row');
     $home.setAttribute('class', 'home-container hidden');
     $details.setAttribute('class', 'details-container hidden');
-    getAnimeList();
   } else if (data.view === 'list') {
-    swapColors();
+    $iFrameRow.innerHTML = '';
     var tbl = document.querySelector('.table');
     var lH = document.querySelector('.list-header');
     var userS = document.querySelector('.user-search');
@@ -155,15 +124,24 @@ function viewSwap() {
     $home.setAttribute('class', 'home-container hidden');
     $details.setAttribute('class', 'details-container hidden');
   }
-}
-
-function scrollContainerTop(direction) {
-  if (direction === 'left') {
-    $topAnime.scrollLeft -= 227;
+  if ($body.classList.contains('light')) {
+    $details.classList.add('light');
+    $listRow.classList.add('light');
+    $userNameInput.classList.add('light');
+    for (var i = 0; i < $scrollingWrapperImg.length; i++) {
+      $scrollingWrapperImg.classList.add('light');
+    }
   } else {
-    $topAnime.scrollLeft += 227;
+    $details.classList.add('dark');
+    $listRow.classList.add('dark');
+    $userNameInput.classList.add('dark');
+    for (var p = 0; p < $scrollingWrapperImg.length; p++) {
+      $scrollingWrapperImg.classList.add('dark');
+    }
   }
 }
+
+var $topAnime = document.querySelector('.top-img');
 
 // getting the top anime of all time from the API and appending the images/titles to the home page
 function getTopAnime() {
@@ -173,6 +151,12 @@ function getTopAnime() {
   xhr.addEventListener('load', function () {
     for (var i = 0; i < xhr.response.top.length; i++) {
       var $img = document.createElement('img');
+      $img.setAttribute('class', 'border-color');
+      if ($body.classList.contains('light')) {
+        $img.classList.add('light');
+      } else {
+        $img.classList.add('dark');
+      }
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
       $img.setAttribute('title', xhr.response.top[i].title);
@@ -199,13 +183,15 @@ function getTopAnime() {
   xhr.send();
 }
 
-function scrollContainerAiring(direction) {
+function scrollContainerTop(direction) {
   if (direction === 'left') {
-    $topAiringAnime.scrollLeft -= 227;
+    $topAnime.scrollLeft -= 227;
   } else {
-    $topAiringAnime.scrollLeft += 227;
+    $topAnime.scrollLeft += 227;
   }
 }
+
+var $topAiringAnime = document.querySelector('.top-airing-img');
 
 // getting the top airing anime from the API and appending the images/titles to the home page
 function getTopAiringAnime() {
@@ -215,6 +201,12 @@ function getTopAiringAnime() {
   xhr.addEventListener('load', function () {
     for (var i = 0; i < xhr.response.top.length; i++) {
       var $img = document.createElement('img');
+      $img.setAttribute('class', 'border-color');
+      if ($body.classList.contains('light')) {
+        $img.classList.add('light');
+      } else {
+        $img.classList.add('dark');
+      }
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
       $img.setAttribute('title', xhr.response.top[i].title);
@@ -241,13 +233,15 @@ function getTopAiringAnime() {
   xhr.send();
 }
 
-function scrollContainerUpcoming(direction) {
+function scrollContainerAiring(direction) {
   if (direction === 'left') {
-    $topUpcomingAnime.scrollLeft -= 227;
+    $topAiringAnime.scrollLeft -= 227;
   } else {
-    $topUpcomingAnime.scrollLeft += 227;
+    $topAiringAnime.scrollLeft += 227;
   }
 }
+
+var $topUpcomingAnime = document.querySelector('.top-upcoming-img');
 
 function getTopUpcomingAnime() {
   var xhr = new XMLHttpRequest();
@@ -256,6 +250,12 @@ function getTopUpcomingAnime() {
   xhr.addEventListener('load', function () {
     for (var i = 0; i < xhr.response.top.length; i++) {
       var $img = document.createElement('img');
+      $img.setAttribute('class', 'border-color');
+      if ($body.classList.contains('light')) {
+        $img.classList.add('light');
+      } else {
+        $img.classList.add('dark');
+      }
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
       $img.setAttribute('title', xhr.response.top[i].title);
@@ -282,6 +282,14 @@ function getTopUpcomingAnime() {
   xhr.send();
 }
 
+function scrollContainerUpcoming(direction) {
+  if (direction === 'left') {
+    $topUpcomingAnime.scrollLeft -= 227;
+  } else {
+    $topUpcomingAnime.scrollLeft += 227;
+  }
+}
+
 function getAnimeList() {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', `https://api.jikan.moe/v3/user/${$userNameInput.value}/animelist/all`);
@@ -296,7 +304,6 @@ function getAnimeList() {
         data.username = '';
         viewSwap();
       });
-      $body.style.backgroundColor = '#222222';
     } else {
       $wrongUsername.textContent = 'Username does not exist';
     }
@@ -362,8 +369,6 @@ function searchAnime(xhr) {
     $synopsis.textContent = xhr2.response.synopsis;
     if (xhr2.response.trailer_url !== null) {
       var $iFrame = document.createElement('iframe');
-      // $iFrame.setAttribute('width', '353');
-      // $iFrame.setAttribute('height', '199');
       $iFrame.setAttribute('src', xhr2.response.trailer_url);
       $iFrame.setAttribute('frameborder', '0');
       $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
@@ -400,10 +405,6 @@ function createTable(xhr) {
   $table.setAttribute('class', 'table');
   $newUserSearch.setAttribute('class', 'user-search');
   $newUserSpan.textContent = 'Search for new user';
-  // $newUserSpan.addEventListener('click', function () {
-  //   data.username = '';
-  //   viewSwap();
-  // });
   $thImage.textContent = 'Image';
   $thImage.setAttribute('class', 'image-td');
   $thTitle.textContent = 'Anime Title';
@@ -446,3 +447,23 @@ function createTable(xhr) {
     $tbodyRow.appendChild($tdProgress);
   }
 }
+
+var $lightDarkMode = document.querySelector('.light-dark-mode');
+
+$lightDarkMode.addEventListener('click', function () {
+  if ($body.classList.contains('light')) {
+    var $lightAll = document.querySelectorAll('.light');
+    for (var i = 0; i < $lightAll.length; i++) {
+      $lightAll[i].classList.remove('light');
+      $lightAll[i].classList.add('dark');
+    }
+    $lightDarkMode.setAttribute('class', 'far fa-lightbulb light-dark-mode');
+  } else {
+    var $darkAll = document.querySelectorAll('.dark');
+    for (var p = 0; p < $darkAll.length; p++) {
+      $darkAll[i].classList.remove('dark');
+      $darkAll[i].classList.add('light');
+    }
+    $lightDarkMode.setAttribute('class', 'fas fa-lightbulb light-dark-mode');
+  }
+});
