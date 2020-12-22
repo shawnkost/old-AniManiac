@@ -271,6 +271,10 @@ body {
     cursor: pointer;
   }
 
+  .table-container {
+    overflow: hidden;
+  }
+
   table,
   th,
   td {
