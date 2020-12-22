@@ -51,12 +51,11 @@ body {
   }
 
   .home-tag {
-    margin-right: 8%;
+    margin-right: 10%;
   }
 
   .light-dark-mode {
     font-size: 18px;
-    margin-right: 5%;
     cursor: pointer;
   }
 
@@ -70,6 +69,9 @@ body {
   .search-container {
     display: flex;
     margin-top: 2px;
+    position: absolute;
+    right: 3%;
+    width: 30%;
   }
 
   input {
@@ -148,6 +150,18 @@ body {
     font-size: 18px;
   }
 
+  .top-all-container {
+    position: relative;
+  }
+
+  .top-airing-container {
+    position: relative;
+  }
+
+  .top-upcoming-container {
+    position: relative;
+  }
+
   .top-all-time::before {
     display: block;
     float: right;
@@ -196,6 +210,7 @@ body {
     width: 29.5%;
     border: 2px solid white;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   .scrolling-wrapper > img.light {
@@ -203,6 +218,7 @@ body {
     width: 29.5%;
     border: 2px solid black;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   .scrolling-wrapper > img:not(:nth-last-child(3)) {
@@ -283,6 +299,7 @@ body {
     width: 100%;
     height: 100%;
     border: 0;
+    cursor: pointer;
   }
 
   .hidden {
@@ -295,6 +312,10 @@ body {
 }
 
 @media screen and (min-width: 375px) {
+  .home-tag {
+    margin-right: 17%;
+  }
+
   .username-input {
     width: 75%;
   }
@@ -345,6 +366,10 @@ body {
     margin-bottom: 2%;
   }
 
+  .home-tag {
+    margin-right: 31%;
+  }
+
   .top {
     font-size: 24px;
   }
@@ -389,17 +414,16 @@ body {
   }
 
   .home-tag {
-    margin-right: 30%;
+    margin-right: 34%;
   }
 
   .user-tag {
     font-size: 24px;
-    margin-right: 11%;
+    margin-right: 5%;
   }
 
   .light-dark-mode {
     font-size: 24px;
-    margin-right: 4%;
   }
 
   .anime-img > img {
@@ -475,15 +499,15 @@ body {
   }
 
   .user-tag {
-    margin-right: 2%;
+    margin-right: 5%;
   }
 
   .home-tag {
-    margin-right: 36%;
+    margin-right: 40%;
   }
 
-  .light-dark-mode {
-    margin-right: 3%;
+  .search-container {
+    width: 26%;
   }
 
   .top {
@@ -504,12 +528,10 @@ body {
 
   .scrolling-wrapper > img.dark {
     width: 22.6%;
-    border: 2px solid white;
   }
 
   .scrolling-wrapper > img.light {
     width: 22.6%;
-    border: 2px solid black;
   }
 
   .anime-img > img {
@@ -527,14 +549,6 @@ body {
 }
 
 @media screen and (min-width: 812px) {
-  .user-tag {
-    margin-right: 14%;
-  }
-
-  .home-tag {
-    margin-right: 32%;
-  }
-
   .top-all-time::before {
     width: 82%;
   }
@@ -588,15 +602,15 @@ body {
   }
 
   .home-tag {
-    margin-right: 35%;
+    margin-right: 49%;
   }
 
   .user-tag {
-    margin-right: 20%;
+    margin-right: 5%;
   }
 
-  .light-dark-mode {
-    margin-right: 2%;
+  .search-container {
+    width: 22%;
   }
 
   .top-all-time::before {
@@ -632,7 +646,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     left: 4px;
-    top: 275px;
+    top: 50%;
   }
 
   .top-arrow-right {
@@ -640,7 +654,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     right: 4px;
-    top: 275px;
+    top: 50%;
   }
 
   .airing-arrow-left {
@@ -648,7 +662,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     left: 4px;
-    top: 770px;
+    top: 50%;
   }
 
   .airing-arrow-right {
@@ -656,7 +670,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     right: 4px;
-    top: 770px;
+    top: 50%;
   }
 
   .upcoming-arrow-left {
@@ -664,7 +678,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     left: 4px;
-    top: 1260px;
+    top: 50%;
   }
 
   .upcoming-arrow-right {
@@ -672,7 +686,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     right: 4px;
-    top: 1260px;
+    top: 50%;
   }
 
   .username-input {
@@ -680,7 +694,7 @@ body {
   }
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 1400px) {
   a {
     font-size: 36px;
   }
@@ -695,33 +709,31 @@ body {
   }
 
   .home-tag {
-    margin-right: 62%;
+    margin-right: 53%;
   }
 
   .user-tag {
-    margin-right: 3%;
+    margin-right: 3.5%;
   }
 
   .top-all-time::before {
-    width: 84%;
+    width: 79%;
   }
 
   .top-airing::before {
-    width: 75%;
+    width: 67%;
   }
 
   .top-upcoming::before {
-    width: 70%;
+    width: 59%;
   }
 
   .scrolling-wrapper > img.dark {
     width: 11.3%;
-    border: 2px solid white;
   }
 
   .scrolling-wrapper > img.light {
     width: 11.3%;
-    border: 2px solid black;
   }
 
   .anime-img > img {
@@ -729,62 +741,10 @@ body {
   }
 
   .arrow {
-    display: inline-block !important;
-    font-size: 30px;
-    color: #fff;
-    background-color: #333;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
-    cursor: pointer;
-  }
-
-  .top-arrow-left {
-    position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
-    left: 4px;
-    top: 275px;
-  }
-
-  .top-arrow-right {
-    position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
-    right: 4px;
-    top: 275px;
-  }
-
-  .airing-arrow-left {
-    position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
-    left: 4px;
-    top: 720px;
-  }
-
-  .airing-arrow-right {
-    position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
-    right: 4px;
-    top: 720px;
-  }
-
-  .upcoming-arrow-left {
-    position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
-    left: 4px;
-    top: 1155px;
-  }
-
-  .upcoming-arrow-right {
-    position: absolute;
-    padding-top: 7px;
-    padding-left: 9px;
-    right: 4px;
-    top: 1155px;
+    width: 35px;
+    height: 35px;
+    padding-top: 5px;
+    padding-left: 6px;
   }
 
   .list-header {
@@ -805,5 +765,35 @@ body {
 
   .user-search > span {
     font-size: 24px;
+  }
+}
+
+@media screen and (min-width: 1550px) {
+  .home-tag {
+    margin-right: 56%;
+  }
+}
+
+@media screen and (min-width: 1850px) {
+  .home-tag {
+    margin-right: 58%;
+  }
+
+  .top-all-time::before {
+    width: 84%;
+  }
+
+  .top-airing::before {
+    width: 75%;
+  }
+
+  .top-upcoming::before {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1920px) {
+  .home-tag {
+    margin-right: 60%;
   }
 }

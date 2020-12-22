@@ -176,6 +176,7 @@ function viewSwap() {
 }
 
 var $topAnime = document.querySelector('.top-img');
+var $topAllContainer = document.querySelector('.top-all-container');
 
 // getting the top anime of all time from the API and appending the images/titles to the home page
 function getTopAnime() {
@@ -211,8 +212,8 @@ function getTopAnime() {
     $nextBtn.addEventListener('click', function () {
       scrollContainerTop('right');
     });
-    $topAnime.appendChild($previousBtn);
-    $topAnime.appendChild($nextBtn);
+    $topAllContainer.appendChild($previousBtn);
+    $topAllContainer.appendChild($nextBtn);
   });
   xhr.send();
 }
@@ -226,6 +227,7 @@ function scrollContainerTop(direction) {
 }
 
 var $topAiringAnime = document.querySelector('.top-airing-img');
+var $topAiringContainer = document.querySelector('.top-airing-container');
 
 // getting the top airing anime from the API and appending the images/titles to the home page
 function getTopAiringAnime() {
@@ -261,8 +263,8 @@ function getTopAiringAnime() {
     $nextBtn.addEventListener('click', function () {
       scrollContainerAiring('right');
     });
-    $topAiringAnime.appendChild($previousBtn);
-    $topAiringAnime.appendChild($nextBtn);
+    $topAiringContainer.appendChild($previousBtn);
+    $topAiringContainer.appendChild($nextBtn);
   });
   xhr.send();
 }
@@ -276,6 +278,7 @@ function scrollContainerAiring(direction) {
 }
 
 var $topUpcomingAnime = document.querySelector('.top-upcoming-img');
+var $topUpcomingContainer = document.querySelector('.top-upcoming-container');
 
 // getting the top upcoming anime from the API and appending the images/titles to the home page
 function getTopUpcomingAnime() {
@@ -311,8 +314,8 @@ function getTopUpcomingAnime() {
     $nextBtn.addEventListener('click', function () {
       scrollContainerUpcoming('right');
     });
-    $topAiringAnime.appendChild($previousBtn);
-    $topAiringAnime.appendChild($nextBtn);
+    $topUpcomingContainer.appendChild($previousBtn);
+    $topUpcomingContainer.appendChild($nextBtn);
   });
   xhr.send();
 }
