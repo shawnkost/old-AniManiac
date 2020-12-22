@@ -56,7 +56,8 @@ body {
 
   .light-dark-mode {
     font-size: 18px;
-    margin-right: 5%;
+
+    /* margin-right: 5%; */
     cursor: pointer;
   }
 
@@ -70,6 +71,8 @@ body {
   .search-container {
     display: flex;
     margin-top: 2px;
+    position: absolute;
+    right: 3%;
   }
 
   input {
@@ -148,6 +151,18 @@ body {
     font-size: 18px;
   }
 
+  .top-all-container {
+    position: relative;
+  }
+
+  .top-airing-container {
+    position: relative;
+  }
+
+  .top-upcoming-container {
+    position: relative;
+  }
+
   .top-all-time::before {
     display: block;
     float: right;
@@ -182,6 +197,7 @@ body {
   .anime-img > img {
     width: 78%;
     border-radius: 10px;
+    cursor: pointer;
   }
 
   .scrolling-wrapper {
@@ -399,7 +415,8 @@ body {
 
   .light-dark-mode {
     font-size: 24px;
-    margin-right: 4%;
+
+    /* margin-right: 4%; */
   }
 
   .anime-img > img {
@@ -483,7 +500,7 @@ body {
   }
 
   .light-dark-mode {
-    margin-right: 3%;
+    /* margin-right: 3%; */
   }
 
   .top {
@@ -596,7 +613,7 @@ body {
   }
 
   .light-dark-mode {
-    margin-right: 2%;
+    /* margin-right: 2%; */
   }
 
   .top-all-time::before {
@@ -632,7 +649,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     left: 4px;
-    top: 275px;
+    top: 50%;
   }
 
   .top-arrow-right {
@@ -640,7 +657,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     right: 4px;
-    top: 275px;
+    top: 50%;
   }
 
   .airing-arrow-left {
@@ -648,7 +665,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     left: 4px;
-    top: 770px;
+    top: 50%;
   }
 
   .airing-arrow-right {
@@ -656,7 +673,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     right: 4px;
-    top: 770px;
+    top: 50%;
   }
 
   .upcoming-arrow-left {
@@ -664,7 +681,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     left: 4px;
-    top: 1260px;
+    top: 50%;
   }
 
   .upcoming-arrow-right {
@@ -672,7 +689,7 @@ body {
     padding-top: 1px;
     padding-left: 3px;
     right: 4px;
-    top: 1260px;
+    top: 50%;
   }
 
   .username-input {
@@ -680,7 +697,7 @@ body {
   }
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 1400px) {
   a {
     font-size: 36px;
   }
@@ -695,11 +712,11 @@ body {
   }
 
   .home-tag {
-    margin-right: 62%;
+    margin-right: 61%;
   }
 
   .user-tag {
-    margin-right: 3%;
+    margin-right: 2%;
   }
 
   .top-all-time::before {
@@ -740,51 +757,33 @@ body {
   }
 
   .top-arrow-left {
-    position: absolute;
     padding-top: 7px;
     padding-left: 9px;
-    left: 4px;
-    top: 275px;
   }
 
   .top-arrow-right {
-    position: absolute;
     padding-top: 7px;
     padding-left: 9px;
-    right: 4px;
-    top: 275px;
   }
 
   .airing-arrow-left {
-    position: absolute;
     padding-top: 7px;
     padding-left: 9px;
-    left: 4px;
-    top: 720px;
   }
 
   .airing-arrow-right {
-    position: absolute;
     padding-top: 7px;
     padding-left: 9px;
-    right: 4px;
-    top: 720px;
   }
 
   .upcoming-arrow-left {
-    position: absolute;
     padding-top: 7px;
     padding-left: 9px;
-    left: 4px;
-    top: 1155px;
   }
 
   .upcoming-arrow-right {
-    position: absolute;
     padding-top: 7px;
     padding-left: 9px;
-    right: 4px;
-    top: 1155px;
   }
 
   .list-header {
