@@ -1,6 +1,6 @@
-# ajax-project
+# AniManiac
 
-A dynamic HTML, CSS, and JavaScript solo project.
+A web application that lets the user view the top anime of all time, along with currently airing and upcoming shows. It also allows the user to search for their anime list on MyAnimeList.net
 
 ## [Link to live demo](https://shawnkost.github.io/ajax-project/)
 
