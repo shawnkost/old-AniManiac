@@ -1,8 +1,8 @@
 # AniManiac
 
 A web application that lets the user view the top anime of all time, along with currently airing and upcoming shows. It also allows the user to search for their anime list on MyAnimeList.net
+[Link to live demo](https://shawnkost.github.io/ajax-project/)
 
-## [Link to live demo](https://shawnkost.github.io/ajax-project/)
 
 ## Current Features
 * User can view Top Anime
