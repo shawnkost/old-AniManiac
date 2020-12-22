@@ -19,7 +19,7 @@ A dynamic HTML, CSS, and JavaScript solo project.
 * Add filter capabiltiies
 
 ## Things I learned from this project
-* Designing websites is way more difficult than it looks
 * How to make network requests and work around the data provided by an API
 * How to create a horizontal scrolling container for mobile
 * The importance of planning your project completely before you start to maximize your time coding
+* UI Design is a lot harder than I thought
