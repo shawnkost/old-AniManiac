@@ -23,3 +23,8 @@ A dynamic HTML, CSS, and JavaScript solo project.
 * How to create a horizontal scrolling container for mobile
 * The importance of planning your project completely before you start to maximize your time coding
 * UI Design is a lot harder than I thought
+
+## Screenshots
+![homePage](https://user-images.githubusercontent.com/71413368/102849573-48480180-43cc-11eb-90df-01718a8a4c22.png)
+![animeList](https://user-images.githubusercontent.com/71413368/102849610-5ac23b00-43cc-11eb-8d2f-57c6aa1a6247.png)
+![animeDetails](https://user-images.githubusercontent.com/71413368/102849712-93621480-43cc-11eb-8a8e-6b9d99324022.png)
