@@ -22,7 +22,7 @@ A dynamic HTML, CSS, and JavaScript solo project.
 * How to make network requests and work around the data provided by an API
 * How to create a horizontal scrolling container for mobile
 * The importance of planning your project completely before you start to maximize your time coding
-* UI Design is a lot harder than I thought
+* UI Design is incredibly difficult
 
 ## Screenshots
 ![homePage](https://user-images.githubusercontent.com/71413368/102849573-48480180-43cc-11eb-90df-01718a8a4c22.png)
