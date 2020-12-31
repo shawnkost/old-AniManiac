@@ -14,7 +14,7 @@ A web application that lets the user view the top anime of all time, along with 
 * User can watch a youtube trailer for the specific anime if one is available
 * User can toggle light/dark mode
 
-## Blue Sky
+## Planned Features
 * Show rating for each anime on their details page (stars out of 10)
 * Create a search results page instead of directing you to the specific anime searched
 * Add filter capabiltiies
