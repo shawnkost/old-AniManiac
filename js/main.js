@@ -1,71 +1,71 @@
-window.addEventListener('DOMContentLoaded', function () {
+window.addEventListener('DOMContentLoaded', () => {
   viewSwap();
 });
 
-var $homeTag = document.querySelector('.home-tag');
+const $homeTag = document.querySelector('.home-tag');
 
-$homeTag.addEventListener('click', function () {
+$homeTag.addEventListener('click', () => {
   data.view = 'home';
   viewSwap();
 });
 
-var $userTag = document.querySelector('.user-tag');
+const $userTag = document.querySelector('.user-tag');
 
-$userTag.addEventListener('click', function () {
+$userTag.addEventListener('click', () => {
   data.view = 'list';
   viewSwap();
 });
 
-var $searchButton = document.querySelector('.search-button');
+const $searchButton = document.querySelector('.search-button');
 
-$searchButton.addEventListener('click', function () {
+$searchButton.addEventListener('click', () => {
   submitSearch();
 });
 
-var $searchInput = document.querySelector('.search-input');
+const $searchInput = document.querySelector('.search-input');
 
-$searchInput.addEventListener('keydown', function (event) {
+$searchInput.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     submitSearch();
   }
 });
 
-var $userNameInput = document.querySelector('.username-input');
+const $userNameInput = document.querySelector('.username-input');
 
-$userNameInput.addEventListener('keydown', function (event) {
+$userNameInput.addEventListener('keydown', event => {
   if (event.key === 'Enter') {
     getAnimeList();
   }
 });
 
-var $userNameButton = document.querySelector('.username-button');
+const $userNameButton = document.querySelector('.username-button');
 
-$userNameButton.addEventListener('click', function () {
+$userNameButton.addEventListener('click', () => {
   getAnimeList();
   disableBtn();
-  window.setTimeout(function () {
+  window.setTimeout(() => {
     enableBtn();
   }, 3000);
 });
 
-function disableBtn() {
+const disableBtn = () => {
   $userNameButton.disabled = true;
-}
+};
 
-function enableBtn() {
+const enableBtn = () => {
   $userNameButton.disabled = false;
-}
+};
 
-var $detailsRow = document.querySelector('.details-row');
-var $bioRow = document.querySelector('.bio-row');
-var $iFrameRow = document.querySelector('.iframe-row');
+const $detailsRow = document.querySelector('.details-row');
+const $bioRow = document.querySelector('.bio-row');
+const $iFrameRow = document.querySelector('.iframe-row');
 
 // searching for the anime the user inputted in the search bar and clearing any previous data
-function submitSearch() {
-  var xhr = new XMLHttpRequest();
+const submitSearch = () => {
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', `https://api.jikan.moe/v3/search/anime?q=${$searchInput.value}&page=1`);
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
+  xhr.addEventListener('load', () => {
     $detailsRow.innerHTML = '';
     $bioRow.innerHTML = '';
     $iFrameRow.innerHTML = '';
@@ -75,18 +75,18 @@ function submitSearch() {
   });
   $searchInput.value = '';
   xhr.send();
-}
+};
 
 // sending an API request for the specific title that was searched and creating a dom tree with the results
-function searchAnime(xhr) {
-  var xhr2 = new XMLHttpRequest();
+const searchAnime = xhr => {
+  const xhr2 = new XMLHttpRequest();
   xhr2.open('GET', `https://api.jikan.moe/v3/anime/${xhr.response.results[0].mal_id}`);
   xhr2.responseType = 'json';
-  xhr2.addEventListener('load', function () {
-    var $animeTitle = document.createElement('div');
-    var $animeImgContainer = document.createElement('div');
-    var $animeImg = document.createElement('img');
-    var $synopsis = document.createElement('div');
+  xhr2.addEventListener('load', () => {
+    const $animeTitle = document.createElement('div');
+    const $animeImgContainer = document.createElement('div');
+    const $animeImg = document.createElement('img');
+    const $synopsis = document.createElement('div');
     $animeTitle.setAttribute('class', 'anime-title');
     $animeTitle.textContent = xhr2.response.title;
     $animeImgContainer.setAttribute('class', 'anime-img');
@@ -95,7 +95,7 @@ function searchAnime(xhr) {
     $synopsis.setAttribute('class', 'anime-bio');
     $synopsis.textContent = xhr2.response.synopsis;
     if (xhr2.response.trailer_url !== null) {
-      var $iFrame = document.createElement('iframe');
+      const $iFrame = document.createElement('iframe');
       $iFrame.setAttribute('src', xhr2.response.trailer_url);
       $iFrame.setAttribute('frameborder', '0');
       $iFrame.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
@@ -108,20 +108,20 @@ function searchAnime(xhr) {
     $bioRow.appendChild($synopsis);
   });
   xhr2.send();
-}
+};
 
-var $scrollingWrapperImg = document.querySelectorAll('.border-color');
-var $home = document.querySelector('.home-container');
-var $details = document.querySelector('.details-container');
-var $listRow = document.querySelector('.list-row');
-var $malQuestion = document.querySelector('.mal-question');
-var $wrongUsername = document.querySelector('.wrong-username');
-var $inputContainer = document.querySelector('.input-container');
-var $body = document.querySelector('body');
-var $userIcon = document.querySelector('.user-icon');
+const $scrollingWrapperImg = document.querySelectorAll('.border-color');
+const $home = document.querySelector('.home-container');
+const $details = document.querySelector('.details-container');
+const $listRow = document.querySelector('.list-row');
+const $malQuestion = document.querySelector('.mal-question');
+const $wrongUsername = document.querySelector('.wrong-username');
+const $inputContainer = document.querySelector('.input-container');
+const $body = document.querySelector('body');
+const $userIcon = document.querySelector('.user-icon');
 
 // swap between data.view to show the page we want to navigate to
-function viewSwap() {
+const viewSwap = () => {
   if (data.view === 'home') {
     $home.setAttribute('class', 'home-container');
     $details.setAttribute('class', 'details-container hidden');
@@ -143,9 +143,9 @@ function viewSwap() {
     $details.setAttribute('class', 'details-container hidden');
   } else if (data.view === 'list') {
     $iFrameRow.innerHTML = '';
-    var tbl = document.querySelector('.table');
-    var lH = document.querySelector('.list-header');
-    var userS = document.querySelector('.user-search');
+    const tbl = document.querySelector('.table');
+    const lH = document.querySelector('.list-header');
+    const userS = document.querySelector('.user-search');
     if (tbl) {
       tbl.remove();
       lH.remove();
@@ -162,30 +162,30 @@ function viewSwap() {
     $details.classList.add('light');
     $listRow.classList.add('light');
     $userNameInput.classList.add('light');
-    for (var i = 0; i < $scrollingWrapperImg.length; i++) {
+    for (let i = 0; i < $scrollingWrapperImg.length; i++) {
       $scrollingWrapperImg.classList.add('light');
     }
   } else {
     $details.classList.add('dark');
     $listRow.classList.add('dark');
     $userNameInput.classList.add('dark');
-    for (var p = 0; p < $scrollingWrapperImg.length; p++) {
+    for (let p = 0; p < $scrollingWrapperImg.length; p++) {
       $scrollingWrapperImg.classList.add('dark');
     }
   }
-}
+};
 
-var $topAnime = document.querySelector('.top-img');
-var $topAllContainer = document.querySelector('.top-all-container');
+const $topAnime = document.querySelector('.top-img');
+const $topAllContainer = document.querySelector('.top-all-container');
 
 // getting the top anime of all time from the API and appending the images/titles to the home page
-function getTopAnime() {
-  var xhr = new XMLHttpRequest();
+const getTopAnime = () => {
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v3/top/anime');
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    for (var i = 0; i < xhr.response.top.length; i++) {
-      var $img = document.createElement('img');
+  xhr.addEventListener('load', () => {
+    for (let i = 0; i < xhr.response.top.length; i++) {
+      const $img = document.createElement('img');
       $img.setAttribute('class', 'border-color');
       if ($body.classList.contains('light')) {
         $img.classList.add('light');
@@ -195,48 +195,48 @@ function getTopAnime() {
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
       $img.setAttribute('title', xhr.response.top[i].title);
-      $img.addEventListener('click', function (event) {
+      $img.addEventListener('click', event => {
         data.view = 'details';
         viewSwap();
         loopOverAnime(xhr, event);
       });
       $topAnime.appendChild($img);
     }
-    var $previousBtn = document.createElement('i');
-    var $nextBtn = document.createElement('i');
+    const $previousBtn = document.createElement('i');
+    const $nextBtn = document.createElement('i');
     $previousBtn.setAttribute('class', 'fas fa-arrow-left top-arrow-left arrow');
-    $previousBtn.addEventListener('click', function () {
+    $previousBtn.addEventListener('click', () => {
       scrollContainerTop('left');
     });
     $nextBtn.setAttribute('class', 'fas fa-arrow-right top-arrow-right arrow');
-    $nextBtn.addEventListener('click', function () {
+    $nextBtn.addEventListener('click', () => {
       scrollContainerTop('right');
     });
     $topAllContainer.appendChild($previousBtn);
     $topAllContainer.appendChild($nextBtn);
   });
   xhr.send();
-}
+};
 
-function scrollContainerTop(direction) {
+const scrollContainerTop = direction => {
   if (direction === 'left') {
     $topAnime.scrollLeft -= 227;
   } else {
     $topAnime.scrollLeft += 227;
   }
-}
+};
 
-var $topAiringAnime = document.querySelector('.top-airing-img');
-var $topAiringContainer = document.querySelector('.top-airing-container');
+const $topAiringAnime = document.querySelector('.top-airing-img');
+const $topAiringContainer = document.querySelector('.top-airing-container');
 
 // getting the top airing anime from the API and appending the images/titles to the home page
-function getTopAiringAnime() {
-  var xhr = new XMLHttpRequest();
+const getTopAiringAnime = () => {
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/airing');
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    for (var i = 0; i < xhr.response.top.length; i++) {
-      var $img = document.createElement('img');
+  xhr.addEventListener('load', () => {
+    for (let i = 0; i < xhr.response.top.length; i++) {
+      const $img = document.createElement('img');
       $img.setAttribute('class', 'border-color');
       if ($body.classList.contains('light')) {
         $img.classList.add('light');
@@ -246,48 +246,48 @@ function getTopAiringAnime() {
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
       $img.setAttribute('title', xhr.response.top[i].title);
-      $img.addEventListener('click', function (event) {
+      $img.addEventListener('click', event => {
         data.view = 'details';
         viewSwap();
         loopOverAnime(xhr, event);
       });
       $topAiringAnime.appendChild($img);
     }
-    var $previousBtn = document.createElement('i');
-    var $nextBtn = document.createElement('i');
+    const $previousBtn = document.createElement('i');
+    const $nextBtn = document.createElement('i');
     $previousBtn.setAttribute('class', 'fas fa-arrow-left airing-arrow-left arrow');
-    $previousBtn.addEventListener('click', function () {
+    $previousBtn.addEventListener('click', () => {
       scrollContainerAiring('left');
     });
     $nextBtn.setAttribute('class', 'fas fa-arrow-right airing-arrow-right arrow');
-    $nextBtn.addEventListener('click', function () {
+    $nextBtn.addEventListener('click', () => {
       scrollContainerAiring('right');
     });
     $topAiringContainer.appendChild($previousBtn);
     $topAiringContainer.appendChild($nextBtn);
   });
   xhr.send();
-}
+};
 
-function scrollContainerAiring(direction) {
+const scrollContainerAiring = direction => {
   if (direction === 'left') {
     $topAiringAnime.scrollLeft -= 227;
   } else {
     $topAiringAnime.scrollLeft += 227;
   }
-}
+};
 
-var $topUpcomingAnime = document.querySelector('.top-upcoming-img');
-var $topUpcomingContainer = document.querySelector('.top-upcoming-container');
+const $topUpcomingAnime = document.querySelector('.top-upcoming-img');
+const $topUpcomingContainer = document.querySelector('.top-upcoming-container');
 
 // getting the top upcoming anime from the API and appending the images/titles to the home page
-function getTopUpcomingAnime() {
-  var xhr = new XMLHttpRequest();
+const getTopUpcomingAnime = () => {
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/upcoming');
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
-    for (var i = 0; i < xhr.response.top.length; i++) {
-      var $img = document.createElement('img');
+  xhr.addEventListener('load', () => {
+    for (let i = 0; i < xhr.response.top.length; i++) {
+      const $img = document.createElement('img');
       $img.setAttribute('class', 'border-color');
       if ($body.classList.contains('light')) {
         $img.classList.add('light');
@@ -297,50 +297,50 @@ function getTopUpcomingAnime() {
       $img.setAttribute('src', xhr.response.top[i].image_url);
       $img.setAttribute('alt', xhr.response.top[i].title);
       $img.setAttribute('title', xhr.response.top[i].title);
-      $img.addEventListener('click', function (event) {
+      $img.addEventListener('click', event => {
         data.view = 'details';
         viewSwap();
         loopOverAnime(xhr, event);
       });
       $topUpcomingAnime.appendChild($img);
     }
-    var $previousBtn = document.createElement('i');
-    var $nextBtn = document.createElement('i');
+    const $previousBtn = document.createElement('i');
+    const $nextBtn = document.createElement('i');
     $previousBtn.setAttribute('class', 'fas fa-arrow-left upcoming-arrow-left arrow');
-    $previousBtn.addEventListener('click', function () {
+    $previousBtn.addEventListener('click', () => {
       scrollContainerUpcoming('left');
     });
     $nextBtn.setAttribute('class', 'fas fa-arrow-right upcoming-arrow-right arrow');
-    $nextBtn.addEventListener('click', function () {
+    $nextBtn.addEventListener('click', () => {
       scrollContainerUpcoming('right');
     });
     $topUpcomingContainer.appendChild($previousBtn);
     $topUpcomingContainer.appendChild($nextBtn);
   });
   xhr.send();
-}
+};
 
-function scrollContainerUpcoming(direction) {
+const scrollContainerUpcoming = direction => {
   if (direction === 'left') {
     $topUpcomingAnime.scrollLeft -= 227;
   } else {
     $topUpcomingAnime.scrollLeft += 227;
   }
-}
+};
 
 // makes a network request to return the users anime list from myAnimeList.net
-function getAnimeList() {
-  var xhr = new XMLHttpRequest();
+const getAnimeList = () => {
+  const xhr = new XMLHttpRequest();
   xhr.open('GET', `https://api.jikan.moe/v3/user/${$userNameInput.value}/animelist/all`);
   xhr.responseType = 'json';
-  xhr.addEventListener('load', function () {
+  xhr.addEventListener('load', () => {
     if (xhr.response.status !== 400) {
       $wrongUsername.innerHTML = '';
       $userIcon.setAttribute('class', 'fas fa-user');
       $malQuestion.setAttribute('class', 'mal-question hidden');
       $inputContainer.setAttribute('class', 'input-container hidden');
       createTable(xhr);
-      $newUserSpan.addEventListener('click', function () {
+      $newUserSpan.addEventListener('click', () => {
         data.username = '';
         $userIcon.setAttribute('class', 'fas fa-user-plus');
         viewSwap();
@@ -350,25 +350,25 @@ function getAnimeList() {
     }
   });
   xhr.send();
-}
+};
 
-var $newUserSpan = null;
+let $newUserSpan = null;
 
 // creating a table in the DOM with data from the API about the users animelist
-function createTable(xhr) {
+const createTable = xhr => {
   data.username = $userNameInput.value;
-  var $listHeader = document.createElement('div');
-  var $newUserSearch = document.createElement('div');
+  const $listHeader = document.createElement('div');
+  const $newUserSearch = document.createElement('div');
   $newUserSpan = document.createElement('span');
-  var $tableContainer = document.createElement('div');
-  var $table = document.createElement('table');
-  var $thead = document.createElement('thead');
-  var $theadRow = document.createElement('tr');
-  var $thImage = document.createElement('th');
-  var $thTitle = document.createElement('th');
-  var $thScore = document.createElement('th');
-  var $thProgress = document.createElement('th');
-  var $tbody = document.createElement('tbody');
+  const $tableContainer = document.createElement('div');
+  const $table = document.createElement('table');
+  const $thead = document.createElement('thead');
+  const $theadRow = document.createElement('tr');
+  const $thImage = document.createElement('th');
+  const $thTitle = document.createElement('th');
+  const $thScore = document.createElement('th');
+  const $thProgress = document.createElement('th');
+  const $tbody = document.createElement('tbody');
   $listHeader.setAttribute('class', 'list-header');
   $listHeader.textContent = $userNameInput.value + ' ' + 'Anime List';
   $tableContainer.setAttribute('class', 'table-container');
@@ -395,13 +395,13 @@ function createTable(xhr) {
   $theadRow.appendChild($thTitle);
   $theadRow.appendChild($thScore);
   $theadRow.appendChild($thProgress);
-  for (var i = 0; i < xhr.response.anime.length; i++) {
-    var $tbodyRow = document.createElement('tr');
-    var $tdImageData = document.createElement('td');
-    var $tdImage = document.createElement('img');
-    var $tdTitle = document.createElement('td');
-    var $tdScore = document.createElement('td');
-    var $tdProgress = document.createElement('td');
+  for (let i = 0; i < xhr.response.anime.length; i++) {
+    const $tbodyRow = document.createElement('tr');
+    const $tdImageData = document.createElement('td');
+    const $tdImage = document.createElement('img');
+    const $tdTitle = document.createElement('td');
+    const $tdScore = document.createElement('td');
+    const $tdProgress = document.createElement('td');
     $tdImage.setAttribute('src', xhr.response.anime[i].image_url);
     $tdImage.setAttribute('class', 'image-td');
     $tdTitle.textContent = xhr.response.anime[i].title;
@@ -417,20 +417,20 @@ function createTable(xhr) {
     $tbodyRow.appendChild($tdScore);
     $tbodyRow.appendChild($tdProgress);
   }
-}
+};
 
 // looping over the specific anime that was clicked and creating a DOMTree with the results
-function loopOverAnime(xhr, event) {
-  for (var k = 0; k < xhr.response.top.length; k++) {
+const loopOverAnime = (xhr, event) => {
+  for (let k = 0; k < xhr.response.top.length; k++) {
     if (event.target.alt === xhr.response.top[k].title) {
-      var xhr2 = new XMLHttpRequest();
+      const xhr2 = new XMLHttpRequest();
       xhr2.open('GET', `https://api.jikan.moe/v3/anime/${xhr.response.top[k].mal_id}`);
       xhr2.responseType = 'json';
-      xhr2.addEventListener('load', function () {
-        var $animeTitle = document.createElement('div');
-        var $animeImgContainer = document.createElement('div');
-        var $animeImg = document.createElement('img');
-        var $synopsis = document.createElement('div');
+      xhr2.addEventListener('load', () => {
+        const $animeTitle = document.createElement('div');
+        const $animeImgContainer = document.createElement('div');
+        const $animeImg = document.createElement('img');
+        const $synopsis = document.createElement('div');
         $animeTitle.setAttribute('class', 'anime-title');
         $animeTitle.textContent = event.target.alt;
         $animeImgContainer.setAttribute('class', 'anime-img');
@@ -439,7 +439,7 @@ function loopOverAnime(xhr, event) {
         $synopsis.setAttribute('class', 'anime-bio');
         $synopsis.textContent = xhr2.response.synopsis;
         if (xhr2.response.trailer_url !== null) {
-          var $iFrame = document.createElement('iframe');
+          const $iFrame = document.createElement('iframe');
           $iFrame.setAttribute('width', '353');
           $iFrame.setAttribute('height', '199');
           $iFrame.setAttribute('src', xhr2.response.trailer_url);
@@ -457,21 +457,21 @@ function loopOverAnime(xhr, event) {
       return;
     }
   }
-}
+};
 
-var $lightDarkMode = document.querySelector('.light-dark-mode');
+const $lightDarkMode = document.querySelector('.light-dark-mode');
 
-$lightDarkMode.addEventListener('click', function () {
+$lightDarkMode.addEventListener('click', () => {
   if ($body.classList.contains('light')) {
-    var $lightAll = document.querySelectorAll('.light');
-    for (var i = 0; i < $lightAll.length; i++) {
+    const $lightAll = document.querySelectorAll('.light');
+    for (let i = 0; i < $lightAll.length; i++) {
       $lightAll[i].classList.remove('light');
       $lightAll[i].classList.add('dark');
     }
     $lightDarkMode.setAttribute('class', 'far fa-lightbulb light-dark-mode');
   } else {
-    var $darkAll = document.querySelectorAll('.dark');
-    for (var p = 0; p < $darkAll.length; p++) {
+    const $darkAll = document.querySelectorAll('.dark');
+    for (let p = 0; p < $darkAll.length; p++) {
       $darkAll[p].classList.remove('dark');
       $darkAll[p].classList.add('light');
     }
