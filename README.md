@@ -18,6 +18,7 @@ A web application that lets the user view the top anime of all time, along with 
 * Show rating for each anime on their details page (stars out of 10)
 * Create a search results page instead of directing you to the specific anime searched
 * Add filter capabiltiies
+* Reformat CSS
 
 ## Things I learned from this project
 * How to make network requests and work around the data provided by an API
