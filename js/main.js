@@ -74,6 +74,9 @@ const submitSearch = () => {
     searchAnime(xhr);
   });
   $searchInput.value = '';
+  xhr.onerror = () => {
+    alert('An unexpected error occurred');
+  };
   xhr.send();
 };
 
@@ -107,6 +110,9 @@ const searchAnime = xhr => {
     $animeImgContainer.appendChild($animeImg);
     $bioRow.appendChild($synopsis);
   });
+  xhr2.onerror = () => {
+    alert('An unexpected error occurred');
+  };
   xhr2.send();
 };
 
@@ -215,6 +221,9 @@ const getTopAnime = () => {
     $topAllContainer.appendChild($previousBtn);
     $topAllContainer.appendChild($nextBtn);
   });
+  xhr.onerror = () => {
+    alert('An unexpected error occurred');
+  };
   xhr.send();
 };
 
@@ -266,6 +275,9 @@ const getTopAiringAnime = () => {
     $topAiringContainer.appendChild($previousBtn);
     $topAiringContainer.appendChild($nextBtn);
   });
+  xhr.onerror = () => {
+    alert('An unexpected error occurred');
+  };
   xhr.send();
 };
 
@@ -317,6 +329,9 @@ const getTopUpcomingAnime = () => {
     $topUpcomingContainer.appendChild($previousBtn);
     $topUpcomingContainer.appendChild($nextBtn);
   });
+  xhr.onerror = () => {
+    alert('An unexpected error occurred');
+  };
   xhr.send();
 };
 
@@ -349,6 +364,9 @@ const getAnimeList = () => {
       $wrongUsername.textContent = 'Username does not exist';
     }
   });
+  xhr.onerror = () => {
+    alert('An unexpected error occurred');
+  };
   xhr.send();
 };
 
@@ -453,6 +471,9 @@ const loopOverAnime = (xhr, event) => {
         $animeImgContainer.appendChild($animeImg);
         $bioRow.appendChild($synopsis);
       });
+      xhr2.onerror = () => {
+        alert('An unexpected error occurred');
+      };
       xhr2.send();
       return;
     }
