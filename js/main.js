@@ -544,6 +544,11 @@ const createTheme = () => {
   if (window.localStorage.getItem('theme')) {
     const theme = window.localStorage.getItem('theme');
     $body.setAttribute('class', `${theme}`);
+    if (theme === 'light') {
+      $lightDarkMode.setAttribute('class', 'fas fa-lightbulb light-dark-mode');
+    }
+  } else {
+    $body.setAttribute('class', 'dark');
   }
   $lightDarkMode.addEventListener('click', () => {
     if ($body.classList.contains('light')) {
