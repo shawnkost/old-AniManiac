@@ -1,4 +1,3 @@
-const loader = document.querySelector('.loader');
 
 window.addEventListener('DOMContentLoaded', () => {
   viewSwap();
@@ -65,13 +64,6 @@ const $iFrameRow = document.querySelector('.iframe-row');
 // searching for the anime the user inputted in the search bar and clearing any previous data
 const submitSearch = () => {
   const xhr = new XMLHttpRequest();
-  xhr.onreadystatechange = () => {
-    if (this.readyState !== 4) {
-      loader.setAttribute('class', 'loader');
-    } else {
-      loader.setAttribute('class', 'loader hide');
-    }
-  };
   xhr.open(
     'GET',
     `https://api.jikan.moe/v3/search/anime?q=${$searchInput.value}&page=1`
