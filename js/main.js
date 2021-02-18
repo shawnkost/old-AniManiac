@@ -95,14 +95,11 @@ const submitSearch = () => {
 // sending an API request for the specific title that was searched and creating a dom tree with the results
 
 const searchAnime = xhr => {
+  window.scrollTo(0, 0);
+  const loader = document.createElement('div');
+  loader.setAttribute('class', 'loader');
+  $detailsRow.appendChild(loader);
   const xhr2 = new XMLHttpRequest();
-  xhr.onreadystatechange = () => {
-    if (this.readyState !== 4) {
-      loader.setAttribute('class', 'loader');
-    } else {
-      loader.setAttribute('class', 'loader hide');
-    }
-  };
   xhr2.open(
     'GET',
     `https://api.jikan.moe/v3/anime/${xhr.response.results[0].mal_id}`
@@ -126,11 +123,12 @@ const searchAnime = xhr => {
       $iFrame.setAttribute('frameborder', '0');
       $iFrame.setAttribute(
         'allow',
-        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+        'accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
       );
       $iFrame.setAttribute('allowfullscreen', 'allowfullscreen');
       $iFrameRow.appendChild($iFrame);
     }
+    loader.setAttribute('class', 'loader hidden');
     $detailsRow.appendChild($animeTitle);
     $detailsRow.appendChild($animeImgContainer);
     $animeImgContainer.appendChild($animeImg);
