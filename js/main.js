@@ -531,6 +531,7 @@ const loopOverAnime = (xhr, event) => {
       });
       xhr2.onerror = () => {
         alert('An unexpected error occurred');
+        loader.setAttribute('class', 'loader hidden');
       };
       xhr2.send();
       return;
