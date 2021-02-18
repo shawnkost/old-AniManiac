@@ -1,5 +1,6 @@
 
 window.addEventListener('DOMContentLoaded', () => {
+  createTheme();
   viewSwap();
 });
 
@@ -134,6 +135,9 @@ const searchAnime = xhr => {
 
 const $scrollingWrapperImg = document.querySelectorAll('.border-color');
 const $home = document.querySelector('.home-container');
+const $topAllTimeHeader = document.querySelector('.top-all-time');
+const $topAiringHeader = document.querySelector('.top-airing');
+const $topUpcomingHeader = document.querySelector('.top-upcoming');
 const $details = document.querySelector('.details-container');
 const $listRow = document.querySelector('.list-row');
 const $malQuestion = document.querySelector('.mal-question');
@@ -181,6 +185,9 @@ const viewSwap = () => {
     $details.setAttribute('class', 'details-container hidden');
   }
   if ($body.classList.contains('light')) {
+    $topAllTimeHeader.classList.add('light');
+    $topAiringHeader.classList.add('light');
+    $topUpcomingHeader.classList.add('light');
     $details.classList.add('light');
     $listRow.classList.add('light');
     $userNameInput.classList.add('light');
@@ -188,6 +195,9 @@ const viewSwap = () => {
       $scrollingWrapperImg.classList.add('light');
     }
   } else {
+    $topAllTimeHeader.classList.remove('light');
+    $topAiringHeader.classList.remove('light');
+    $topUpcomingHeader.classList.remove('light');
     $details.classList.add('dark');
     $listRow.classList.add('dark');
     $userNameInput.classList.add('dark');
@@ -530,20 +540,31 @@ const loopOverAnime = (xhr, event) => {
 
 const $lightDarkMode = document.querySelector('.light-dark-mode');
 
-$lightDarkMode.addEventListener('click', () => {
-  if ($body.classList.contains('light')) {
-    const $lightAll = document.querySelectorAll('.light');
-    for (let i = 0; i < $lightAll.length; i++) {
-      $lightAll[i].classList.remove('light');
-      $lightAll[i].classList.add('dark');
-    }
-    $lightDarkMode.setAttribute('class', 'far fa-lightbulb light-dark-mode');
-  } else {
-    const $darkAll = document.querySelectorAll('.dark');
-    for (let p = 0; p < $darkAll.length; p++) {
-      $darkAll[p].classList.remove('dark');
-      $darkAll[p].classList.add('light');
-    }
-    $lightDarkMode.setAttribute('class', 'fas fa-lightbulb light-dark-mode');
+const createTheme = () => {
+  if (window.localStorage.getItem('theme')) {
+    const theme = window.localStorage.getItem('theme');
+    $body.setAttribute('class', `${theme}`);
   }
-});
+  $lightDarkMode.addEventListener('click', () => {
+    if ($body.classList.contains('light')) {
+      window.localStorage.setItem('theme', 'dark');
+      const $lightAll = document.querySelectorAll('.light');
+      for (let i = 0; i < $lightAll.length; i++) {
+        $lightAll[i].classList.remove('light');
+        $lightAll[i].classList.add('dark');
+      }
+      $lightDarkMode.setAttribute('class', 'far fa-lightbulb light-dark-mode');
+    } else {
+      window.localStorage.setItem('theme', 'light');
+      const $darkAll = document.querySelectorAll('.dark');
+      $topAllTimeHeader.classList.add('light');
+      $topAiringHeader.classList.add('light');
+      $topUpcomingHeader.classList.add('light');
+      for (let p = 0; p < $darkAll.length; p++) {
+        $darkAll[p].classList.remove('dark');
+        $darkAll[p].classList.add('light');
+      }
+      $lightDarkMode.setAttribute('class', 'fas fa-lightbulb light-dark-mode');
+    }
+  });
+};
