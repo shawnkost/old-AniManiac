@@ -8,10 +8,6 @@
   --accent: #0e5e03;
 }
 
-body {
-  background-color: #222;
-}
-
 .light {
   color: #222;
   background-color: #fff;
@@ -28,6 +24,24 @@ body {
   border-top: 2px solid black;
 }
 
+.loader {
+  position: absolute;
+  right: 45%;
+  top: 30vh;
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 2s linear infinite;
+  z-index: 1;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 @media screen and (min-width: 320px) {
   header {
     display: flex;
@@ -42,15 +56,13 @@ body {
   }
 
   a {
-    margin-right: 2.7%;
     color: inherit;
     text-decoration: none;
-    font-size: 18px;
-    border-radius: 11px;
     cursor: pointer;
   }
 
   .home-tag {
+    font-size: 18px;
     margin-right: 10%;
   }
 
@@ -64,6 +76,7 @@ body {
     padding: 1px 8px 4px 11px;
     font-size: 18px;
     margin-right: 6%;
+    border-radius: 11px;
   }
 
   .search-container {
@@ -412,12 +425,8 @@ body {
     margin-bottom: 5%;
   }
 
-  a {
-    margin-right: 1.7%;
-    font-size: 24px;
-  }
-
   .home-tag {
+    font-size: 24px;
     margin-right: 34%;
   }
 
@@ -699,10 +708,6 @@ body {
 }
 
 @media screen and (min-width: 1400px) {
-  a {
-    font-size: 36px;
-  }
-
   .search-container {
     width: 20%;
   }
@@ -713,10 +718,12 @@ body {
   }
 
   .home-tag {
+    font-size: 36px;
     margin-right: 53%;
   }
 
   .user-tag {
+    font-size: 36px;
     margin-right: 3.5%;
   }
 
