@@ -213,10 +213,10 @@ const $topAllContainer = document.querySelector('.top-all-container');
 // getting the top anime of all time from the API and appending the images/titles to the home page
 const getTopAnime = () => {
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v3/top/anime');
+  xhr.open('GET', 'https://api.jikan.moe/v4/top/anime');
   xhr.responseType = 'json';
   xhr.addEventListener('load', () => {
-    for (let i = 0; i < xhr.response.top.length; i++) {
+    for (let i = 0; i < xhr.response.data.length; i++) {
       const $img = document.createElement('img');
       $img.setAttribute('class', 'border-color');
       if ($body.classList.contains('light')) {
@@ -224,9 +224,9 @@ const getTopAnime = () => {
       } else {
         $img.classList.add('dark');
       }
-      $img.setAttribute('src', xhr.response.top[i].image_url);
-      $img.setAttribute('alt', xhr.response.top[i].title);
-      $img.setAttribute('title', xhr.response.top[i].title);
+      $img.setAttribute('src', xhr.response.data[i].images.jpg.image_url);
+      $img.setAttribute('alt', xhr.response.data[i].title);
+      $img.setAttribute('title', xhr.response.data[i].title);
       $img.addEventListener('click', event => {
         data.view = 'details';
         viewSwap();
