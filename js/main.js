@@ -270,10 +270,10 @@ const $topAiringContainer = document.querySelector('.top-airing-container');
 // getting the top airing anime from the API and appending the images/titles to the home page
 const getTopAiringAnime = () => {
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/airing');
+  xhr.open('GET', 'https://api.jikan.moe/v4/top/anime?filter=airing');
   xhr.responseType = 'json';
   xhr.addEventListener('load', () => {
-    for (let i = 0; i < xhr.response.top.length; i++) {
+    for (let i = 0; i < xhr.response.data.length; i++) {
       const $img = document.createElement('img');
       $img.setAttribute('class', 'border-color');
       if ($body.classList.contains('light')) {
@@ -281,9 +281,9 @@ const getTopAiringAnime = () => {
       } else {
         $img.classList.add('dark');
       }
-      $img.setAttribute('src', xhr.response.top[i].image_url);
-      $img.setAttribute('alt', xhr.response.top[i].title);
-      $img.setAttribute('title', xhr.response.top[i].title);
+      $img.setAttribute('src', xhr.response.data[i].images.jpg.image_url);
+      $img.setAttribute('alt', xhr.response.data[i].title);
+      $img.setAttribute('title', xhr.response.data[i].title);
       $img.addEventListener('click', event => {
         data.view = 'details';
         viewSwap();
@@ -330,10 +330,10 @@ const $topUpcomingContainer = document.querySelector('.top-upcoming-container');
 // getting the top upcoming anime from the API and appending the images/titles to the home page
 const getTopUpcomingAnime = () => {
   const xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://api.jikan.moe/v3/top/anime/1/upcoming');
+  xhr.open('GET', 'https://api.jikan.moe/v4/top/anime?filter=upcoming');
   xhr.responseType = 'json';
   xhr.addEventListener('load', () => {
-    for (let i = 0; i < xhr.response.top.length; i++) {
+    for (let i = 0; i < xhr.response.data.length; i++) {
       const $img = document.createElement('img');
       $img.setAttribute('class', 'border-color');
       if ($body.classList.contains('light')) {
@@ -341,9 +341,9 @@ const getTopUpcomingAnime = () => {
       } else {
         $img.classList.add('dark');
       }
-      $img.setAttribute('src', xhr.response.top[i].image_url);
-      $img.setAttribute('alt', xhr.response.top[i].title);
-      $img.setAttribute('title', xhr.response.top[i].title);
+      $img.setAttribute('src', xhr.response.data[i].images.jpg.image_url);
+      $img.setAttribute('alt', xhr.response.data[i].title);
+      $img.setAttribute('title', xhr.response.data[i].title);
       $img.addEventListener('click', event => {
         data.view = 'details';
         viewSwap();
