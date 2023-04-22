@@ -18,10 +18,35 @@
   background-color: #222;
 }
 
-.top-all-time.light::before,
+.navbar {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  justify-content: space-between;
+  background-color: var(--main);
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+h1 {
+  padding: 0.5rem 0;
+  font-family: "Lato", sans-serif;
+}
+
+/* .top-all-time.light::before,
 .top-airing.light::before,
 .top-upcoming.light::before {
   border-top: 2px solid black;
+} */
+
+img {
+  width: 100%;
+}
+
+.anime {
+  display: flex;
 }
 
 .loader {
@@ -42,7 +67,7 @@
   100% { transform: rotate(360deg); }
 }
 
-@media screen and (min-width: 320px) {
+/* @media screen and (min-width: 320px) {
   header {
     display: flex;
     align-items: center;
@@ -807,4 +832,4 @@
   .home-tag {
     margin-right: 60%;
   }
-}
+} */
