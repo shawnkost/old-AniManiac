@@ -1,62 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AniManiac</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AniManiac</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Merriweather&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/styles.css">
-</head>
+  <body>
+    <div class="container">
+      <header class="row navbar">
+        <a href="#home" data-view="home" class="home-tag">AniManiac</a>
+        <!-- <a href="#list" data-view="list" class="user-tag"><i class="fas fa-user-plus user-icon"></i></a> -->
+        <i class="far fa-lightbulb light-dark-mode"></i>
+        <!-- <div class="search-container">
+        <input
+          type="text"
+          placeholder="Search"
+          name="search"
+          class="search-input"
+        />
+        <button type="submit" class="search-button">
+          <i class="fas fa-search"></i>
+        </button>
+      </div> -->
+      </header>
+      <main>
+        <div class="row">
+          <div class="column-full">
+            <h1>Top Anime</h1>
+          </div>
+        </div>
+        <div class="row flex-column">
+        </div>
 
-<body>
-  <header>
-    <a href="#home" data-view="home" class="home-tag">AniManiac</a>
-    <a href="#list" data-view="list" class="user-tag"><i class="fas fa-user-plus user-icon"></i></a>
-    <i class="far fa-lightbulb light-dark-mode"></i>
-    <div class="search-container">
-        <input type="text" placeholder="Search" name="search" class="search-input">
-        <button type="submit" class="search-button"><i class="fas fa-search"></i></button>
+          <!-- <div class="row top-airing-container">
+            <div class="top top-airing">Top Airing Anime</div>
+            <div class="scrolling-wrapper top-airing-img"></div>
+          </div>
+          <div class="row top-upcoming-container">
+            <div class="top top-upcoming">Top Upcoming Anime</div>
+            <div class="scrolling-wrapper top-upcoming-img"></div>
+          </div> -->
+        </div>
+        <!-- <div class="details-container">
+          <div class="row details-row"></div>
+          <div class="row bio-row"></div>
+          <div class="row iframe-row"></div>
+        </div>
+        <div class="row list-row list-container">
+          <div class="mal-question">
+            What is your
+            <a href="https://myanimelist.net/" target="_blank">MyAnimeList</a>
+            User Name?
+          </div>
+          <div class="wrong-username"></div>
+          <div class="input-container">
+            <input
+              type="text"
+              placeholder="Example: Shaaka24"
+              name="username"
+              class="username-input"
+            />
+            <button type="submit" class="username-button">
+              <i class="fas fa-angle-right"></i>
+            </button>
+          </div>
+        </div> -->
+      </main>
     </div>
-  </header>
-  <main>
-    <div class="home-container">
-      <div class="row top-all-container">
-        <div class="top top-all-time">Top Anime</div>
-        <div class="scrolling-wrapper top-img"></div>
-      </div>
-      <div class="row top-airing-container">
-        <div class="top top-airing">Top Airing Anime</div>
-        <div class="scrolling-wrapper top-airing-img"></div>
-      </div>
-      <div class="row top-upcoming-container">
-        <div class="top top-upcoming">Top Upcoming Anime</div>
-        <div class="scrolling-wrapper top-upcoming-img"></div>
-      </div>
-    </div>
-    <div class="details-container">
-      <div class="row details-row">
-      </div>
-      <div class="row bio-row">
-      </div>
-      <div class="row iframe-row">
-      </div>
-    </div>
-    <div class="row list-row list-container">
-      <div class="mal-question">What is your <a href="https://myanimelist.net/" target="_blank">MyAnimeList</a> User Name?</div>
-      <div class="wrong-username"></div>
-      <div class="input-container">
-        <input type="text" placeholder="Example: Shaaka24" name="username" class="username-input">
-        <button type="submit" class="username-button"><i class="fas fa-angle-right"></i></button>
-      </div>
-      </div>
-  </main>
-  <script src="https://kit.fontawesome.com/25e97e308c.js" crossorigin="anonymous"></script>
-  <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
-</body>
 
+    <script
+      src="https://kit.fontawesome.com/25e97e308c.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+  </body>
 </html>
