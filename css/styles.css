@@ -1,12 +1,8 @@
-/* ::-webkit-scrollbar {
-  width: 0;
-  background: transparent;
-} */
 
 /* Variables */
 :root {
-  --main: #BEC5AD;
-  --accent: #34252F;
+  --main: #F2F5EA;
+  --accent: #1E152A;
 }
 
 body {
@@ -24,6 +20,22 @@ body {
   background-color: #222;
 }
 
+/* Global */
+a {
+  color: white;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.4rem;
+}
+
+/* Utility */
+.align-center {
+  align-items: center;
+}
+
+.space-between {
+  justify-content: space-between;
+}
 
 
 /* Navbar */
@@ -34,31 +46,39 @@ body {
   background-color: var(--accent);
 }
 
-a {
-  color: white;
-  text-decoration: none;
-  font-family: "Lato", sans-serif;
-}
-
-
 
 /* Home page */
 h1 {
   padding: 0.5rem 0;
-  font-family: "Lato", sans-serif;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.2rem;
 }
 
 h2 {
-  font-size: 18px;
+  font-size: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
 }
 
-.column-half  > h2, .column-half > p {
-  margin-bottom: .5rem;
+h3 {
+  font-family: 'Hind', sans-serif;
+  font-weight: 400;
 }
-
 
 img {
   width: 100%;
+  height: 100%;
+  border-radius: .5rem;
+}
+
+p {
+  line-height: 1.5;
+  font-family: 'Hind', sans-serif;
+  font-weight: 300;
+}
+
+.column-half  > h2, .column-half > p, .column-half > h3{
+  margin-bottom: .5rem;
 }
 
 .anime {
@@ -68,10 +88,15 @@ img {
 
 .text-container {
   padding-left: 1rem;
+  font-size: 1rem;
 }
 
 .padding-left {
   padding-left: 1rem;
+}
+
+.anime-container {
+  flex-wrap: wrap;
 }
 
 .loader {
@@ -90,6 +115,14 @@ img {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media screen and (min-width: 768px) {
+  .anime {
+    flex-basis: 50%;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+  }
 }
 
 /* @media screen and (min-width: 320px) {

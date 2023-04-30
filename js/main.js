@@ -1,7 +1,11 @@
-const $topAnime = document.querySelector(".flex-column");
+const $topAnime = document.querySelector(".anime-container");
 
 // Getting the top anime of all time from the API and appending the images/titles to the home page
 const getTopAnime = () => {
+  if (data.topAnime) {
+    return;
+  }
+
   const xhr = new XMLHttpRequest();
   xhr.open("GET", "https://api.jikan.moe/v4/top/anime");
   xhr.responseType = "json";
@@ -12,21 +16,7 @@ const getTopAnime = () => {
       const renderedAnime = renderAnime(anime);
       $topAnime.appendChild(renderedAnime);
     }
-    // const $previousBtn = document.createElement('i');
-    // const $nextBtn = document.createElement('i');
-    // $previousBtn.setAttribute(
-    //   'class',
-    //   'fas fa-arrow-left top-arrow-left arrow'
-    // );
-    // $previousBtn.addEventListener('click', () => {
-    //   scrollContainerTop('left');
-    // });
-    // $nextBtn.setAttribute('class', 'fas fa-arrow-right top-arrow-right arrow');
-    // $nextBtn.addEventListener('click', () => {
-    //   scrollContainerTop('right');
-    // });
-    // $topAllContainer.appendChild($previousBtn);
-    // $topAllContainer.appendChild($nextBtn);
+    data.topAnime = xhr.response.data;
   });
   xhr.onerror = () => {
     alert("An unexpected error occurred");
@@ -34,7 +24,18 @@ const getTopAnime = () => {
   xhr.send();
 };
 
-getTopAnime();
+window.addEventListener('DOMContentLoaded', () => {
+  if (!data.topAnime) {
+    getTopAnime();
+  } else {
+    for (let i = 0; i < data.topAnime.length; i++) {
+      const anime = data.topAnime[i];
+      const renderedAnime = renderAnime(anime);
+      $topAnime.appendChild(renderedAnime);
+    }
+  }
+})
+
 
 const renderAnimeImage = (anime) => {
   const $imgContainer = document.createElement("div");
@@ -62,11 +63,16 @@ const renderAnimeText = (anime) => {
   const $animeTitle = document.createElement("h2");
   $animeTitle.textContent = anime.title_english;
 
-  const $animeScore = document.createElement("p");
-  $animeScore.textContent = anime.score;
+  const $animeScore = document.createElement("h3");
+  $animeScore.textContent = `Rating: ${anime.score}`;
 
   const $animeDescription = document.createElement("p");
-  const truncatedText = truncateText(anime.synopsis, 100);
+  const isMobile = window.innerWidth <= 768;
+  let numberToTruncate = 150;
+  if (isMobile) {
+    numberToTruncate = window.innerWidth - 225;
+  }
+  const truncatedText = truncateText(anime.synopsis, numberToTruncate);
   $animeDescription.textContent = truncatedText;
 
   $textContainer.appendChild($animeTitle);
