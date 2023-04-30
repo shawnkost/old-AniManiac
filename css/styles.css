@@ -1,11 +1,17 @@
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 0;
   background: transparent;
+} */
+
+/* Variables */
+:root {
+  --main: #BEC5AD;
+  --accent: #34252F;
 }
 
-:root {
-  --main: #03045e;
-  --accent: #0e5e03;
+body {
+  background-color: var(--main);
+  /* color: white; */
 }
 
 .light {
@@ -18,28 +24,38 @@
   background-color: #222;
 }
 
+
+
+/* Navbar */
 .navbar {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   justify-content: space-between;
-  background-color: var(--main);
+  background-color: var(--accent);
 }
 
 a {
   color: white;
   text-decoration: none;
+  font-family: "Lato", sans-serif;
 }
 
+
+
+/* Home page */
 h1 {
   padding: 0.5rem 0;
   font-family: "Lato", sans-serif;
 }
 
-/* .top-all-time.light::before,
-.top-airing.light::before,
-.top-upcoming.light::before {
-  border-top: 2px solid black;
-} */
+h2 {
+  font-size: 18px;
+}
+
+.column-half  > h2, .column-half > p {
+  margin-bottom: .5rem;
+}
+
 
 img {
   width: 100%;
@@ -47,6 +63,15 @@ img {
 
 .anime {
   display: flex;
+  margin-bottom: 1rem;
+}
+
+.text-container {
+  padding-left: 1rem;
+}
+
+.padding-left {
+  padding-left: 1rem;
 }
 
 .loader {
