@@ -57,7 +57,7 @@ const renderAnimeImage = (anime) => {
 
 const renderAnimeText = (anime) => {
   const $textContainer = document.createElement("div");
-  $textContainer.setAttribute("class", "column-half padding-left");
+  $textContainer.setAttribute("class", "column-half text-container");
 
   const $animeTitle = document.createElement("h2");
   $animeTitle.textContent = anime.title_english;
@@ -65,10 +65,13 @@ const renderAnimeText = (anime) => {
   const $animeScore = document.createElement("p");
   $animeScore.textContent = anime.score;
 
-  $const $animeDescription = document.createElement("p");
+  const $animeDescription = document.createElement("p");
+  const truncatedText = truncateText(anime.synopsis, 100);
+  $animeDescription.textContent = truncatedText;
 
   $textContainer.appendChild($animeTitle);
   $textContainer.appendChild($animeScore);
+  $textContainer.appendChild($animeDescription);
 
   return $textContainer;
 };
@@ -84,6 +87,10 @@ const renderAnime = (anime) => {
   $animeRow.appendChild($animeText);
 
   return $animeRow;
+};
+
+const truncateText = (words, maxLength) => {
+  return `${words.slice(0, maxLength)} ...`;
 };
 
 // window.addEventListener('DOMContentLoaded', () => {
