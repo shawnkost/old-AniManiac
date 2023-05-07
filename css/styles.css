@@ -7,7 +7,6 @@
 
 body {
   background-color: var(--main);
-  /* color: white; */
 }
 
 .light {
@@ -46,6 +45,10 @@ a {
   background-color: var(--accent);
 }
 
+.fa-lightbulb {
+  color: white;
+}
+
 
 /* Home page */
 h1 {
@@ -55,19 +58,22 @@ h1 {
 }
 
 h2 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
+  line-height: 1.4;
 }
 
 h3 {
+  font-size: 1rem;
   font-family: 'Hind', sans-serif;
   font-weight: 400;
 }
 
 img {
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
+  height: 225px;
   border-radius: .5rem;
 }
 
@@ -77,18 +83,34 @@ p {
   font-weight: 300;
 }
 
-.column-half  > h2, .column-half > p, .column-half > h3{
+.column-half  > h2, .column-half > p, .column-half > h3 {
   margin-bottom: .5rem;
 }
 
 .anime {
   display: flex;
-  margin-bottom: 1rem;
+  flex-direction: column;
+  width: 50%;
+  padding-right: .5rem;
+  margin-bottom: 1.5rem;
+}
+
+.image-container {
+  margin-bottom: .3rem;
+  transition: transform .3s ease;
+}
+
+.image-container:hover {
+  transform: scale(1.05);
+  cursor: pointer;
 }
 
 .text-container {
-  padding-left: 1rem;
   font-size: 1rem;
+}
+
+.text-container > h2 {
+  margin-bottom: .2rem;
 }
 
 .padding-left {
@@ -97,6 +119,14 @@ p {
 
 .anime-container {
   flex-wrap: wrap;
+}
+
+.anime-select-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 .loader {
@@ -117,13 +147,30 @@ p {
   100% { transform: rotate(360deg); }
 }
 
+@media screen and (min-width: 576px) {
+  .anime {
+    width: calc(100% / 3);
+  }
+}
+
 @media screen and (min-width: 768px) {
   .anime {
-    flex-basis: 50%;
+    width: calc(100% / 4);
     padding-right: 1rem;
     padding-bottom: 1rem;
   }
 }
+
+@media screen and (min-width: 995px) {
+  .anime {
+    width: calc(100% / 5);
+  }
+
+  img {
+    height: 275px;
+  }
+}
+
 
 /* @media screen and (min-width: 320px) {
   header {

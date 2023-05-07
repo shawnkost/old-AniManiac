@@ -4,9 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AniManiac</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400&family=Montserrat:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/layout.css" />
     <link rel="stylesheet" href="css/styles.css" />
@@ -36,13 +39,16 @@
     <main>
       <div class="container">
         <div class="row">
-          <div class="column-full">
+          <div class="column-full anime-select-area">
             <h1>Top Anime</h1>
-            <select name="" id="">
-              <option value="Top">Top Anime</option>
-              <option value="Airing">Top Airing Anime</option>
-              <option value="Upcoming">Top Upcoming Anime</option>
-            </select>
+            <div>
+              <label for="anime-select">Currently Viewing:</label>
+              <select name="anime-select" id="anime-select">
+                <option value="Top">Top Anime</option>
+                <option value="Airing">Top Airing Anime</option>
+                <option value="Upcoming">Top Upcoming Anime</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="row anime-container"></div>
@@ -82,6 +88,7 @@
         </div> -->
       </div>
     </main>
+    
 
     <script
       src="https://kit.fontawesome.com/25e97e308c.js"

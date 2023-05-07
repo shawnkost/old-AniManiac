@@ -2,7 +2,10 @@
 var data = {
   view: 'home',
   username: '',
-  topAnime: [],
+  topAnime: {
+    shows: [],
+    lastRetrieved: ''
+  }
 };
 
 document.addEventListener('visibilitychange', () => {

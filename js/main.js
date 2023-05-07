@@ -1,31 +1,44 @@
 const $topAnime = document.querySelector(".anime-container");
 
 // Getting the top anime of all time from the API and appending the images/titles to the home page
-const getTopAnime = () => {
-  if (data.topAnime) {
+const getTopAnime = async () => {
+  const currentTime = Date.now();
+  const dataIsHourOld = lessThanOneHourAgo(currentTime);
+
+  if (data.topAnime && !dataIsHourOld) {
     return;
   }
 
-  const xhr = new XMLHttpRequest();
-  xhr.open("GET", "https://api.jikan.moe/v4/top/anime");
-  xhr.responseType = "json";
-  xhr.addEventListener("load", () => {
-    console.log("xhr.response", xhr.response);
-    for (let i = 0; i < xhr.response.data.length; i++) {
-      const anime = xhr.response.data[i];
+  const newObj = {
+    shows: [],
+    lastRetrieved: ''
+  };
+  
+  try {
+    const response = await fetch("https://api.jikan.moe/v4/top/anime");
+    const JSONData = await response.json();
+    data.topAnime.shows = JSONData.data;
+    for (let i = 0; i < JSONData.data.length; i++) {
+      newObj.shows.push(JSONData.data[i]);
+      const anime = JSONData.data[i];
       const renderedAnime = renderAnime(anime);
       $topAnime.appendChild(renderedAnime);
     }
-    data.topAnime = xhr.response.data;
-  });
-  xhr.onerror = () => {
-    alert("An unexpected error occurred");
-  };
-  xhr.send();
-};
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+const lessThanOneHourAgo = (date) => {
+  const HOUR = 1000 * 60 * 60;
+  const anHourAgo = Date.now() - HOUR;
+
+  return date > anHourAgo;
+}
 
 window.addEventListener('DOMContentLoaded', () => {
-  if (!data.topAnime) {
+  const dataIsOlderThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
+  if (data.topAnime.length <= 0 && !dataIsOlderThanOneHour) {
     getTopAnime();
   } else {
     for (let i = 0; i < data.topAnime.length; i++) {
@@ -39,7 +52,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 const renderAnimeImage = (anime) => {
   const $imgContainer = document.createElement("div");
-  $imgContainer.setAttribute("class", "column-half image-container");
+  $imgContainer.setAttribute("class", "column-full image-container");
 
   const $img = document.createElement("img");
   $img.setAttribute("class", "border-color");
@@ -58,7 +71,7 @@ const renderAnimeImage = (anime) => {
 
 const renderAnimeText = (anime) => {
   const $textContainer = document.createElement("div");
-  $textContainer.setAttribute("class", "column-half text-container");
+  $textContainer.setAttribute("class", "column-full text-container");
 
   const $animeTitle = document.createElement("h2");
   $animeTitle.textContent = anime.title_english;
@@ -66,18 +79,18 @@ const renderAnimeText = (anime) => {
   const $animeScore = document.createElement("h3");
   $animeScore.textContent = `Rating: ${anime.score}`;
 
-  const $animeDescription = document.createElement("p");
+  // const $animeDescription = document.createElement("p");
   const isMobile = window.innerWidth <= 768;
   let numberToTruncate = 150;
   if (isMobile) {
     numberToTruncate = window.innerWidth - 225;
   }
-  const truncatedText = truncateText(anime.synopsis, numberToTruncate);
-  $animeDescription.textContent = truncatedText;
+  // const truncatedText = truncateText(anime.synopsis, numberToTruncate);
+  // $animeDescription.textContent = truncatedText;
 
   $textContainer.appendChild($animeTitle);
   $textContainer.appendChild($animeScore);
-  $textContainer.appendChild($animeDescription);
+  // $textContainer.appendChild($animeDescription);
 
   return $textContainer;
 };
