@@ -1,8 +1,15 @@
 /* exported data */
 var data = {
   view: 'home',
-  username: '',
   topAnime: {
+    shows: [],
+    lastRetrieved: ''
+  },
+  airingAnime: {
+    shows: [],
+    lastRetrieved: ''
+  },
+  upcomingAnime: {
     shows: [],
     lastRetrieved: ''
   }

@@ -27,6 +27,7 @@ a {
   font-size: 1.4rem;
 }
 
+
 /* Utility */
 .align-center {
   align-items: center;
@@ -34,6 +35,10 @@ a {
 
 .space-between {
   justify-content: space-between;
+}
+
+.hidden {
+  display: none;
 }
 
 
