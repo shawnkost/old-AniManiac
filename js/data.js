@@ -1,5 +1,5 @@
 /* exported data */
-const data = {
+let data = {
   view: "home",
   topAnime: {
     shows: [],
