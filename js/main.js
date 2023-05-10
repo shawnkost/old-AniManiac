@@ -4,42 +4,38 @@ const $pageH1 = document.querySelector("h1");
 
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
 const getTopAnime = async () => {
-  try {
-    showLoadingSpinner();
-    const response = await fetch("https://api.jikan.moe/v4/top/anime");
-    const JSONData = await response.json();
+  showLoadingSpinner();
+  const response = await fetch("https://api.jikan.moe/v4/top/anime");
+  const JSONData = await response.json();
+  if (JSONData.data) {
     data.topAnime.lastRetrieved = Date.now();
     for (let i = 0; i < JSONData.data.length; i++) {
-      hideLoadingSpinner();
       data.topAnime.shows.push(JSONData.data[i]);
       const anime = JSONData.data[i];
       const renderedAnime = renderAnime(anime);
       $animeContainer.appendChild(renderedAnime);
     }
-  } catch (error) {
-    console.error(error);
   }
+  hideLoadingSpinner();
 };
 
 /** Getting the current top airing anime from the API and appending the images/titles to the home page */
 const getTopAiringAnime = async () => {
-  try {
-    showLoadingSpinner();
-    const response = await fetch(
-      "https://api.jikan.moe/v4/top/anime?filter=airing"
-    );
-    const JSONData = await response.json();
+  showLoadingSpinner();
+  const response = await fetch(
+    "https://api.jikan.moe/v4/top/anime?filter=airing"
+  );
+  const JSONData = await response.json();
+  if (JSONData.data) {
     data.airingAnime.lastRetrieved = Date.now();
     for (let i = 0; i < JSONData.data.length; i++) {
-      hideLoadingSpinner();
       data.airingAnime.shows.push(JSONData.data[i]);
       const anime = JSONData.data[i];
       const renderedAnime = renderAnime(anime);
       $animeContainer.appendChild(renderedAnime);
     }
-  } catch (error) {
-    console.error(error);
   }
+  hideLoadingSpinner();
 };
 
 /**
@@ -132,6 +128,7 @@ const hideLoadingSpinner = () => {
 window.addEventListener("DOMContentLoaded", () => {
   const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
   if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
+    data.topAnime.shows = [];
     getTopAnime();
   } else {
     for (let i = 0; i < data.topAnime.shows.length; i++) {
