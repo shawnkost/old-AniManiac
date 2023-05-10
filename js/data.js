@@ -1,27 +1,27 @@
 /* exported data */
-var data = {
-  view: 'home',
+const data = {
+  view: "home",
   topAnime: {
     shows: [],
-    lastRetrieved: ''
+    lastRetrieved: "",
   },
   airingAnime: {
     shows: [],
-    lastRetrieved: ''
+    lastRetrieved: "",
   },
   upcomingAnime: {
     shows: [],
-    lastRetrieved: ''
-  }
+    lastRetrieved: "",
+  },
 };
 
-document.addEventListener('visibilitychange', () => {
+document.addEventListener("visibilitychange", () => {
   const JSONString = JSON.stringify(data);
-  localStorage.setItem('animaniac', JSONString);
-})
+  localStorage.setItem("animaniac", JSONString);
+});
 
-const storageData = localStorage.getItem('animaniac')
+const storageData = localStorage.getItem("animaniac");
 
 if (storageData) {
-  data = JSON.parse(storageData)
+  data = JSON.parse(storageData);
 }
