@@ -1,8 +1,8 @@
 const $animeContainer = document.querySelector(".anime-container");
-const $animeSelect = document.getElementById('anime-select');
-const $pageH1 = document.querySelector('h1');
+const $animeSelect = document.getElementById("anime-select");
+const $pageH1 = document.querySelector("h1");
 
-// Getting the top anime of all time from the API and appending the images/titles to the home page
+/** Getting the top anime of all time from the API and appending the images/titles to the home page */
 const getTopAnime = async () => {
   try {
     showLoadingSpinner();
@@ -19,12 +19,15 @@ const getTopAnime = async () => {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
+/** Getting the current top airing anime from the API and appending the images/titles to the home page */
 const getTopAiringAnime = async () => {
   try {
     showLoadingSpinner();
-    const response = await fetch("https://api.jikan.moe/v4/top/anime?filter=airing");
+    const response = await fetch(
+      "https://api.jikan.moe/v4/top/anime?filter=airing"
+    );
     const JSONData = await response.json();
     data.airingAnime.lastRetrieved = Date.now();
     for (let i = 0; i < JSONData.data.length; i++) {
@@ -37,9 +40,12 @@ const getTopAiringAnime = async () => {
   } catch (error) {
     console.error(error);
   }
-}
+};
 
-// Renders images for each anime
+/**
+ * Creates the DOM elements for the anime image
+ * @param {object} anime - All details about the anime.
+ */
 const renderAnimeImage = (anime) => {
   const $imgContainer = document.createElement("div");
   $imgContainer.setAttribute("class", "column-full image-container");
@@ -54,13 +60,18 @@ const renderAnimeImage = (anime) => {
   return $imgContainer;
 };
 
-// Renders the text for each anime on the home page
+/**
+ * Creates the DOM elements for the anime info text
+ * @param {object} anime - All details about the anime.
+ */
 const renderAnimeText = (anime) => {
   const $textContainer = document.createElement("div");
   $textContainer.setAttribute("class", "column-full text-container");
 
   const $animeTitle = document.createElement("h2");
-  $animeTitle.textContent = anime.title_english ? anime.title_english : anime.title;
+  $animeTitle.textContent = anime.title_english
+    ? anime.title_english
+    : anime.title;
 
   const $animeScore = document.createElement("h3");
   $animeScore.textContent = `Rating: ${anime.score}`;
@@ -71,7 +82,10 @@ const renderAnimeText = (anime) => {
   return $textContainer;
 };
 
-// Renders the whole anime container for each anime image & text
+/**
+ * Appends the anime text & anime image to the DOM
+ * @param {object} anime - All details about the anime.
+ */
 const renderAnime = (anime) => {
   const $animeRow = document.createElement("div");
   $animeRow.setAttribute("class", "anime");
@@ -85,35 +99,37 @@ const renderAnime = (anime) => {
   return $animeRow;
 };
 
-
-// Check if the data passed in is less than an hour ago
+/**
+ * Appends the anime text & anime image to the DOM
+ * @param {object} date - A date object
+ */
 const lessThanOneHourAgo = (date) => {
   const HOUR = 1000 * 60 * 60;
   const anHourAgo = Date.now() - HOUR;
 
   return date > anHourAgo;
-}
+};
 
 const resetAnimeContainer = () => {
   $animeContainer.replaceChildren();
-}
+};
 
 const changeHeadingText = (selectedAnime) => {
   $pageH1.textContent = `${selectedAnime} Anime`;
-}
+};
 
 const showLoadingSpinner = () => {
-  const $loader = document.querySelector('.loader');
-  $loader.classList.remove('hidden');
-}
+  const $loader = document.querySelector(".loader");
+  $loader.classList.remove("hidden");
+};
 
 const hideLoadingSpinner = () => {
-  const $loader = document.querySelector('.loader');
-  $loader.classList.add('hidden');
-}
+  const $loader = document.querySelector(".loader");
+  $loader.classList.add("hidden");
+};
 
-/// Once page loads, check if we have data or it's been an hour since the last request
-window.addEventListener('DOMContentLoaded', () => {
+/** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
+window.addEventListener("DOMContentLoaded", () => {
   const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
   if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
     getTopAnime();
@@ -124,27 +140,26 @@ window.addEventListener('DOMContentLoaded', () => {
       $animeContainer.appendChild(renderedAnime);
     }
   }
-})
+});
 
-// Check which value was selected from dropdown, remove current showing anime shows and make api request
-$animeSelect.addEventListener('change', () => {
+/** Check which value was selected from dropdown, remove current showing anime shows and make api request */
+$animeSelect.addEventListener("change", () => {
   const selectValue = event.target.value;
-
   switch (selectValue) {
-    case 'Top':
+    case "Top":
       resetAnimeContainer();
-      changeHeadingText('Top');
+      changeHeadingText("Top");
       getTopAnime();
       break;
-    case 'Airing':
+    case "Airing":
       resetAnimeContainer();
-      changeHeadingText('Top Airing');
+      changeHeadingText("Top Airing");
       getTopAiringAnime();
       break;
-    case 'Upcoming':
+    case "Upcoming":
       resetAnimeContainer();
-      changeHeadingText('Top Upcoming');
+      changeHeadingText("Top Upcoming");
       getTopUpcomingAnime();
       break;
   }
-})
+});
