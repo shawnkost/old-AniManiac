@@ -96,7 +96,7 @@ const renderAnime = (anime) => {
 };
 
 /**
- * Appends the anime text & anime image to the DOM
+ * Checks if the date passed in is less than an hour ago
  * @param {object} date - A date object
  */
 const lessThanOneHourAgo = (date) => {
