@@ -5,10 +5,41 @@ const $animeSelect = document.getElementById(
   "anime-select"
 ) as HTMLSelectElement;
 const $pageH1 = document.querySelector("h1") as HTMLHeadingElement;
+const $loader = document.querySelector(".loader") as HTMLDivElement;
 
 interface APIResponse {
   pagination: object;
   data: object[];
+}
+
+interface AnimeData {
+  mal_id: number;
+  url: string;
+  images: object;
+  trailer: object;
+  approved: boolean;
+  titles: object[];
+  title: string;
+  title_english: string;
+  title_japanese: string;
+  title_synonyms: object[];
+  type: string;
+  source: string;
+  episodes: number;
+  status: string;
+  airing: boolean;
+  aired: object;
+  duration: string;
+  rating: string;
+  score: number;
+  scored_by: number;
+  rank: number;
+  popularity: number;
+  members: number;
+  favorites: number;
+  synopsis: string;
+  season: string;
+  year: number;
 }
 
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
@@ -16,11 +47,13 @@ const getTopAnime = async () => {
   showLoadingSpinner();
   const response = await fetch("https://api.jikan.moe/v4/top/anime");
   const JSONData: APIResponse = await response.json();
-  if (JSONData.data) {
+  const animeData: object[] = JSONData.data;
+  if (animeData) {
     data.topAnime.lastRetrieved = Date.now();
-    for (let i = 0; i < JSONData.data.length; i++) {
-      data.topAnime.shows.push(JSONData.data[i]);
-      const anime = JSONData.data[i];
+    for (let i = 0; i < animeData.length; i++) {
+      const animeObject: AnimeData = animeData[i];
+      data.topAnime.shows.push(animeObject);
+      const anime = animeObject;
       const renderedAnime = renderAnime(anime);
       $animeContainer.appendChild(renderedAnime);
     }
@@ -52,7 +85,7 @@ const getTopAiringAnime = async () => {
  * Creates the DOM elements for the anime image
  * @param {object} anime - All details about the anime.
  */
-const renderAnimeImage = (anime: object) => {
+const renderAnimeImage = (anime: AnimeData) => {
   const $imgContainer = document.createElement("div");
   $imgContainer.setAttribute("class", "column-full image-container");
 
@@ -69,8 +102,9 @@ const renderAnimeImage = (anime: object) => {
 /**
  * Creates the DOM elements for the anime info text
  * @param {object} anime - All details about the anime.
+ * @returns {HTMLDivElement}
  */
-const renderAnimeText = (anime: object) => {
+const renderAnimeText = (anime: AnimeData) => {
   const $textContainer = document.createElement("div");
   $textContainer.setAttribute("class", "column-full text-container");
 
@@ -91,8 +125,9 @@ const renderAnimeText = (anime: object) => {
 /**
  * Appends the anime text & anime image to the DOM
  * @param {object} anime - All details about the anime.
+ * @returns {HTMLDivElement} The DOM element for each anime container
  */
-const renderAnime = (anime: object) => {
+const renderAnime = (anime: AnimeData) => {
   const $animeRow = document.createElement("div");
   $animeRow.setAttribute("class", "anime");
 
@@ -108,6 +143,7 @@ const renderAnime = (anime: object) => {
 /**
  * Checks if the date passed in is less than an hour ago
  * @param {number} date - A date number
+ * @returns {boolean} True if the date passed in is less than an hour ago
  */
 const lessThanOneHourAgo = (date: number) => {
   const HOUR = 1000 * 60 * 60;
@@ -125,12 +161,10 @@ const changeHeadingText = (selectedAnime: string) => {
 };
 
 const showLoadingSpinner = () => {
-  const $loader = document.querySelector(".loader");
   $loader.classList.remove("hidden");
 };
 
 const hideLoadingSpinner = () => {
-  const $loader = document.querySelector(".loader");
   $loader.classList.add("hidden");
 };
 
@@ -151,7 +185,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
 $animeSelect.addEventListener("change", () => {
-  const selectValue = event.target.value;
+  const selectValue = $animeSelect.value;
   switch (selectValue) {
     case "Top":
       resetAnimeContainer();
@@ -166,7 +200,7 @@ $animeSelect.addEventListener("change", () => {
     case "Upcoming":
       resetAnimeContainer();
       changeHeadingText("Top Upcoming");
-      getTopUpcomingAnime();
+      // getTopUpcomingAnime();
       break;
   }
 });

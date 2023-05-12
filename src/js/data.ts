@@ -1,5 +1,17 @@
 /* exported data */
-let data = {
+declare interface Data {
+  view: string;
+  topAnime: Anime;
+  airingAnime: Anime;
+  upcomingAnime: Anime;
+}
+
+interface Anime {
+  shows: object[];
+  lastRetrieved: number;
+}
+
+let data: Data = {
   view: "home",
   topAnime: {
     shows: [],
