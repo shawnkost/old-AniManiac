@@ -1,12 +1,21 @@
-const $animeContainer = document.querySelector(".anime-container");
-const $animeSelect = document.getElementById("anime-select");
-const $pageH1 = document.querySelector("h1");
+const $animeContainer = document.querySelector(
+  ".anime-container"
+) as HTMLDivElement;
+const $animeSelect = document.getElementById(
+  "anime-select"
+) as HTMLSelectElement;
+const $pageH1 = document.querySelector("h1") as HTMLHeadingElement;
+
+interface APIResponse {
+  pagination: object;
+  data: object[];
+}
 
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
 const getTopAnime = async () => {
   showLoadingSpinner();
   const response = await fetch("https://api.jikan.moe/v4/top/anime");
-  const JSONData = await response.json();
+  const JSONData: APIResponse = await response.json();
   if (JSONData.data) {
     data.topAnime.lastRetrieved = Date.now();
     for (let i = 0; i < JSONData.data.length; i++) {
@@ -25,11 +34,12 @@ const getTopAiringAnime = async () => {
   const response = await fetch(
     "https://api.jikan.moe/v4/top/anime?filter=airing"
   );
-  const JSONData = await response.json();
+  const JSONData: APIResponse = await response.json();
   if (JSONData.data) {
     data.airingAnime.lastRetrieved = Date.now();
     for (let i = 0; i < JSONData.data.length; i++) {
-      data.airingAnime.shows.push(JSONData.data[i]);
+      const test: object = JSONData.data[i];
+      data.airingAnime.shows.push(test);
       const anime = JSONData.data[i];
       const renderedAnime = renderAnime(anime);
       $animeContainer.appendChild(renderedAnime);
@@ -42,7 +52,7 @@ const getTopAiringAnime = async () => {
  * Creates the DOM elements for the anime image
  * @param {object} anime - All details about the anime.
  */
-const renderAnimeImage = (anime) => {
+const renderAnimeImage = (anime: object) => {
   const $imgContainer = document.createElement("div");
   $imgContainer.setAttribute("class", "column-full image-container");
 
@@ -60,7 +70,7 @@ const renderAnimeImage = (anime) => {
  * Creates the DOM elements for the anime info text
  * @param {object} anime - All details about the anime.
  */
-const renderAnimeText = (anime) => {
+const renderAnimeText = (anime: object) => {
   const $textContainer = document.createElement("div");
   $textContainer.setAttribute("class", "column-full text-container");
 
@@ -82,7 +92,7 @@ const renderAnimeText = (anime) => {
  * Appends the anime text & anime image to the DOM
  * @param {object} anime - All details about the anime.
  */
-const renderAnime = (anime) => {
+const renderAnime = (anime: object) => {
   const $animeRow = document.createElement("div");
   $animeRow.setAttribute("class", "anime");
 
@@ -97,9 +107,9 @@ const renderAnime = (anime) => {
 
 /**
  * Checks if the date passed in is less than an hour ago
- * @param {object} date - A date object
+ * @param {number} date - A date number
  */
-const lessThanOneHourAgo = (date) => {
+const lessThanOneHourAgo = (date: number) => {
   const HOUR = 1000 * 60 * 60;
   const anHourAgo = Date.now() - HOUR;
 
@@ -110,7 +120,7 @@ const resetAnimeContainer = () => {
   $animeContainer.replaceChildren();
 };
 
-const changeHeadingText = (selectedAnime) => {
+const changeHeadingText = (selectedAnime: string) => {
   $pageH1.textContent = `${selectedAnime} Anime`;
 };
 

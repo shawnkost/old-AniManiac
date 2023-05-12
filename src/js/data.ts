@@ -3,15 +3,15 @@ let data = {
   view: "home",
   topAnime: {
     shows: [],
-    lastRetrieved: "",
+    lastRetrieved: 0,
   },
   airingAnime: {
     shows: [],
-    lastRetrieved: "",
+    lastRetrieved: 0,
   },
   upcomingAnime: {
     shows: [],
-    lastRetrieved: "",
+    lastRetrieved: 0,
   },
 };
 
