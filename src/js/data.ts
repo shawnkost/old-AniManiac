@@ -7,7 +7,7 @@ declare interface Data {
 }
 
 interface Anime {
-  shows: object[];
+  shows: AnimeData[];
   lastRetrieved: number;
 }
 

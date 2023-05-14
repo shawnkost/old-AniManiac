@@ -9,7 +9,7 @@ const $loader = document.querySelector(".loader") as HTMLDivElement;
 
 interface APIResponse {
   pagination: object;
-  data: object[];
+  data: AnimeData[];
 }
 
 interface AnimeData {
@@ -47,13 +47,13 @@ const getTopAnime = async () => {
   showLoadingSpinner();
   const response = await fetch("https://api.jikan.moe/v4/top/anime");
   const JSONData: APIResponse = await response.json();
-  const animeData: object[] = JSONData.data;
+  const animeData: AnimeData[] = JSONData.data;
   if (animeData) {
     data.topAnime.lastRetrieved = Date.now();
     for (let i = 0; i < animeData.length; i++) {
-      const animeObject: AnimeData = animeData[i];
+      const animeObject = animeData[i];
       data.topAnime.shows.push(animeObject);
-      const anime = animeObject;
+      const anime: AnimeData = animeObject;
       const renderedAnime = renderAnime(anime);
       $animeContainer.appendChild(renderedAnime);
     }
@@ -68,12 +68,13 @@ const getTopAiringAnime = async () => {
     "https://api.jikan.moe/v4/top/anime?filter=airing"
   );
   const JSONData: APIResponse = await response.json();
-  if (JSONData.data) {
+  const animeData: AnimeData[] = JSONData.data;
+  if (animeData) {
     data.airingAnime.lastRetrieved = Date.now();
-    for (let i = 0; i < JSONData.data.length; i++) {
-      const test: object = JSONData.data[i];
-      data.airingAnime.shows.push(test);
-      const anime = JSONData.data[i];
+    for (let i = 0; i < animeData.length; i++) {
+      const animeObject = animeData[i];
+      data.airingAnime.shows.push(animeObject);
+      const anime: AnimeData = animeObject;
       const renderedAnime = renderAnime(anime);
       $animeContainer.appendChild(renderedAnime);
     }
@@ -101,7 +102,7 @@ const renderAnimeImage = (anime: AnimeData) => {
 
 /**
  * Creates the DOM elements for the anime info text
- * @param {object} anime - All details about the anime.
+ * @param {AnimeData} anime - All details about the anime.
  * @returns {HTMLDivElement}
  */
 const renderAnimeText = (anime: AnimeData) => {
@@ -176,7 +177,7 @@ window.addEventListener("DOMContentLoaded", () => {
     getTopAnime();
   } else {
     for (let i = 0; i < data.topAnime.shows.length; i++) {
-      const anime = data.topAnime.shows[i];
+      const anime: AnimeData = data.topAnime.shows[i];
       const renderedAnime = renderAnime(anime);
       $animeContainer.appendChild(renderedAnime);
     }

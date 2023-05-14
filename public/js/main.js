@@ -17,6 +17,7 @@ const getTopAnime = () => __awaiter(void 0, void 0, void 0, function* () {
     showLoadingSpinner();
     const response = yield fetch("https://api.jikan.moe/v4/top/anime");
     const JSONData = yield response.json();
+    console.log('JSONData', JSONData);
     const animeData = JSONData.data;
     if (animeData) {
         data.topAnime.lastRetrieved = Date.now();
@@ -65,6 +66,7 @@ const renderAnimeImage = (anime) => {
 /**
  * Creates the DOM elements for the anime info text
  * @param {object} anime - All details about the anime.
+ * @returns {HTMLDivElement}
  */
 const renderAnimeText = (anime) => {
     const $textContainer = document.createElement("div");
@@ -82,6 +84,7 @@ const renderAnimeText = (anime) => {
 /**
  * Appends the anime text & anime image to the DOM
  * @param {object} anime - All details about the anime.
+ * @returns {HTMLDivElement} The DOM element for each anime container
  */
 const renderAnime = (anime) => {
     const $animeRow = document.createElement("div");
@@ -95,6 +98,7 @@ const renderAnime = (anime) => {
 /**
  * Checks if the date passed in is less than an hour ago
  * @param {number} date - A date number
+ * @returns {boolean} True if the date passed in is less than an hour ago
  */
 const lessThanOneHourAgo = (date) => {
     const HOUR = 1000 * 60 * 60;
