@@ -82,6 +82,27 @@ const getTopAiringAnime = async () => {
   hideLoadingSpinner();
 };
 
+/** Getting the current top upcoming anime from the API and appending the images/titles to the home page */
+const getTopUpcomingAnime = async () => {
+  showLoadingSpinner();
+  const response = await fetch(
+    "https://api.jikan.moe/v4/top/anime?filter=upcoming"
+  );
+  const JSONData: APIResponse = await response.json();
+  const animeData: AnimeData[] = JSONData.data;
+  if (animeData) {
+    data.upcomingAnime.lastRetrieved = Date.now();
+    for (let i = 0; i < animeData.length; i++) {
+      const animeObject = animeData[i];
+      data.upcomingAnime.shows.push(animeObject);
+      const anime: AnimeData = animeObject;
+      const renderedAnime = renderAnime(anime);
+      $animeContainer.appendChild(renderedAnime);
+    }
+  }
+  hideLoadingSpinner();
+};
+
 /**
  * Creates the DOM elements for the anime image
  * @param {object} anime - All details about the anime.
@@ -201,7 +222,7 @@ $animeSelect.addEventListener("change", () => {
     case "Upcoming":
       resetAnimeContainer();
       changeHeadingText("Top Upcoming");
-      // getTopUpcomingAnime();
+      getTopUpcomingAnime();
       break;
   }
 });

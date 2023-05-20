@@ -81,7 +81,7 @@ h3 {
 
 img {
   width: 100%;
-  height: 225px;
+
   border-radius: .5rem;
 }
 
@@ -98,8 +98,7 @@ p {
 .anime {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  padding-right: .5rem;
+  width: 100%;
   margin-bottom: 1.5rem;
 }
 
@@ -153,6 +152,17 @@ p {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media screen and (min-width: 375px) {
+  .anime {
+    width: 50%;
+    padding-right: .5rem;
+  }
+
+  img {
+      height: 225px;
+  }
 }
 
 @media screen and (min-width: 576px) {
