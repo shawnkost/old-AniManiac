@@ -191,19 +191,19 @@ const hideLoadingSpinner = () => {
 };
 
 /** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
-window.addEventListener("DOMContentLoaded", () => {
-  const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
-  if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
-    data.topAnime.shows = [];
-    getTopAnime();
-  } else {
-    for (let i = 0; i < data.topAnime.shows.length; i++) {
-      const anime: AnimeData = data.topAnime.shows[i];
-      const renderedAnime = renderAnime(anime);
-      $animeContainer.appendChild(renderedAnime);
-    }
-  }
-});
+// window.addEventListener("DOMContentLoaded", () => {
+//   const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
+//   if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
+//     data.topAnime.shows = [];
+//     getTopAnime();
+//   } else {
+//     for (let i = 0; i < data.topAnime.shows.length; i++) {
+//       const anime: AnimeData = data.topAnime.shows[i];
+//       const renderedAnime = renderAnime(anime);
+//       $animeContainer.appendChild(renderedAnime);
+//     }
+//   }
+// });
 
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
 $animeSelect.addEventListener("change", () => {
