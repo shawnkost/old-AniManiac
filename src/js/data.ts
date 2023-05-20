@@ -27,7 +27,7 @@ let data: Data = {
   },
 };
 
-document.addEventListener("visibilitychange", () => {
+document.addEventListener("unload", () => {
   const JSONString = JSON.stringify(data);
   localStorage.setItem("animaniac", JSONString);
 });

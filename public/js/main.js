@@ -17,7 +17,6 @@ const getTopAnime = () => __awaiter(void 0, void 0, void 0, function* () {
     showLoadingSpinner();
     const response = yield fetch("https://api.jikan.moe/v4/top/anime");
     const JSONData = yield response.json();
-    console.log('JSONData', JSONData);
     const animeData = JSONData.data;
     if (animeData) {
         data.topAnime.lastRetrieved = Date.now();
@@ -36,12 +35,13 @@ const getTopAiringAnime = () => __awaiter(void 0, void 0, void 0, function* () {
     showLoadingSpinner();
     const response = yield fetch("https://api.jikan.moe/v4/top/anime?filter=airing");
     const JSONData = yield response.json();
-    if (JSONData.data) {
+    const animeData = JSONData.data;
+    if (animeData) {
         data.airingAnime.lastRetrieved = Date.now();
-        for (let i = 0; i < JSONData.data.length; i++) {
-            const test = JSONData.data[i];
-            data.airingAnime.shows.push(test);
-            const anime = JSONData.data[i];
+        for (let i = 0; i < animeData.length; i++) {
+            const animeObject = animeData[i];
+            data.airingAnime.shows.push(animeObject);
+            const anime = animeObject;
             const renderedAnime = renderAnime(anime);
             $animeContainer.appendChild(renderedAnime);
         }
@@ -65,7 +65,7 @@ const renderAnimeImage = (anime) => {
 };
 /**
  * Creates the DOM elements for the anime info text
- * @param {object} anime - All details about the anime.
+ * @param {AnimeData} anime - All details about the anime.
  * @returns {HTMLDivElement}
  */
 const renderAnimeText = (anime) => {

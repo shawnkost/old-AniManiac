@@ -14,7 +14,7 @@ let data = {
         lastRetrieved: 0,
     },
 };
-document.addEventListener("visibilitychange", () => {
+document.addEventListener("unload", () => {
     const JSONString = JSON.stringify(data);
     localStorage.setItem("animaniac", JSONString);
 });
