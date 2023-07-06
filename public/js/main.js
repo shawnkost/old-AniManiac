@@ -8,10 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+const $allAnimeView = document.querySelector(".all-anime");
+const $individualAnimeView = document.querySelector(".individual-anime");
 const $animeContainer = document.querySelector(".anime-container");
 const $animeSelect = document.getElementById("anime-select");
 const $pageH1 = document.querySelector("h1");
 const $loader = document.querySelector(".loader");
+const $homeTag = document.querySelector(".home-tag");
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
 function getTopAnime() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -107,7 +110,7 @@ const renderAnimeText = (anime) => {
 };
 /**
  * Appends the anime text & anime image to the DOM
- * @param {object} anime - All details about the anime.
+ * @param {AnimeData} anime - All details about the anime.
  * @returns {HTMLDivElement} The DOM element for each anime container
  */
 const renderAnime = (anime) => {
@@ -127,11 +130,14 @@ const renderAnime = (anime) => {
 const lessThanOneHourAgo = (date) => {
     const HOUR = 1000 * 60 * 60;
     const anHourAgo = Date.now() - HOUR;
-    return date > anHourAgo;
+    return date < anHourAgo;
 };
 const resetAnimeContainer = () => {
     $animeContainer.replaceChildren();
 };
+function resetIndividualAnimeView() {
+    $individualAnimeView.replaceChildren();
+}
 const changeHeadingText = (selectedAnime) => {
     $pageH1.textContent = `${selectedAnime} Anime`;
 };
@@ -141,6 +147,52 @@ const showLoadingSpinner = () => {
 const hideLoadingSpinner = () => {
     $loader.classList.add("hidden");
 };
+function renderIndividualAnime(anime) {
+    const $row = document.createElement("div");
+    $row.className = "row flex-column";
+    const $titleDiv = document.createElement("div");
+    $titleDiv.className = "column-full";
+    const $title = document.createElement("h2");
+    $title.textContent = anime.title_english ? anime.title_english : anime.title;
+    $title.className = "anime-page-title";
+    const $imgDiv = document.createElement("div");
+    $imgDiv.className = "column-full individual-image-container";
+    const $img = document.createElement("img");
+    $img.setAttribute("src", anime.images.jpg.large_image_url);
+    const $descDiv = document.createElement("div");
+    $descDiv.className = "column-full anime-description";
+    const $desc = document.createElement("p");
+    $desc.textContent = anime.synopsis;
+    const $iframeDiv = document.createElement("div");
+    $iframeDiv.className = "column-full";
+    const $iframe = document.createElement("iframe");
+    $iframe.setAttribute("src", `https://www.youtube.com/embed/${anime.trailer.youtube_id}`);
+    $iframe.setAttribute("title", `${$title.textContent} youtube trailer`);
+    $iframe.setAttribute("loading", "lazy");
+    $iframe.setAttribute("allow", "fullscreen picture-in-picture");
+    $iframe.setAttribute("allowfullscreen", "true");
+    $row.appendChild($titleDiv);
+    $row.appendChild($imgDiv);
+    $row.appendChild($descDiv);
+    $row.appendChild($iframeDiv);
+    $titleDiv.appendChild($title);
+    $imgDiv.appendChild($img);
+    $descDiv.appendChild($desc);
+    $iframeDiv.appendChild($iframe);
+    return $row;
+}
+function viewSwap(viewName) {
+    if (viewName === "home") {
+        $allAnimeView.classList.remove("hidden");
+        $individualAnimeView.classList.add("hidden");
+        resetIndividualAnimeView();
+    }
+    else {
+        $allAnimeView.classList.add("hidden");
+        $individualAnimeView.classList.remove("hidden");
+    }
+    window.scrollTo(0, 0);
+}
 /** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
 window.addEventListener("DOMContentLoaded", () => {
     const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
@@ -151,11 +203,18 @@ window.addEventListener("DOMContentLoaded", () => {
     else {
         for (let i = 0; i < data.topAnime.shows.length; i++) {
             const anime = data.topAnime.shows[i];
+            console.log("anime", anime);
             const renderedAnime = renderAnime(anime);
+            renderedAnime.addEventListener("click", () => {
+                const $individualAnime = renderIndividualAnime(anime);
+                $individualAnimeView.appendChild($individualAnime);
+                viewSwap("anime");
+            });
             $animeContainer.appendChild(renderedAnime);
         }
     }
 });
+$homeTag.addEventListener("click", () => viewSwap("home"));
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
 $animeSelect.addEventListener("change", () => {
     const selectValue = $animeSelect.value;

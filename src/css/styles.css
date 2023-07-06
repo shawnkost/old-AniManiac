@@ -27,7 +27,6 @@ a {
   font-size: 1.4rem;
 }
 
-
 /* Utility */
 .align-center {
   align-items: center;
@@ -41,7 +40,6 @@ a {
   display: none;
 }
 
-
 /* Navbar */
 .navbar {
   padding-top: 0.5rem;
@@ -53,7 +51,6 @@ a {
 .fa-lightbulb {
   color: white;
 }
-
 
 /* Home page */
 h1 {
@@ -155,6 +152,24 @@ p {
   text-align: center;
   font-size: 1.5rem;
   padding-top: 1rem;
+}
+
+.individual-image-container {
+  margin-bottom: 1rem;
+}
+
+.individual-image {
+  height: auto;
+}
+
+.anime-description {
+  margin-bottom: 1rem;
+}
+
+iframe {
+  aspect-ratio: 16/9;
+  height: 100%;
+  width: 100%;
 }
 
 @keyframes spin {
