@@ -43,7 +43,7 @@ interface AnimeData {
 }
 
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
-const getTopAnime = async () => {
+async function getTopAnime() {
   showLoadingSpinner();
   const response = await fetch("https://api.jikan.moe/v4/top/anime");
   const JSONData: APIResponse = await response.json();
@@ -59,10 +59,10 @@ const getTopAnime = async () => {
     }
   }
   hideLoadingSpinner();
-};
+}
 
 /** Getting the current top airing anime from the API and appending the images/titles to the home page */
-const getTopAiringAnime = async () => {
+async function getTopAiringAnime() {
   showLoadingSpinner();
   const response = await fetch(
     "https://api.jikan.moe/v4/top/anime?filter=airing"
@@ -80,10 +80,10 @@ const getTopAiringAnime = async () => {
     }
   }
   hideLoadingSpinner();
-};
+}
 
 /** Getting the current top upcoming anime from the API and appending the images/titles to the home page */
-const getTopUpcomingAnime = async () => {
+async function getTopUpcomingAnime() {
   showLoadingSpinner();
   const response = await fetch(
     "https://api.jikan.moe/v4/top/anime?filter=upcoming"
@@ -101,13 +101,13 @@ const getTopUpcomingAnime = async () => {
     }
   }
   hideLoadingSpinner();
-};
+}
 
 /**
  * Creates the DOM elements for the anime image
  * @param {object} anime - All details about the anime.
  */
-const renderAnimeImage = (anime: AnimeData) => {
+function renderAnimeImage(anime: AnimeData) {
   const $imgContainer = document.createElement("div");
   $imgContainer.setAttribute("class", "column-full image-container");
 
@@ -119,7 +119,7 @@ const renderAnimeImage = (anime: AnimeData) => {
 
   $imgContainer.appendChild($img);
   return $imgContainer;
-};
+}
 
 /**
  * Creates the DOM elements for the anime info text
@@ -191,19 +191,19 @@ const hideLoadingSpinner = () => {
 };
 
 /** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
-// window.addEventListener("DOMContentLoaded", () => {
-//   const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
-//   if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
-//     data.topAnime.shows = [];
-//     getTopAnime();
-//   } else {
-//     for (let i = 0; i < data.topAnime.shows.length; i++) {
-//       const anime: AnimeData = data.topAnime.shows[i];
-//       const renderedAnime = renderAnime(anime);
-//       $animeContainer.appendChild(renderedAnime);
-//     }
-//   }
-// });
+window.addEventListener("DOMContentLoaded", () => {
+  const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
+  if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
+    data.topAnime.shows = [];
+    getTopAnime();
+  } else {
+    for (let i = 0; i < data.topAnime.shows.length; i++) {
+      const anime: AnimeData = data.topAnime.shows[i];
+      const renderedAnime = renderAnime(anime);
+      $animeContainer.appendChild(renderedAnime);
+    }
+  }
+});
 
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
 $animeSelect.addEventListener("change", () => {

@@ -13,64 +13,70 @@ const $animeSelect = document.getElementById("anime-select");
 const $pageH1 = document.querySelector("h1");
 const $loader = document.querySelector(".loader");
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
-const getTopAnime = () => __awaiter(void 0, void 0, void 0, function* () {
-    showLoadingSpinner();
-    const response = yield fetch("https://api.jikan.moe/v4/top/anime");
-    const JSONData = yield response.json();
-    const animeData = JSONData.data;
-    if (animeData) {
-        data.topAnime.lastRetrieved = Date.now();
-        for (let i = 0; i < animeData.length; i++) {
-            const animeObject = animeData[i];
-            data.topAnime.shows.push(animeObject);
-            const anime = animeObject;
-            const renderedAnime = renderAnime(anime);
-            $animeContainer.appendChild(renderedAnime);
+function getTopAnime() {
+    return __awaiter(this, void 0, void 0, function* () {
+        showLoadingSpinner();
+        const response = yield fetch("https://api.jikan.moe/v4/top/anime");
+        const JSONData = yield response.json();
+        const animeData = JSONData.data;
+        if (animeData) {
+            data.topAnime.lastRetrieved = Date.now();
+            for (let i = 0; i < animeData.length; i++) {
+                const animeObject = animeData[i];
+                data.topAnime.shows.push(animeObject);
+                const anime = animeObject;
+                const renderedAnime = renderAnime(anime);
+                $animeContainer.appendChild(renderedAnime);
+            }
         }
-    }
-    hideLoadingSpinner();
-});
+        hideLoadingSpinner();
+    });
+}
 /** Getting the current top airing anime from the API and appending the images/titles to the home page */
-const getTopAiringAnime = () => __awaiter(void 0, void 0, void 0, function* () {
-    showLoadingSpinner();
-    const response = yield fetch("https://api.jikan.moe/v4/top/anime?filter=airing");
-    const JSONData = yield response.json();
-    const animeData = JSONData.data;
-    if (animeData) {
-        data.airingAnime.lastRetrieved = Date.now();
-        for (let i = 0; i < animeData.length; i++) {
-            const animeObject = animeData[i];
-            data.airingAnime.shows.push(animeObject);
-            const anime = animeObject;
-            const renderedAnime = renderAnime(anime);
-            $animeContainer.appendChild(renderedAnime);
+function getTopAiringAnime() {
+    return __awaiter(this, void 0, void 0, function* () {
+        showLoadingSpinner();
+        const response = yield fetch("https://api.jikan.moe/v4/top/anime?filter=airing");
+        const JSONData = yield response.json();
+        const animeData = JSONData.data;
+        if (animeData) {
+            data.airingAnime.lastRetrieved = Date.now();
+            for (let i = 0; i < animeData.length; i++) {
+                const animeObject = animeData[i];
+                data.airingAnime.shows.push(animeObject);
+                const anime = animeObject;
+                const renderedAnime = renderAnime(anime);
+                $animeContainer.appendChild(renderedAnime);
+            }
         }
-    }
-    hideLoadingSpinner();
-});
+        hideLoadingSpinner();
+    });
+}
 /** Getting the current top upcoming anime from the API and appending the images/titles to the home page */
-const getTopUpcomingAnime = () => __awaiter(void 0, void 0, void 0, function* () {
-    showLoadingSpinner();
-    const response = yield fetch("https://api.jikan.moe/v4/top/anime?filter=upcoming");
-    const JSONData = yield response.json();
-    const animeData = JSONData.data;
-    if (animeData) {
-        data.upcomingAnime.lastRetrieved = Date.now();
-        for (let i = 0; i < animeData.length; i++) {
-            const animeObject = animeData[i];
-            data.upcomingAnime.shows.push(animeObject);
-            const anime = animeObject;
-            const renderedAnime = renderAnime(anime);
-            $animeContainer.appendChild(renderedAnime);
+function getTopUpcomingAnime() {
+    return __awaiter(this, void 0, void 0, function* () {
+        showLoadingSpinner();
+        const response = yield fetch("https://api.jikan.moe/v4/top/anime?filter=upcoming");
+        const JSONData = yield response.json();
+        const animeData = JSONData.data;
+        if (animeData) {
+            data.upcomingAnime.lastRetrieved = Date.now();
+            for (let i = 0; i < animeData.length; i++) {
+                const animeObject = animeData[i];
+                data.upcomingAnime.shows.push(animeObject);
+                const anime = animeObject;
+                const renderedAnime = renderAnime(anime);
+                $animeContainer.appendChild(renderedAnime);
+            }
         }
-    }
-    hideLoadingSpinner();
-});
+        hideLoadingSpinner();
+    });
+}
 /**
  * Creates the DOM elements for the anime image
  * @param {object} anime - All details about the anime.
  */
-const renderAnimeImage = (anime) => {
+function renderAnimeImage(anime) {
     const $imgContainer = document.createElement("div");
     $imgContainer.setAttribute("class", "column-full image-container");
     const $img = document.createElement("img");
@@ -80,7 +86,7 @@ const renderAnimeImage = (anime) => {
     $img.setAttribute("title", anime.title);
     $imgContainer.appendChild($img);
     return $imgContainer;
-};
+}
 /**
  * Creates the DOM elements for the anime info text
  * @param {AnimeData} anime - All details about the anime.
