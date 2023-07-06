@@ -77,7 +77,8 @@ function getTopUpcomingAnime() {
 }
 /**
  * Creates the DOM elements for the anime image
- * @param {object} anime - All details about the anime.
+ * @param anime - All details about the anime.
+ * @returns A `div` element containing an image for the anime
  */
 function renderAnimeImage(anime) {
     const $imgContainer = document.createElement("div");
@@ -92,8 +93,8 @@ function renderAnimeImage(anime) {
 }
 /**
  * Creates the DOM elements for the anime info text
- * @param {AnimeData} anime - All details about the anime.
- * @returns {HTMLDivElement}
+ * @param anime - All details about the anime.
+ * @returns A `div` element containing the text content
  */
 function renderAnimeText(anime) {
     const $textContainer = document.createElement("div");
@@ -110,8 +111,8 @@ function renderAnimeText(anime) {
 }
 /**
  * Appends the anime text & anime image to the DOM
- * @param {AnimeData} anime - All details about the anime.
- * @returns {HTMLDivElement} The DOM element for each anime container
+ * @param anime - All details about the anime.
+ * @returns A `div` wrapper for the anime image and text
  */
 function renderAnime(anime) {
     const $animeRow = document.createElement("div");
@@ -124,29 +125,39 @@ function renderAnime(anime) {
 }
 /**
  * Checks if the date passed in is less than an hour ago
- * @param {number} date - A date number
- * @returns {boolean} True if the date passed in is less than an hour ago
+ * @param date - A date number
+ * @returns A boolean indicating if the date was less than an hour ago or not
  */
 function lessThanOneHourAgo(date) {
     const HOUR = 1000 * 60 * 60;
     const anHourAgo = Date.now() - HOUR;
     return date < anHourAgo;
 }
+/** Removes all child nodes from anime container */
 function resetAnimeContainer() {
     $animeContainer.replaceChildren();
 }
+/** Removes all child nodes from individual anime view */
 function resetIndividualAnimeView() {
     $individualAnimeView.replaceChildren();
 }
+/** Changes the heading text based off of whatever type of anime was selected from dropdown */
 function changeHeadingText(selectedAnime) {
     $pageH1.textContent = `${selectedAnime} Anime`;
 }
+/** Shows loading spinner */
 function showLoadingSpinner() {
     $loader.classList.remove("hidden");
 }
+/** Hides loading spinner */
 function hideLoadingSpinner() {
     $loader.classList.add("hidden");
 }
+/**
+ * Creates the DOM elements for the individual anime view
+ * @param anime - All details about the anime.
+ * @returns A `div` element containing all the content for the anime
+ */
 function renderIndividualAnime(anime) {
     const $row = document.createElement("div");
     $row.className = "row flex-column";
@@ -181,13 +192,14 @@ function renderIndividualAnime(anime) {
     $iframeDiv.appendChild($iframe);
     return $row;
 }
+/** Shows or hides wrappers depending on which view was selected */
 function viewSwap(viewName) {
     if (viewName === "home") {
         $allAnimeView.classList.remove("hidden");
         $individualAnimeView.classList.add("hidden");
         resetIndividualAnimeView();
     }
-    else {
+    else if (viewName === "anime") {
         $allAnimeView.classList.add("hidden");
         $individualAnimeView.classList.remove("hidden");
     }
@@ -203,7 +215,6 @@ window.addEventListener("DOMContentLoaded", () => {
     else {
         for (let i = 0; i < data.topAnime.shows.length; i++) {
             const anime = data.topAnime.shows[i];
-            console.log("anime", anime);
             const renderedAnime = renderAnime(anime);
             renderedAnime.addEventListener("click", () => {
                 const $individualAnime = renderIndividualAnime(anime);
