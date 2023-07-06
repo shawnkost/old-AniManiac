@@ -1,17 +1,18 @@
-/* exported data */
-interface Data {
-  view: string;
-  topAnime: Anime;
-  airingAnime: Anime;
-  upcomingAnime: Anime;
-}
-
-interface Anime {
-  shows: AnimeData[];
-  lastRetrieved: number;
-}
-
-declare let data: Data;
+window.data = {
+  view: "home",
+  topAnime: {
+    shows: [],
+    lastRetrieved: 0,
+  },
+  airingAnime: {
+    shows: [],
+    lastRetrieved: 0,
+  },
+  upcomingAnime: {
+    shows: [],
+    lastRetrieved: 0,
+  },
+};
 
 document.addEventListener("unload", () => {
   const JSONString = JSON.stringify(data);

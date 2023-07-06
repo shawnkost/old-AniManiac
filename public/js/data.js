@@ -1,4 +1,19 @@
 "use strict";
+window.data = {
+    view: "home",
+    topAnime: {
+        shows: [],
+        lastRetrieved: 0,
+    },
+    airingAnime: {
+        shows: [],
+        lastRetrieved: 0,
+    },
+    upcomingAnime: {
+        shows: [],
+        lastRetrieved: 0,
+    },
+};
 document.addEventListener("unload", () => {
     const JSONString = JSON.stringify(data);
     localStorage.setItem("animaniac", JSONString);
