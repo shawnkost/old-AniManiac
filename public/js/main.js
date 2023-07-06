@@ -95,7 +95,7 @@ function renderAnimeImage(anime) {
  * @param {AnimeData} anime - All details about the anime.
  * @returns {HTMLDivElement}
  */
-const renderAnimeText = (anime) => {
+function renderAnimeText(anime) {
     const $textContainer = document.createElement("div");
     $textContainer.setAttribute("class", "column-full text-container");
     const $animeTitle = document.createElement("h2");
@@ -107,13 +107,13 @@ const renderAnimeText = (anime) => {
     $textContainer.appendChild($animeTitle);
     $textContainer.appendChild($animeScore);
     return $textContainer;
-};
+}
 /**
  * Appends the anime text & anime image to the DOM
  * @param {AnimeData} anime - All details about the anime.
  * @returns {HTMLDivElement} The DOM element for each anime container
  */
-const renderAnime = (anime) => {
+function renderAnime(anime) {
     const $animeRow = document.createElement("div");
     $animeRow.setAttribute("class", "anime");
     const $animeImage = renderAnimeImage(anime);
@@ -121,32 +121,32 @@ const renderAnime = (anime) => {
     $animeRow.appendChild($animeImage);
     $animeRow.appendChild($animeText);
     return $animeRow;
-};
+}
 /**
  * Checks if the date passed in is less than an hour ago
  * @param {number} date - A date number
  * @returns {boolean} True if the date passed in is less than an hour ago
  */
-const lessThanOneHourAgo = (date) => {
+function lessThanOneHourAgo(date) {
     const HOUR = 1000 * 60 * 60;
     const anHourAgo = Date.now() - HOUR;
     return date < anHourAgo;
-};
-const resetAnimeContainer = () => {
+}
+function resetAnimeContainer() {
     $animeContainer.replaceChildren();
-};
+}
 function resetIndividualAnimeView() {
     $individualAnimeView.replaceChildren();
 }
-const changeHeadingText = (selectedAnime) => {
+function changeHeadingText(selectedAnime) {
     $pageH1.textContent = `${selectedAnime} Anime`;
-};
-const showLoadingSpinner = () => {
+}
+function showLoadingSpinner() {
     $loader.classList.remove("hidden");
-};
-const hideLoadingSpinner = () => {
+}
+function hideLoadingSpinner() {
     $loader.classList.add("hidden");
-};
+}
 function renderIndividualAnime(anime) {
     const $row = document.createElement("div");
     $row.className = "row flex-column";

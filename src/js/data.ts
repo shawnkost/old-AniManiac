@@ -1,5 +1,5 @@
 /* exported data */
-declare interface Data {
+interface Data {
   view: string;
   topAnime: Anime;
   airingAnime: Anime;
