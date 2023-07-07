@@ -73,6 +73,34 @@ interface AnimeData {
   year: number;
 }
 
+interface Data {
+  view: string;
+  topAnime: Anime;
+  airingAnime: Anime;
+  upcomingAnime: Anime;
+}
+
+interface Anime {
+  shows: AnimeData[];
+  lastRetrieved: number;
+}
+
+const data: Data = {
+  view: "home",
+  topAnime: {
+    shows: [],
+    lastRetrieved: 0,
+  },
+  airingAnime: {
+    shows: [],
+    lastRetrieved: 0,
+  },
+  upcomingAnime: {
+    shows: [],
+    lastRetrieved: 0,
+  },
+};
+
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
 async function getTopAnime() {
   showLoadingSpinner();
@@ -86,6 +114,11 @@ async function getTopAnime() {
       data.topAnime.shows.push(animeObject);
       const anime: AnimeData = animeObject;
       const renderedAnime = renderAnime(anime);
+      renderedAnime.addEventListener("click", () => {
+        const $individualAnime = renderIndividualAnime(anime);
+        $individualAnimeView.appendChild($individualAnime);
+        viewSwap("anime");
+      });
       $animeContainer.appendChild(renderedAnime);
     }
   }
@@ -107,6 +140,11 @@ async function getTopAiringAnime() {
       data.airingAnime.shows.push(animeObject);
       const anime: AnimeData = animeObject;
       const renderedAnime = renderAnime(anime);
+      renderedAnime.addEventListener("click", () => {
+        const $individualAnime = renderIndividualAnime(anime);
+        $individualAnimeView.appendChild($individualAnime);
+        viewSwap("anime");
+      });
       $animeContainer.appendChild(renderedAnime);
     }
   }
@@ -128,6 +166,11 @@ async function getTopUpcomingAnime() {
       data.upcomingAnime.shows.push(animeObject);
       const anime: AnimeData = animeObject;
       const renderedAnime = renderAnime(anime);
+      renderedAnime.addEventListener("click", () => {
+        const $individualAnime = renderIndividualAnime(anime);
+        $individualAnimeView.appendChild($individualAnime);
+        viewSwap("anime");
+      });
       $animeContainer.appendChild(renderedAnime);
     }
   }
@@ -246,10 +289,18 @@ function renderIndividualAnime(anime: AnimeData) {
   $title.textContent = anime.title_english ? anime.title_english : anime.title;
   $title.className = "anime-page-title";
 
+  const $flexDiv = document.createElement("div");
+  $flexDiv.className = "flex column-full";
+
   const $imgDiv = document.createElement("div");
   $imgDiv.className = "column-full individual-image-container";
   const $img = document.createElement("img");
   $img.setAttribute("src", anime.images.jpg.large_image_url);
+  $img.setAttribute(
+    "alt",
+    anime.title_english ? anime.title_english : anime.title
+  );
+  $img.className = "individual-image";
 
   const $descDiv = document.createElement("div");
   $descDiv.className = "column-full anime-description";
@@ -269,8 +320,11 @@ function renderIndividualAnime(anime: AnimeData) {
   $iframe.setAttribute("allowfullscreen", "true");
 
   $row.appendChild($titleDiv);
-  $row.appendChild($imgDiv);
-  $row.appendChild($descDiv);
+  // $row.appendChild($imgDiv);
+  $row.appendChild($flexDiv);
+  $flexDiv.appendChild($imgDiv);
+  $flexDiv.appendChild($descDiv);
+  // $row.appendChild($descDiv);
   $row.appendChild($iframeDiv);
   $titleDiv.appendChild($title);
   $imgDiv.appendChild($img);

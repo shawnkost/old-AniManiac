@@ -23,11 +23,15 @@ body {
 a {
   color: white;
   text-decoration: none;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 1.4rem;
 }
 
 /* Utility */
+.flex {
+  display: flex;
+}
+
 .align-center {
   align-items: center;
 }
@@ -55,24 +59,24 @@ a {
 /* Home page */
 h1 {
   padding: 0.5rem 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-size: 2.2rem;
 }
 
 label {
-  font-family: 'Hind', sans-serif;
+  font-family: Hind, sans-serif;
 }
 
 h2 {
   font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: Montserrat, sans-serif;
   font-weight: 700;
   line-height: 1.4;
 }
 
 h3 {
   font-size: 1rem;
-  font-family: 'Hind', sans-serif;
+  font-family: Hind, sans-serif;
   font-weight: 400;
 }
 
@@ -83,7 +87,7 @@ img {
 
 p {
   line-height: 1.5;
-  font-family: 'Hind', sans-serif;
+  font-family: Hind, sans-serif;
   font-weight: 300;
 }
 
@@ -177,7 +181,7 @@ iframe {
   100% { transform: rotate(360deg); }
 }
 
-@media screen and (min-width: 375px) {
+@media screen and (width >= 375px) {
   .anime {
     width: 50%;
     padding-right: 0.5rem;
@@ -188,13 +192,13 @@ iframe {
   }
 }
 
-@media screen and (min-width: 576px) {
+@media screen and (width >= 576px) {
   .anime {
     width: calc(100% / 3);
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (width >= 768px) {
   .anime {
     width: calc(100% / 4);
     padding-right: 1rem;
@@ -202,7 +206,7 @@ iframe {
   }
 }
 
-@media screen and (min-width: 995px) {
+@media screen and (width >= 995px) {
   .anime {
     width: calc(100% / 5);
   }
