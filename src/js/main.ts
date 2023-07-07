@@ -289,8 +289,8 @@ function renderIndividualAnime(anime: AnimeData) {
   $title.textContent = anime.title_english ? anime.title_english : anime.title;
   $title.className = "anime-page-title";
 
-  const $flexDiv = document.createElement("div");
-  $flexDiv.className = "flex column-full";
+  const $animeContentDiv = document.createElement("div");
+  $animeContentDiv.className = "anime-content column-full";
 
   const $imgDiv = document.createElement("div");
   $imgDiv.className = "column-full individual-image-container";
@@ -320,11 +320,9 @@ function renderIndividualAnime(anime: AnimeData) {
   $iframe.setAttribute("allowfullscreen", "true");
 
   $row.appendChild($titleDiv);
-  // $row.appendChild($imgDiv);
-  $row.appendChild($flexDiv);
-  $flexDiv.appendChild($imgDiv);
-  $flexDiv.appendChild($descDiv);
-  // $row.appendChild($descDiv);
+  $row.appendChild($animeContentDiv);
+  $animeContentDiv.appendChild($imgDiv);
+  $animeContentDiv.appendChild($descDiv);
   $row.appendChild($iframeDiv);
   $titleDiv.appendChild($title);
   $imgDiv.appendChild($img);

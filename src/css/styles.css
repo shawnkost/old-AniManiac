@@ -158,6 +158,10 @@ p {
   padding-top: 1rem;
 }
 
+.anime-content {
+  margin-top: 1rem;
+}
+
 .individual-image-container {
   margin-bottom: 1rem;
 }
@@ -196,6 +200,11 @@ iframe {
   .anime {
     width: calc(100% / 3);
   }
+
+  .anime-content {
+    display: flex;
+    gap: 1rem;
+  }
 }
 
 @media screen and (width >= 768px) {
@@ -203,6 +212,10 @@ iframe {
     width: calc(100% / 4);
     padding-right: 1rem;
     padding-bottom: 1rem;
+  }
+
+  .anime-page-title {
+    font-size: 2rem;
   }
 }
 
@@ -213,5 +226,10 @@ iframe {
 
   img {
     height: 275px;
+  }
+
+  .anime-description > p {
+    font-size: 1.18rem;
+    line-height: 1.7;
   }
 }
