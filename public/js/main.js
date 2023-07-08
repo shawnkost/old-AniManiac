@@ -16,18 +16,14 @@ const $pageH1 = document.querySelector("h1");
 const $loader = document.querySelector(".loader");
 const $homeTag = document.querySelector(".home-tag");
 const data = {
-    view: "home",
     topAnime: {
         shows: [],
-        lastRetrieved: 0,
     },
     airingAnime: {
         shows: [],
-        lastRetrieved: 0,
     },
     upcomingAnime: {
         shows: [],
-        lastRetrieved: 0,
     },
 };
 /** Getting the top anime of all time from the API and appending the images/titles to the home page */
@@ -38,7 +34,6 @@ function getTopAnime() {
         const JSONData = yield response.json();
         const animeData = JSONData.data;
         if (animeData) {
-            data.topAnime.lastRetrieved = Date.now();
             for (let i = 0; i < animeData.length; i++) {
                 const animeObject = animeData[i];
                 data.topAnime.shows.push(animeObject);
@@ -63,7 +58,6 @@ function getTopAiringAnime() {
         const JSONData = yield response.json();
         const animeData = JSONData.data;
         if (animeData) {
-            data.airingAnime.lastRetrieved = Date.now();
             for (let i = 0; i < animeData.length; i++) {
                 const animeObject = animeData[i];
                 data.airingAnime.shows.push(animeObject);
@@ -88,7 +82,6 @@ function getTopUpcomingAnime() {
         const JSONData = yield response.json();
         const animeData = JSONData.data;
         if (animeData) {
-            data.upcomingAnime.lastRetrieved = Date.now();
             for (let i = 0; i < animeData.length; i++) {
                 const animeObject = animeData[i];
                 data.upcomingAnime.shows.push(animeObject);
@@ -153,16 +146,6 @@ function renderAnime(anime) {
     $animeRow.appendChild($animeText);
     return $animeRow;
 }
-/**
- * Checks if the date passed in is less than an hour ago
- * @param date - A date number
- * @returns A boolean indicating if the date was less than an hour ago or not
- */
-function lessThanOneHourAgo(date) {
-    const HOUR = 1000 * 60 * 60;
-    const anHourAgo = Date.now() - HOUR;
-    return date < anHourAgo;
-}
 /** Removes all child nodes from anime container */
 function resetAnimeContainer() {
     $animeContainer.replaceChildren();
@@ -214,8 +197,8 @@ function renderIndividualAnime(anime) {
     $iframe.setAttribute("src", `https://www.youtube.com/embed/${anime.trailer.youtube_id}`);
     $iframe.setAttribute("title", `${$title.textContent} youtube trailer`);
     $iframe.setAttribute("loading", "lazy");
-    $iframe.setAttribute("allow", "fullscreen picture-in-picture");
-    $iframe.setAttribute("allowfullscreen", "true");
+    $iframe.setAttribute("allow", "fullscreen; picture-in-picture;");
+    $iframe.setAttribute("allowfullscreen", "");
     $row.appendChild($titleDiv);
     $row.appendChild($animeContentDiv);
     $animeContentDiv.appendChild($imgDiv);
@@ -240,27 +223,6 @@ function viewSwap(viewName) {
     }
     window.scrollTo(0, 0);
 }
-/** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
-window.addEventListener("DOMContentLoaded", () => {
-    const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
-    if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
-        data.topAnime.shows = [];
-        getTopAnime();
-    }
-    else {
-        for (let i = 0; i < data.topAnime.shows.length; i++) {
-            const anime = data.topAnime.shows[i];
-            const renderedAnime = renderAnime(anime);
-            renderedAnime.addEventListener("click", () => {
-                const $individualAnime = renderIndividualAnime(anime);
-                $individualAnimeView.appendChild($individualAnime);
-                viewSwap("anime");
-            });
-            $animeContainer.appendChild(renderedAnime);
-        }
-    }
-});
-$homeTag.addEventListener("click", () => viewSwap("home"));
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
 $animeSelect.addEventListener("change", () => {
     const selectValue = $animeSelect.value;
@@ -282,3 +244,8 @@ $animeSelect.addEventListener("change", () => {
             break;
     }
 });
+/** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
+window.addEventListener("DOMContentLoaded", () => {
+    getTopAnime();
+});
+$homeTag.addEventListener("click", () => viewSwap("home"));

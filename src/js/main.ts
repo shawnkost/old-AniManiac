@@ -74,7 +74,6 @@ interface AnimeData {
 }
 
 interface Data {
-  view: string;
   topAnime: Anime;
   airingAnime: Anime;
   upcomingAnime: Anime;
@@ -82,22 +81,17 @@ interface Data {
 
 interface Anime {
   shows: AnimeData[];
-  lastRetrieved: number;
 }
 
 const data: Data = {
-  view: "home",
   topAnime: {
     shows: [],
-    lastRetrieved: 0,
   },
   airingAnime: {
     shows: [],
-    lastRetrieved: 0,
   },
   upcomingAnime: {
     shows: [],
-    lastRetrieved: 0,
   },
 };
 
@@ -108,7 +102,6 @@ async function getTopAnime() {
   const JSONData: APIResponse = await response.json();
   const animeData: AnimeData[] = JSONData.data;
   if (animeData) {
-    data.topAnime.lastRetrieved = Date.now();
     for (let i = 0; i < animeData.length; i++) {
       const animeObject = animeData[i];
       data.topAnime.shows.push(animeObject);
@@ -134,7 +127,6 @@ async function getTopAiringAnime() {
   const JSONData: APIResponse = await response.json();
   const animeData: AnimeData[] = JSONData.data;
   if (animeData) {
-    data.airingAnime.lastRetrieved = Date.now();
     for (let i = 0; i < animeData.length; i++) {
       const animeObject = animeData[i];
       data.airingAnime.shows.push(animeObject);
@@ -160,7 +152,6 @@ async function getTopUpcomingAnime() {
   const JSONData: APIResponse = await response.json();
   const animeData: AnimeData[] = JSONData.data;
   if (animeData) {
-    data.upcomingAnime.lastRetrieved = Date.now();
     for (let i = 0; i < animeData.length; i++) {
       const animeObject = animeData[i];
       data.upcomingAnime.shows.push(animeObject);
@@ -237,18 +228,6 @@ function renderAnime(anime: AnimeData) {
   return $animeRow;
 }
 
-/**
- * Checks if the date passed in is less than an hour ago
- * @param date - A date number
- * @returns A boolean indicating if the date was less than an hour ago or not
- */
-function lessThanOneHourAgo(date: number) {
-  const HOUR = 1000 * 60 * 60;
-  const anHourAgo = Date.now() - HOUR;
-
-  return date < anHourAgo;
-}
-
 /** Removes all child nodes from anime container */
 function resetAnimeContainer() {
   $animeContainer.replaceChildren();
@@ -316,8 +295,8 @@ function renderIndividualAnime(anime: AnimeData) {
   );
   $iframe.setAttribute("title", `${$title.textContent} youtube trailer`);
   $iframe.setAttribute("loading", "lazy");
-  $iframe.setAttribute("allow", "fullscreen picture-in-picture");
-  $iframe.setAttribute("allowfullscreen", "true");
+  $iframe.setAttribute("allow", "fullscreen; picture-in-picture;");
+  $iframe.setAttribute("allowfullscreen", "");
 
   $row.appendChild($titleDiv);
   $row.appendChild($animeContentDiv);
@@ -345,28 +324,6 @@ function viewSwap(viewName: string) {
   window.scrollTo(0, 0);
 }
 
-/** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
-window.addEventListener("DOMContentLoaded", () => {
-  const dataIsLessThanOneHour = lessThanOneHourAgo(data.topAnime.lastRetrieved);
-  if (data.topAnime.shows.length <= 0 || !dataIsLessThanOneHour) {
-    data.topAnime.shows = [];
-    getTopAnime();
-  } else {
-    for (let i = 0; i < data.topAnime.shows.length; i++) {
-      const anime: AnimeData = data.topAnime.shows[i];
-      const renderedAnime = renderAnime(anime);
-      renderedAnime.addEventListener("click", () => {
-        const $individualAnime = renderIndividualAnime(anime);
-        $individualAnimeView.appendChild($individualAnime);
-        viewSwap("anime");
-      });
-      $animeContainer.appendChild(renderedAnime);
-    }
-  }
-});
-
-$homeTag.addEventListener("click", () => viewSwap("home"));
-
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
 $animeSelect.addEventListener("change", () => {
   const selectValue = $animeSelect.value;
@@ -388,3 +345,10 @@ $animeSelect.addEventListener("change", () => {
       break;
   }
 });
+
+/** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
+window.addEventListener("DOMContentLoaded", () => {
+  getTopAnime();
+});
+
+$homeTag.addEventListener("click", () => viewSwap("home"));
