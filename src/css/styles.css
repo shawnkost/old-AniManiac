@@ -7,6 +7,38 @@
 
 body {
   background-color: var(--main);
+  transition: background-color .3s ease-in-out;
+}
+
+h1 {
+  padding: 0.5rem 0;
+  font-family: Montserrat, sans-serif;
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1rem;
+  font-family: Montserrat, sans-serif;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+h3 {
+  font-size: 1rem;
+  font-family: Hind, sans-serif;
+  font-weight: 400;
+}
+
+[data-theme="light"] {
+  & h1, & h2, & h3 {
+    color: #000;
+  }
+}
+
+[data-theme="dark"] {
+  & h1, & h2, & h3 {
+    color: #fff;
+  }
 }
 
 .light {
@@ -50,6 +82,7 @@ a {
   padding-bottom: 0.5rem;
   justify-content: space-between;
   background-color: var(--accent);
+  transition: background-color .3s ease-in-out;
 }
 
 .fa-lightbulb {
@@ -57,27 +90,9 @@ a {
 }
 
 /* Home page */
-h1 {
-  padding: 0.5rem 0;
-  font-family: Montserrat, sans-serif;
-  font-size: 2.2rem;
-}
 
 label {
   font-family: Hind, sans-serif;
-}
-
-h2 {
-  font-size: 1rem;
-  font-family: Montserrat, sans-serif;
-  font-weight: 700;
-  line-height: 1.4;
-}
-
-h3 {
-  font-size: 1rem;
-  font-family: Hind, sans-serif;
-  font-weight: 400;
 }
 
 img {

@@ -15,7 +15,10 @@ const $animeSelect = document.getElementById("anime-select");
 const $pageH1 = document.querySelector("h1");
 const $loader = document.querySelector(".loader");
 const $homeTag = document.querySelector(".home-tag");
+const $lightBulb = document.querySelector(".light-dark-mode");
+const $pageContainer = document.querySelector(".page-container");
 const data = {
+    theme: "light",
     topAnime: {
         shows: [],
     },
@@ -223,6 +226,21 @@ function viewSwap(viewName) {
     }
     window.scrollTo(0, 0);
 }
+const root = document.documentElement;
+function changeTheme() {
+    if (data.theme === "light") {
+        data.theme = "dark";
+        root.style.setProperty("--accent", "#161c2d");
+        root.style.setProperty("--main", "#333333");
+        $pageContainer.dataset.theme = "dark";
+    }
+    else if (data.theme === "dark") {
+        data.theme = "light";
+        root.style.setProperty("--accent", "#1e152a");
+        root.style.setProperty("--main", "#f2f5ea");
+        $pageContainer.dataset.theme = "light";
+    }
+}
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
 $animeSelect.addEventListener("change", () => {
     const selectValue = $animeSelect.value;
@@ -249,3 +267,4 @@ window.addEventListener("DOMContentLoaded", () => {
     getTopAnime();
 });
 $homeTag.addEventListener("click", () => viewSwap("home"));
+$lightBulb.addEventListener("click", changeTheme);
