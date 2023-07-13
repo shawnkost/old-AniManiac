@@ -5,6 +5,7 @@
   --accent: #1e152a;
 }
 
+/* Global */
 body {
   background-color: var(--main);
   transition: background-color .3s ease-in-out;
@@ -29,14 +30,18 @@ h3 {
   font-weight: 400;
 }
 
-[data-theme="light"] {
-  & h1, & h2, & h3 {
-    color: #000;
-  }
+label {
+  font-family: Hind, sans-serif;
+}
+
+p {
+  line-height: 1.5;
+  font-family: Hind, sans-serif;
+  font-weight: 300;
 }
 
 [data-theme="dark"] {
-  & h1, & h2, & h3 {
+  & h1, & h2, & h3, & label, & p {
     color: #fff;
   }
 }
@@ -51,12 +56,15 @@ h3 {
   background-color: #222;
 }
 
-/* Global */
 a {
   color: white;
   text-decoration: none;
   font-family: Montserrat, sans-serif;
   font-size: 1.4rem;
+}
+
+.light-dark-mode {
+  cursor: pointer;
 }
 
 /* Utility */
@@ -91,19 +99,9 @@ a {
 
 /* Home page */
 
-label {
-  font-family: Hind, sans-serif;
-}
-
 img {
   width: 100%;
   border-radius: 0.5rem;
-}
-
-p {
-  line-height: 1.5;
-  font-family: Hind, sans-serif;
-  font-weight: 300;
 }
 
 .column-half > h2,
