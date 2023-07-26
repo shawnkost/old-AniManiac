@@ -20,37 +20,39 @@
   </head>
 
   <body>
-    <nav class="navbar">
-      <div class="container">
-        <div class="row align-center space-between">
-          <a href="#home" data-view="home" class="home-tag">AniManiac</a>
-          <i class="far fa-lightbulb light-dark-mode"></i>
-        </div>
-      </div>
-    </nav>
-    <main>
-      <div class="container all-anime" data-view="home">
-        <div class="row">
-          <div class="column-full anime-select-area">
-            <header>
-              <h1>Top Anime</h1>
-            </header>
-            <div>
-              <label for="anime-select">Currently Viewing:</label>
-              <select name="anime-select" id="anime-select">
-                <option value="Top">Top Anime</option>
-                <option value="Airing">Top Airing Anime</option>
-                <option value="Upcoming">Top Upcoming Anime</option>
-              </select>
-            </div>
+    <div class="page-container" data-theme="light">
+      <nav class="navbar">
+        <div class="container">
+          <div class="row align-center space-between">
+            <a href="#home" data-view="home" class="home-tag">AniManiac</a>
+            <i class="far fa-lightbulb light-dark-mode"></i>
           </div>
         </div>
-        <div class="row anime-container"></div>
-      </div>
-      <div class="container individual-anime hidden" data-view="anime"></div>
-    </main>
+      </nav>
+      <main>
+        <div class="container all-anime" data-view="home">
+          <div class="row">
+            <div class="column-full anime-select-area">
+              <header>
+                <h1>Top Anime</h1>
+              </header>
+              <div>
+                <label for="anime-select">Currently Viewing:</label>
+                <select name="anime-select" id="anime-select">
+                  <option value="Top">Top Anime</option>
+                  <option value="Airing">Top Airing Anime</option>
+                  <option value="Upcoming">Top Upcoming Anime</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row anime-container"></div>
+        </div>
+        <div class="container individual-anime hidden" data-view="anime"></div>
+      </main>
 
-    <div class="loader hidden"></div>
+      <div class="loader hidden"></div>
+    </div>
 
     <script
       src="https://kit.fontawesome.com/25e97e308c.js"

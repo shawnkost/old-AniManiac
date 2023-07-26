@@ -8,14 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const $allAnimeView = document.querySelector(".all-anime");
-const $individualAnimeView = document.querySelector(".individual-anime");
-const $animeContainer = document.querySelector(".anime-container");
-const $animeSelect = document.getElementById("anime-select");
-const $pageH1 = document.querySelector("h1");
-const $loader = document.querySelector(".loader");
-const $homeTag = document.querySelector(".home-tag");
+const $allAnimeView = document.querySelector('.all-anime');
+const $individualAnimeView = document.querySelector('.individual-anime');
+const $animeContainer = document.querySelector('.anime-container');
+const $animeSelect = document.getElementById('anime-select');
+const $pageH1 = document.querySelector('h1');
+const $loader = document.querySelector('.loader');
+const $homeTag = document.querySelector('.home-tag');
+const $lightBulb = document.querySelector('.light-dark-mode');
+const $pageContainer = document.querySelector('.page-container');
+const localStorageTheme = localStorage.getItem('theme');
 const data = {
+    theme: localStorageTheme ? localStorageTheme : 'light',
     topAnime: {
         shows: [],
     },
@@ -30,7 +34,7 @@ const data = {
 function getTopAnime() {
     return __awaiter(this, void 0, void 0, function* () {
         showLoadingSpinner();
-        const response = yield fetch("https://api.jikan.moe/v4/top/anime");
+        const response = yield fetch('https://api.jikan.moe/v4/top/anime');
         const JSONData = yield response.json();
         const animeData = JSONData.data;
         if (animeData) {
@@ -39,10 +43,10 @@ function getTopAnime() {
                 data.topAnime.shows.push(animeObject);
                 const anime = animeObject;
                 const renderedAnime = renderAnime(anime);
-                renderedAnime.addEventListener("click", () => {
+                renderedAnime.addEventListener('click', () => {
                     const $individualAnime = renderIndividualAnime(anime);
                     $individualAnimeView.appendChild($individualAnime);
-                    viewSwap("anime");
+                    viewSwap('anime');
                 });
                 $animeContainer.appendChild(renderedAnime);
             }
@@ -54,7 +58,7 @@ function getTopAnime() {
 function getTopAiringAnime() {
     return __awaiter(this, void 0, void 0, function* () {
         showLoadingSpinner();
-        const response = yield fetch("https://api.jikan.moe/v4/top/anime?filter=airing");
+        const response = yield fetch('https://api.jikan.moe/v4/top/anime?filter=airing');
         const JSONData = yield response.json();
         const animeData = JSONData.data;
         if (animeData) {
@@ -63,10 +67,10 @@ function getTopAiringAnime() {
                 data.airingAnime.shows.push(animeObject);
                 const anime = animeObject;
                 const renderedAnime = renderAnime(anime);
-                renderedAnime.addEventListener("click", () => {
+                renderedAnime.addEventListener('click', () => {
                     const $individualAnime = renderIndividualAnime(anime);
                     $individualAnimeView.appendChild($individualAnime);
-                    viewSwap("anime");
+                    viewSwap('anime');
                 });
                 $animeContainer.appendChild(renderedAnime);
             }
@@ -78,7 +82,7 @@ function getTopAiringAnime() {
 function getTopUpcomingAnime() {
     return __awaiter(this, void 0, void 0, function* () {
         showLoadingSpinner();
-        const response = yield fetch("https://api.jikan.moe/v4/top/anime?filter=upcoming");
+        const response = yield fetch('https://api.jikan.moe/v4/top/anime?filter=upcoming');
         const JSONData = yield response.json();
         const animeData = JSONData.data;
         if (animeData) {
@@ -87,10 +91,10 @@ function getTopUpcomingAnime() {
                 data.upcomingAnime.shows.push(animeObject);
                 const anime = animeObject;
                 const renderedAnime = renderAnime(anime);
-                renderedAnime.addEventListener("click", () => {
+                renderedAnime.addEventListener('click', () => {
                     const $individualAnime = renderIndividualAnime(anime);
                     $individualAnimeView.appendChild($individualAnime);
-                    viewSwap("anime");
+                    viewSwap('anime');
                 });
                 $animeContainer.appendChild(renderedAnime);
             }
@@ -104,13 +108,13 @@ function getTopUpcomingAnime() {
  * @returns A `div` element containing an image for the anime
  */
 function renderAnimeImage(anime) {
-    const $imgContainer = document.createElement("div");
-    $imgContainer.setAttribute("class", "column-full image-container");
-    const $img = document.createElement("img");
-    $img.setAttribute("class", "border-color");
-    $img.setAttribute("src", anime.images.jpg.image_url);
-    $img.setAttribute("alt", anime.title);
-    $img.setAttribute("title", anime.title);
+    const $imgContainer = document.createElement('div');
+    $imgContainer.setAttribute('class', 'column-full image-container');
+    const $img = document.createElement('img');
+    $img.setAttribute('class', 'border-color');
+    $img.setAttribute('src', anime.images.jpg.image_url);
+    $img.setAttribute('alt', anime.title);
+    $img.setAttribute('title', anime.title);
     $imgContainer.appendChild($img);
     return $imgContainer;
 }
@@ -120,13 +124,13 @@ function renderAnimeImage(anime) {
  * @returns A `div` element containing the text content
  */
 function renderAnimeText(anime) {
-    const $textContainer = document.createElement("div");
-    $textContainer.setAttribute("class", "column-full text-container");
-    const $animeTitle = document.createElement("h2");
+    const $textContainer = document.createElement('div');
+    $textContainer.setAttribute('class', 'column-full text-container');
+    const $animeTitle = document.createElement('h2');
     $animeTitle.textContent = anime.title_english
         ? anime.title_english
         : anime.title;
-    const $animeScore = document.createElement("h3");
+    const $animeScore = document.createElement('h3');
     $animeScore.textContent = `Rating: ${anime.score}`;
     $textContainer.appendChild($animeTitle);
     $textContainer.appendChild($animeScore);
@@ -138,8 +142,8 @@ function renderAnimeText(anime) {
  * @returns A `div` wrapper for the anime image and text
  */
 function renderAnime(anime) {
-    const $animeRow = document.createElement("div");
-    $animeRow.setAttribute("class", "anime");
+    const $animeRow = document.createElement('div');
+    $animeRow.setAttribute('class', 'anime');
     const $animeImage = renderAnimeImage(anime);
     const $animeText = renderAnimeText(anime);
     $animeRow.appendChild($animeImage);
@@ -160,11 +164,11 @@ function changeHeadingText(selectedAnime) {
 }
 /** Shows loading spinner */
 function showLoadingSpinner() {
-    $loader.classList.remove("hidden");
+    $loader.classList.remove('hidden');
 }
 /** Hides loading spinner */
 function hideLoadingSpinner() {
-    $loader.classList.add("hidden");
+    $loader.classList.add('hidden');
 }
 /**
  * Creates the DOM elements for the individual anime view
@@ -172,33 +176,33 @@ function hideLoadingSpinner() {
  * @returns A `div` element containing all the content for the anime
  */
 function renderIndividualAnime(anime) {
-    const $row = document.createElement("div");
-    $row.className = "row flex-column";
-    const $titleDiv = document.createElement("div");
-    $titleDiv.className = "column-full";
-    const $title = document.createElement("h2");
+    const $row = document.createElement('div');
+    $row.className = 'row flex-column';
+    const $titleDiv = document.createElement('div');
+    $titleDiv.className = 'column-full';
+    const $title = document.createElement('h2');
     $title.textContent = anime.title_english ? anime.title_english : anime.title;
-    $title.className = "anime-page-title";
-    const $animeContentDiv = document.createElement("div");
-    $animeContentDiv.className = "anime-content column-full";
-    const $imgDiv = document.createElement("div");
-    $imgDiv.className = "column-full individual-image-container";
-    const $img = document.createElement("img");
-    $img.setAttribute("src", anime.images.jpg.large_image_url);
-    $img.setAttribute("alt", anime.title_english ? anime.title_english : anime.title);
-    $img.className = "individual-image";
-    const $descDiv = document.createElement("div");
-    $descDiv.className = "column-full anime-description";
-    const $desc = document.createElement("p");
+    $title.className = 'anime-page-title';
+    const $animeContentDiv = document.createElement('div');
+    $animeContentDiv.className = 'anime-content column-full';
+    const $imgDiv = document.createElement('div');
+    $imgDiv.className = 'column-full individual-image-container';
+    const $img = document.createElement('img');
+    $img.setAttribute('src', anime.images.jpg.large_image_url);
+    $img.setAttribute('alt', anime.title_english ? anime.title_english : anime.title);
+    $img.className = 'individual-image';
+    const $descDiv = document.createElement('div');
+    $descDiv.className = 'column-full anime-description';
+    const $desc = document.createElement('p');
     $desc.textContent = anime.synopsis;
-    const $iframeDiv = document.createElement("div");
-    $iframeDiv.className = "column-full";
-    const $iframe = document.createElement("iframe");
-    $iframe.setAttribute("src", `https://www.youtube.com/embed/${anime.trailer.youtube_id}`);
-    $iframe.setAttribute("title", `${$title.textContent} youtube trailer`);
-    $iframe.setAttribute("loading", "lazy");
-    $iframe.setAttribute("allow", "fullscreen; picture-in-picture;");
-    $iframe.setAttribute("allowfullscreen", "");
+    const $iframeDiv = document.createElement('div');
+    $iframeDiv.className = 'column-full';
+    const $iframe = document.createElement('iframe');
+    $iframe.setAttribute('src', `https://www.youtube.com/embed/${anime.trailer.youtube_id}`);
+    $iframe.setAttribute('title', `${$title.textContent} youtube trailer`);
+    $iframe.setAttribute('loading', 'lazy');
+    $iframe.setAttribute('allow', 'fullscreen; picture-in-picture;');
+    $iframe.setAttribute('allowfullscreen', '');
     $row.appendChild($titleDiv);
     $row.appendChild($animeContentDiv);
     $animeContentDiv.appendChild($imgDiv);
@@ -212,40 +216,68 @@ function renderIndividualAnime(anime) {
 }
 /** Shows or hides wrappers depending on which view was selected */
 function viewSwap(viewName) {
-    if (viewName === "home") {
-        $allAnimeView.classList.remove("hidden");
-        $individualAnimeView.classList.add("hidden");
+    if (viewName === 'home') {
+        $allAnimeView.classList.remove('hidden');
+        $individualAnimeView.classList.add('hidden');
         resetIndividualAnimeView();
     }
-    else if (viewName === "anime") {
-        $allAnimeView.classList.add("hidden");
-        $individualAnimeView.classList.remove("hidden");
+    else if (viewName === 'anime') {
+        $allAnimeView.classList.add('hidden');
+        $individualAnimeView.classList.remove('hidden');
     }
     window.scrollTo(0, 0);
 }
+const root = document.documentElement;
+function changeTheme(theme) {
+    if (theme === 'light') {
+        data.theme = 'light';
+        localStorage.setItem('theme', data.theme);
+        root.style.setProperty('--accent', '#1e152a');
+        root.style.setProperty('--main', '#f2f5ea');
+        $pageContainer.dataset.theme = 'light';
+        $lightBulb.className = 'fas fa-lightbulb light-dark-mode';
+    }
+    else if (theme === 'dark') {
+        data.theme = 'dark';
+        localStorage.setItem('theme', data.theme);
+        root.style.setProperty('--accent', '#301E67');
+        root.style.setProperty('--main', '#03001C');
+        $pageContainer.dataset.theme = 'dark';
+        $lightBulb.className = 'far fa-lightbulb light-dark-mode';
+    }
+}
 /** Check which value was selected from dropdown, remove current showing anime shows and make api request */
-$animeSelect.addEventListener("change", () => {
+$animeSelect.addEventListener('change', () => {
     const selectValue = $animeSelect.value;
     switch (selectValue) {
-        case "Top":
+        case 'Top':
             resetAnimeContainer();
-            changeHeadingText("Top");
+            changeHeadingText('Top');
             getTopAnime();
             break;
-        case "Airing":
+        case 'Airing':
             resetAnimeContainer();
-            changeHeadingText("Top Airing");
+            changeHeadingText('Top Airing');
             getTopAiringAnime();
             break;
-        case "Upcoming":
+        case 'Upcoming':
             resetAnimeContainer();
-            changeHeadingText("Top Upcoming");
+            changeHeadingText('Top Upcoming');
             getTopUpcomingAnime();
             break;
     }
 });
 /** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener('DOMContentLoaded', () => {
+    changeTheme(data.theme);
     getTopAnime();
 });
-$homeTag.addEventListener("click", () => viewSwap("home"));
+$homeTag.addEventListener('click', () => viewSwap('home'));
+$lightBulb.addEventListener('click', () => {
+    if (data.theme === 'dark') {
+        changeTheme('light');
+    }
+    else if (data.theme === 'light') {
+        changeTheme('dark');
+    }
+});
