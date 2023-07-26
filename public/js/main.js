@@ -17,8 +17,9 @@ const $loader = document.querySelector('.loader');
 const $homeTag = document.querySelector('.home-tag');
 const $lightBulb = document.querySelector('.light-dark-mode');
 const $pageContainer = document.querySelector('.page-container');
+const localStorageTheme = localStorage.getItem('theme');
 const data = {
-    theme: 'light',
+    theme: localStorageTheme ? localStorageTheme : 'light',
     topAnime: {
         shows: [],
     },
@@ -230,6 +231,7 @@ const root = document.documentElement;
 function changeTheme(theme) {
     if (theme === 'light') {
         data.theme = 'light';
+        localStorage.setItem('theme', data.theme);
         root.style.setProperty('--accent', '#1e152a');
         root.style.setProperty('--main', '#f2f5ea');
         $pageContainer.dataset.theme = 'light';
@@ -237,6 +239,7 @@ function changeTheme(theme) {
     }
     else if (theme === 'dark') {
         data.theme = 'dark';
+        localStorage.setItem('theme', data.theme);
         root.style.setProperty('--accent', '#301E67');
         root.style.setProperty('--main', '#03001C');
         $pageContainer.dataset.theme = 'dark';
@@ -266,8 +269,8 @@ $animeSelect.addEventListener('change', () => {
 });
 /** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
 window.addEventListener('DOMContentLoaded', () => {
-    getTopAnime();
     changeTheme(data.theme);
+    getTopAnime();
 });
 $homeTag.addEventListener('click', () => viewSwap('home'));
 $lightBulb.addEventListener('click', () => {
