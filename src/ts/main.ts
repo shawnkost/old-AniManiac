@@ -103,8 +103,13 @@ const data: Data = {
   },
 };
 
-/** Getting the top anime of all time from the API and appending the images/titles to the home page */
-async function getTopAnime() {
+/**
+ * Fetches the top anime of all time from the API and appends the images/titles to the home page.
+ *
+ * @async
+ * @returns {Promise<void>} Appends anime data to the home page once fetched from the API.
+ */
+async function getTopAnime(): Promise<void> {
   showLoadingSpinner();
   const response = await fetch('https://api.jikan.moe/v4/top/anime');
   const JSONData: APIResponse = await response.json();
@@ -126,8 +131,13 @@ async function getTopAnime() {
   hideLoadingSpinner();
 }
 
-/** Getting the current top airing anime from the API and appending the images/titles to the home page */
-async function getTopAiringAnime() {
+/**
+ * Fetches the top airing anime from the API and appends the images/titles to the home page.
+ *
+ * @async
+ * @returns {Promise<void>} Appends anime data to the home page once fetched from the API.
+ */
+async function getTopAiringAnime(): Promise<void> {
   showLoadingSpinner();
   const response = await fetch(
     'https://api.jikan.moe/v4/top/anime?filter=airing'
@@ -151,8 +161,13 @@ async function getTopAiringAnime() {
   hideLoadingSpinner();
 }
 
-/** Getting the current top upcoming anime from the API and appending the images/titles to the home page */
-async function getTopUpcomingAnime() {
+/**
+ * Fetches the top upcoming anime from the API and appends the images/titles to the home page.
+ *
+ * @async
+ * @returns {Promise<void>} Appends anime data to the home page once fetched from the API.
+ */
+async function getTopUpcomingAnime(): Promise<void> {
   showLoadingSpinner();
   const response = await fetch(
     'https://api.jikan.moe/v4/top/anime?filter=upcoming'
@@ -177,11 +192,12 @@ async function getTopUpcomingAnime() {
 }
 
 /**
- * Creates the DOM elements for the anime image
- * @param anime - All details about the anime.
- * @returns A `div` element containing an image for the anime
+ * Creates a DOM element containing the anime image.
+ *
+ * @param {AnimeData} anime - An object containing all the details about the anime.
+ * @returns {HTMLDivElement} A `div` element containing an image for the anime
  */
-function renderAnimeImage(anime: AnimeData) {
+function renderAnimeImage(anime: AnimeData): HTMLDivElement {
   const $imgContainer = document.createElement('div');
   $imgContainer.setAttribute('class', 'column-full image-container');
 
@@ -196,11 +212,12 @@ function renderAnimeImage(anime: AnimeData) {
 }
 
 /**
- * Creates the DOM elements for the anime info text
- * @param anime - All details about the anime.
- * @returns A `div` element containing the text content
+ * Creates a DOM element containing the anime's title and score information.
+ *
+ * @param {AnimeData} anime - An object containing all the details about the anime.
+ * @returns {HTMLDivElement} A `div` element containing the anime's title and score.
  */
-function renderAnimeText(anime: AnimeData) {
+function renderAnimeText(anime: AnimeData): HTMLDivElement {
   const $textContainer = document.createElement('div');
   $textContainer.setAttribute('class', 'column-full text-container');
 
@@ -219,11 +236,12 @@ function renderAnimeText(anime: AnimeData) {
 }
 
 /**
- * Appends the anime text & anime image to the DOM
- * @param anime - All details about the anime.
- * @returns A `div` wrapper for the anime image and text
+ * Appends the anime text and anime image to the DOM inside a wrapper element.
+ *
+ * @param {AnimeData} anime - An object containing all details about the anime.
+ * @returns {HTMLDivElement} A `div` element wrapping both the anime image and text.
  */
-function renderAnime(anime: AnimeData) {
+function renderAnime(anime: AnimeData): HTMLDivElement {
   const $animeRow = document.createElement('div');
   $animeRow.setAttribute('class', 'anime');
 
@@ -236,35 +254,55 @@ function renderAnime(anime: AnimeData) {
   return $animeRow;
 }
 
-/** Removes all child nodes from anime container */
-function resetAnimeContainer() {
+/**
+ * Removes all child nodes from the anime container, effectively resetting it.
+ *
+ * @returns {void}
+ */
+function resetAnimeContainer(): void {
   $animeContainer.replaceChildren();
 }
 
-/** Removes all child nodes from individual anime view */
-function resetIndividualAnimeView() {
+/** Removes all child nodes from individual anime view, effectively resetting it.
+ *
+ * @returns {void}
+ */
+function resetIndividualAnimeView(): void {
   $individualAnimeView.replaceChildren();
 }
 
-/** Changes the heading text based off of whatever type of anime was selected from dropdown */
-function changeHeadingText(selectedAnime: string) {
+/**
+ * Updates the page heading text based on the selected anime from the dropdown.
+ *
+ * @param {string} selectedAnime - The name of the selected anime category.
+ * @returns {void}
+ */
+function changeHeadingText(selectedAnime: string): void {
   $pageH1.textContent = `${selectedAnime} Anime`;
 }
 
-/** Shows loading spinner */
-function showLoadingSpinner() {
+/**
+ * Displays the loading spinner by removing the `hidden` class.
+ *
+ * @returns {void}
+ */
+function showLoadingSpinner(): void {
   $loader.classList.remove('hidden');
 }
 
-/** Hides loading spinner */
-function hideLoadingSpinner() {
+/**
+ * Hides the loading spinner by adding the `hidden` class.
+ *
+ * @returns {void}
+ */
+function hideLoadingSpinner(): void {
   $loader.classList.add('hidden');
 }
 
 /**
  * Creates the DOM elements for the individual anime view
- * @param anime - All details about the anime.
- * @returns A `div` element containing all the content for the anime
+ * @param {AnimeData} anime - An object containing all the details about the anime.
+ * @returns {HTMLDivElement} A `div` element containing all the content for the anime
  */
 function renderIndividualAnime(anime: AnimeData) {
   const $row = document.createElement('div');
@@ -319,8 +357,13 @@ function renderIndividualAnime(anime: AnimeData) {
   return $row;
 }
 
-/** Shows or hides wrappers depending on which view was selected */
-function viewSwap(viewName: string) {
+/**
+ * Shows or hides content wrappers based on the selected view.
+ *
+ * @param {string} viewName - The name of the view to display ('home' or 'anime').
+ * @returns {void}
+ */
+function viewSwap(viewName: string): void {
   if (viewName === 'home') {
     $allAnimeView.classList.remove('hidden');
     $individualAnimeView.classList.add('hidden');
@@ -332,8 +375,14 @@ function viewSwap(viewName: string) {
   window.scrollTo(0, 0);
 }
 
+/**
+ * Changes the website theme to either light or dark mode and updates localStorage, CSS variables, and relevant DOM elements.
+ *
+ * @param {string} theme - The name of the theme to apply ('light' or 'dark').
+ * @returns {void}
+ */
 const root = document.documentElement;
-function changeTheme(theme: string) {
+function changeTheme(theme: string): void {
   if (theme === 'light') {
     data.theme = 'light';
     localStorage.setItem('theme', data.theme);
@@ -351,7 +400,11 @@ function changeTheme(theme: string) {
   }
 }
 
-/** Check which value was selected from dropdown, remove current showing anime shows and make api request */
+/**
+ * Handles changes to the anime selection dropdown. Based on the selected value, it resets the anime container, updates the heading text, and fetches the relevant anime data.
+ *
+ * @returns {void}
+ */
 $animeSelect.addEventListener('change', () => {
   const selectValue = $animeSelect.value;
   switch (selectValue) {
@@ -373,14 +426,28 @@ $animeSelect.addEventListener('change', () => {
   }
 });
 
-/** Once the content loads, renders top anime either from localStorage or api depending on how old data is */
+/**
+ * Once the DOM content has loaded, it changes the theme and fetches the top anime.
+ *
+ * @returns {void}
+ */
 window.addEventListener('DOMContentLoaded', () => {
   changeTheme(data.theme);
   getTopAnime();
 });
 
+/**
+ * Handles clicks on the home tag. It changes the view to the home page.
+ *
+ * @returns {void}
+ */
 $homeTag.addEventListener('click', () => viewSwap('home'));
 
+/**
+ * Handles clicks on the light bulb. It changes the theme to light or dark mode.
+ *
+ * @returns {void}
+ */
 $lightBulb.addEventListener('click', () => {
   if (data.theme === 'dark') {
     changeTheme('light');
