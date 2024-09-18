@@ -148,7 +148,7 @@ function renderAnimeText(anime) {
         ? anime.title_english
         : anime.title;
     const $animeScore = document.createElement('h3');
-    $animeScore.textContent = `Rating: ${anime.score}`;
+    $animeScore.textContent = `Rating: ${anime.score ? anime.score : 'N/A'}`;
     $textContainer.appendChild($animeTitle);
     $textContainer.appendChild($animeScore);
     return $textContainer;
